@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Caine Benoy | Generalist Portfolio
+
+A modern, interactive portfolio website showcasing creative work with 3D animations and interactive canvas elements. Built with Next.js, React Three Fiber, and Matter.js physics engine.
+
+> "A jack of all trades is a master of none, but oftentimes better than a master of one."
+
+## Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) with PostCSS
+- **3D Graphics**: [Three.js](https://threejs.org) + [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/)
+- **Physics**: [Matter.js](https://brainjs.github.io/matter-js/) physics engine
+- **Animation**: [GSAP](https://greensock.com/gsap/) and [Framer Motion](https://www.framer.com/motion/)
+- **UI Components**: [Lucide React](https://lucide.dev) icons
+- **Fonts**: Custom Google Fonts (Inter, Abril Fatface, Caveat, Fira Code, Permanent Marker, Reenie Beanie)
+- **Linting**: ESLint with Next.js best practices
+
+## Features
+
+### Interactive Canvas Layers
+- **SketchCanvas**: Three.js-based animated 3D scene with scroll-linked rotation
+- **PhysicsCanvas**: Matter.js physics simulation with falling/bouncing elements
+- **InkCanvas**: Interactive HTML5 canvas with mouse trail drawing effect
+
+### UI Components
+- Custom animated cursor that responds to interactive elements
+- Navigation bar with smooth interactions
+- Project card components
+- Hero section with GSAP text reveal animations
+- Work/portfolio section
 
 ## Getting Started
 
-First, run the development server:
+### Installation
 
-```bash
+\\\ash
+npm install
+\\\
+
+### Development Server
+
+\\\ash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\\\
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the portfolio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The page auto-updates as you edit files. Components are organized by type:
+- \pp/\ - Root layout and pages
+- \components/canvas/\ - Three.js and canvas-based animations
+- \components/sections/\ - Page sections (Hero, Work)
+- \components/ui/\ - Reusable UI components
+- \lib/\ - Utility functions
+- \public/\ - Static assets
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build & Deployment
 
-## Learn More
+\\\ash
+npm run build    # Build for production
+npm start        # Start production server
+npm run lint     # Run ESLint
+\\\
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+\\\
+app/
+  ├── layout.tsx          # Root layout with fonts and metadata
+  ├── page.tsx            # Home page with canvas layers
+  └── globals.css         # Global styles
+components/
+  ├── canvas/             # Three.js and canvas components
+  │   ├── InkCanvas.tsx   # Interactive mouse trail effect
+  │   ├── PhysicsCanvas.tsx # Matter.js physics simulation
+  │   └── SketchCanvas.tsx # Three.js 3D scene
+  ├── sections/           # Page sections
+  │   ├── Hero.tsx        # Hero section with animations
+  │   └── Work.tsx        # Portfolio/work section
+  └── ui/                 # UI components
+      ├── CustomCursor.tsx # Animated custom cursor
+      ├── Navigation.tsx   # Navigation bar
+      └── ProjectCard.tsx  # Project card component
+lib/
+  └── utils.ts            # Utility functions
+\\\
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Browser Compatibility
 
-## Deploy on Vercel
+Requires a modern browser with support for:
+- WebGL (for Three.js)
+- ES6+ JavaScript
+- Canvas API
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Learning Resources
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Three.js Documentation](https://threejs.org/docs)
+- [React Three Fiber Docs](https://docs.pmnd.rs/react-three-fiber/)
+- [Matter.js Documentation](https://brainjs.github.io/matter-js/)
+- [GSAP Documentation](https://greensock.com/docs/)
