@@ -5,8 +5,9 @@ import CustomCursor from "@/components/ui/CustomCursor";
 import Navigation from "@/components/ui/Navigation";
 import Hero from "@/components/sections/Hero";
 import Work from "@/components/sections/Work";
-import Experience from "@/components/sections/Experience"; // Added
-import Skills from "@/components/sections/Skills";         // Added
+import Experience from "@/components/sections/Experience";
+import Skills from "@/components/sections/Skills";
+import ContactFooter from "@/components/sections/ContactFooter"; // Added
 
 export default function Home() {
   return (
@@ -22,11 +23,11 @@ export default function Home() {
       
       <Hero />
       <Work />
-      <Experience /> {/* Added */}
-      <Skills />     {/* Added */}
+      <Experience />
+      <Skills />
+      <ContactFooter /> {/* Added */}
 
-      {/* Spacer for scrolling (temporary) */}
-      <div className="h-40"></div>
+      {/* Spacer removed as Footer handles the bottom */}
     </main>
   );
 }
