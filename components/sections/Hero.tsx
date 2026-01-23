@@ -7,15 +7,29 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    // Fallback: ensure text is visible even if GSAP bails
+    const nodes = el.querySelectorAll<HTMLElement>(".reveal-text");
+    nodes.forEach((n) => {
+      n.style.opacity = "1";
+      n.style.transform = "translateY(0)";
+    });
+
     const ctx = gsap.context(() => {
-      gsap.from(".reveal-text", {
-        y: 100,
-        opacity: 0,
-        duration: 1.5,
-        stagger: 0.1,
-        ease: "power4.out",
-        delay: 0.2,
-      });
+      gsap.fromTo(
+        ".reveal-text",
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.08,
+          ease: "power4.out",
+          delay: 0.1,
+        }
+      );
     }, containerRef);
 
     return () => ctx.revert();

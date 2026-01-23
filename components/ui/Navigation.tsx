@@ -12,13 +12,17 @@ export default function Navigation() {
 
       {/* Links */}
       <div className="flex gap-6 font-hand text-xl pointer-events-auto">
-        {["Projects", "Journey", "Toolbox"].map((item) => (
+        {[
+          { label: "Projects", id: "work" },
+          { label: "Journey", id: "experience" },
+          { label: "Toolbox", id: "skills" },
+        ].map((link) => (
           <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
+            key={link.id}
+            href={`#${link.id}`}
             className="hover:text-highlight transition-colors cursor-none magnetic"
           >
-            {item}
+            {link.label}
           </a>
         ))}
       </div>

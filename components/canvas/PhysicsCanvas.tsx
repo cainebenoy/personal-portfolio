@@ -62,9 +62,11 @@ export default function PhysicsCanvas() {
     // 4. Mouse Interaction
     const mouse = Matter.Mouse.create(render.canvas);
     // Disable capturing scroll events so user can scroll page
-    // FIX: Cast mouse to any to access internal mousewheel property to fix TypeScript error
-    mouse.element.removeEventListener("mousewheel", (mouse as any).mousewheel);
-    mouse.element.removeEventListener("DOMMouseScroll", (mouse as any).mousewheel);
+    // FIX: Matter adds wheel listeners that call preventDefault; remove all variants
+    const wheelHandler = (mouse as any).mousewheel;
+    mouse.element.removeEventListener("mousewheel", wheelHandler);
+    mouse.element.removeEventListener("DOMMouseScroll", wheelHandler);
+    mouse.element.removeEventListener("wheel", wheelHandler);
 
     const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse: mouse,
@@ -81,11 +83,50 @@ export default function PhysicsCanvas() {
     Matter.Runner.run(runner, engine);
     Matter.Render.run(render);
 
+    // Expose a simple API for tear-off strips to spawn a falling body
+    ;(window as any).spawnFallingStrip = (rect: DOMRect) => {
+      try {
+        const eng = engineRef.current;
+        if (!eng) return;
+
+        // Clamp spawn to viewport (canvas covers only the visible window)
+        const cx = Math.min(Math.max(rect.left + rect.width / 2, 20), width - 20);
+        const cy = Math.min(Math.max(rect.top + rect.height / 2, 20), height - 20);
+
+        // Size approximates a vertical strip
+        const w = Math.max(14, Math.min(36, rect.width));
+        const h = Math.max(80, Math.min(180, rect.height));
+
+        const body = Matter.Bodies.rectangle(cx, cy, w, h, {
+          angle: (Math.random() - 0.5) * 0.6,
+          restitution: 0.2,
+          friction: 0.8,
+          render: {
+            fillStyle: "#f9fafb",
+            strokeStyle: "#111827",
+            lineWidth: 2,
+          },
+        });
+
+        Matter.World.add(eng.world, body);
+
+        // Give it a little spin and downward nudge
+        Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.25);
+        Matter.Body.setVelocity(body, { x: (Math.random() - 0.5) * 3, y: 3 + Math.random() * 2 });
+
+        // Remove after ~12s to avoid buildup
+        setTimeout(() => {
+          try { Matter.World.remove(eng.world, body); } catch {}
+        }, 12000);
+      } catch {}
+    };
+
     // Cleanup
     return () => {
       Matter.Render.stop(render);
       Matter.Runner.stop(runner);
       if (render.canvas) render.canvas.remove();
+      try { delete (window as any).spawnFallingStrip; } catch {}
     };
   }, []);
 

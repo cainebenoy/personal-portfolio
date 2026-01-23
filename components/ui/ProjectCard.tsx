@@ -30,14 +30,9 @@ export default function ProjectCard({
       <div className="absolute -top-3 left-1/2 h-8 w-32 -translate-x-1/2 -rotate-2 bg-white/40 backdrop-blur-sm shadow-sm" />
 
       {/* Image Placeholder area */}
-      {/* Fixed: Used CSS variable for dynamic background to avoid inline style warning */}
       <div
-        className="relative flex h-64 w-full items-center justify-center overflow-hidden bg-[var(--project-bg)] grayscale transition-all duration-500 group-hover:grayscale-0"
-        style={
-          {
-            "--project-bg": color,
-          } as React.CSSProperties
-        }
+        className="relative flex h-64 w-full items-center justify-center overflow-hidden grayscale transition-all duration-500 group-hover:grayscale-0"
+        style={{ backgroundColor: color }}
       >
         <div className="text-center text-white">
           <div className="mb-2 text-6xl">{emoji}</div>

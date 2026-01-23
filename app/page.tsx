@@ -1,5 +1,4 @@
 import SketchCanvas from "@/components/canvas/SketchCanvas";
-import PhysicsCanvas from "@/components/canvas/PhysicsCanvas";
 import InkCanvas from "@/components/canvas/InkCanvas";
 import CustomCursor from "@/components/ui/CustomCursor";
 import Navigation from "@/components/ui/Navigation";
@@ -14,7 +13,6 @@ export default function Home() {
     <main className="relative min-h-screen">
       {/* Background Layers */}
       <SketchCanvas />
-      <PhysicsCanvas />
       <InkCanvas />
 
       {/* UI & Content */}
