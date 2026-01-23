@@ -177,7 +177,7 @@ export default function ContactFooter() {
 
       {confetti && (
         <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          {Array.from({ length: 100 }).map((_, i) => (
+          {Array.from({ length: 1000 }).map((_, i) => (
             <div
               key={i}
               className="absolute animate-confetti-fall"
