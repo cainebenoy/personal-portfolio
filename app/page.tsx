@@ -3,8 +3,7 @@ import InkCanvas from "@/components/canvas/InkCanvas";
 import CustomCursor from "@/components/ui/CustomCursor";
 import Navigation from "@/components/ui/Navigation";
 import ResumeClip from "@/components/ui/ResumeClip";
-import SoundToggle from "@/components/ui/SoundToggle"; // Added
-import Marquee from "@/components/ui/Marquee";         // Added
+import Marquee from "@/components/ui/Marquee";
 
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services"; // Added
@@ -24,7 +23,6 @@ export default function Home() {
       <CustomCursor />
       <Navigation />
       <ResumeClip />
-      <SoundToggle />
       
       {/* Content Flow */}
       <Hero />
