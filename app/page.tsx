@@ -4,12 +4,13 @@ import CustomCursor from "@/components/ui/CustomCursor";
 import Navigation from "@/components/ui/Navigation";
 import ResumeClip from "@/components/ui/ResumeClip";
 import Marquee from "@/components/ui/Marquee";
-
 import Hero from "@/components/sections/Hero";
-import Services from "@/components/sections/Services"; // Added
+import Services from "@/components/sections/Services";
 import Work from "@/components/sections/Work";
 import Experience from "@/components/sections/Experience";
 import Skills from "@/components/sections/Skills";
+import Playground from "@/components/sections/Playground";   // Added
+import ArtGallery from "@/components/sections/ArtGallery"; // Added
 import ContactFooter from "@/components/sections/ContactFooter";
 
 export default function Home() {
@@ -26,10 +27,12 @@ export default function Home() {
       
       {/* Content Flow */}
       <Hero />
-      <Marquee /> {/* Visual Break */}
-      <Services /> {/* The Spec Sheet */}
+      <Marquee />
+      <Services />
       <Work />
+      <Playground /> {/* Added: Physics Sandbox */}
       <Experience />
+      <ArtGallery /> {/* Added: Generative Art */}
       <Skills />
       <ContactFooter />
     </main>
