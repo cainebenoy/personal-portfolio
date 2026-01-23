@@ -62,8 +62,9 @@ export default function PhysicsCanvas() {
     // 4. Mouse Interaction
     const mouse = Matter.Mouse.create(render.canvas);
     // Disable capturing scroll events so user can scroll page
-    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+    // FIX: Cast mouse to any to access internal mousewheel property to fix TypeScript error
+    mouse.element.removeEventListener("mousewheel", (mouse as any).mousewheel);
+    mouse.element.removeEventListener("DOMMouseScroll", (mouse as any).mousewheel);
 
     const mouseConstraint = Matter.MouseConstraint.create(engine, {
       mouse: mouse,
