@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import Avatar from "@/components/ui/Avatar"; // Import Added
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -39,35 +40,48 @@ export default function Hero() {
     <section
       id="hero"
       ref={containerRef}
-      className="min-h-screen flex flex-col items-center justify-center text-center relative z-10"
+      className="min-h-screen flex flex-col md:flex-row items-center justify-center text-center md:text-left relative z-10 gap-12"
     >
-      {/* Introduction Badge */}
-      <div className="font-hand text-2xl md:text-4xl text-gray-500 mb-6 rotate-[-3deg] inline-block reveal-text">
-        Generalist | SOF Insider | TinkerHub Lead
+      {/* Avatar Column */}
+      <div className="relative order-1 md:order-2 reveal-text">
+        <Avatar />
       </div>
 
-      {/* Main Title */}
-      <h1 className="font-display text-6xl md:text-9xl leading-[0.9] mix-blend-multiply text-ink">
-        <div className="overflow-hidden">
-          <span className="inline-block hover:skew-x-12 transition-transform duration-500 reveal-text">
-            CAINE
-          </span>
+      {/* Text Column */}
+      <div className="order-2 md:order-1 flex flex-col items-center md:items-start">
+        {/* Introduction Badge */}
+        <div className="font-hand text-2xl md:text-4xl text-gray-500 mb-6 rotate-[-3deg] inline-block reveal-text bg-paper px-2">
+          Generalist | SOF Insider | TinkerHub Lead
         </div>
-        <div className="overflow-hidden">
-          <span className="inline-block text-gray-800 reveal-text">BENOY</span>
-        </div>
-      </h1>
 
-      {/* Subtitle */}
-      <p className="font-sans text-lg md:text-xl mt-8 max-w-xl mx-auto leading-relaxed text-gray-700 reveal-text">
-        Building at the intersection of AI, Blockchain, and Community.
-        <span className="font-marker text-xl md:text-2xl text-highlight block mt-4 rotate-[2deg]">
-          A jack of all trades... better than a master of one.
-        </span>
-      </p>
+        {/* Main Title */}
+        <h1 className="font-display text-6xl md:text-9xl leading-[0.9] mix-blend-multiply text-ink">
+          <div className="overflow-hidden">
+            <span className="inline-block hover:skew-x-12 transition-transform duration-500 reveal-text">
+              CAINE
+            </span>
+          </div>
+          <div className="overflow-hidden">
+            <span className="inline-block text-gray-800 reveal-text relative">
+              BENOY
+              <svg className="absolute -bottom-4 left-0 w-full h-8 pointer-events-none overflow-visible">
+                <path className="doodle-path" d="M0,10 Q100,20 200,5 T400,10" />
+              </svg>
+            </span>
+          </div>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="font-sans text-lg md:text-xl mt-8 max-w-xl leading-relaxed text-gray-700 reveal-text">
+          Building at the intersection of AI, Blockchain, and Community.
+          <span className="font-marker text-xl md:text-2xl text-highlight block mt-4 rotate-[2deg]">
+            A jack of all trades... better than a master of one.
+          </span>
+        </p>
+      </div>
 
       {/* Scroll Hint */}
-      <div className="absolute bottom-10 animate-bounce font-hand text-gray-400 reveal-text">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce font-hand text-gray-400 reveal-text">
         Scratch the paper to verify reality &darr;
       </div>
     </section>
