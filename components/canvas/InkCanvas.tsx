@@ -91,7 +91,7 @@ export default function InkCanvas() {
       // Age + fade (slower aging + longer life for smoother trail)
       points = points
         .map((p) => ({ ...p, age: p.age + 0.9 })) // was +1
-        .filter((p) => p.age < 60);               // was < 20
+        .filter((p) => p.age < 25);               // was < 20
 
       if (points.length > 2) {
         ctx.beginPath();
