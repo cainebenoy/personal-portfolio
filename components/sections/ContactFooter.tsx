@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 
-type StripType = "email" | "link" | "text";
+type StripType = "email" | "link" | "text" | "download";
 
 type StripItem = {
   label: string;
@@ -18,8 +18,9 @@ const STRIPS: CelebrationStrip[] = [
   { label: "Email Me", copy: "cainebenoy@gmail.com", type: "email", offset: "translate-y-1" },
   { label: "LinkedIn", copy: "linkedin.com/in/caine-benoy", type: "link", url: "https://www.linkedin.com/in/caine-benoy-8061a9288/", offset: "-translate-y-1" },
   { label: "GitHub", copy: "github.com/cainebenoy", type: "link", url: "https://github.com/cainebenoy" },
-  { label: "Location", copy: "Thrissur, Kerala", type: "text", offset: "translate-y-1" },
-  { label: "TinkerHub", copy: "tinkerhub.org", type: "link", url: "https://tinkerhub.org/@caine_benoy", offset: "-translate-y-1" },
+  { label: "Resume", copy: "Caine_Benoy_Resume.pdf", type: "download", offset: "translate-y-1" },
+  { label: "Location", copy: "Thrissur, Kerala", type: "text", offset: "-translate-y-1" },
+  { label: "TinkerHub", copy: "tinkerhub.org", type: "link", url: "https://tinkerhub.org/@caine_benoy" },
   { label: "Hire Me", copy: "Let's Build!", type: "text", celebration: true },
 ];
 
@@ -72,6 +73,17 @@ export default function ContactFooter() {
 
     if (item.type === "link" && item.url) {
       openInNewTab(item.url);
+      return;
+    }
+
+    if (item.type === "download") {
+      const link = document.createElement("a");
+      link.href = "/resume.pdf";
+      link.download = item.copy;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast("Resume downloaded");
       return;
     }
 
@@ -135,6 +147,8 @@ export default function ContactFooter() {
                   ? "Copy email to clipboard"
                   : isLink
                   ? `Open ${item.label} in a new tab`
+                  : item.type === "download"
+                  ? "Download resume"
                   : `Copy ${item.label} to clipboard`;
 
                 return (
