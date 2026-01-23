@@ -11,20 +11,18 @@ export default function CustomCursor() {
     const cursor = cursorRef.current;
     if (!cursor) return;
 
-    // Move cursor
+    // Move cursor - INSTANT MOVEMENT FIX
     const onMouseMove = (e: MouseEvent) => {
-      gsap.to(cursor, {
+      // Using .set() instead of .to() removes the tween delay entirely
+      gsap.set(cursor, {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.1,
-        ease: "power2.out",
       });
     };
 
     // Detect hoverables
     const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Check if the target (or parent) is interactive
       const isInteractive =
         target.tagName === "A" ||
         target.tagName === "BUTTON" ||
@@ -48,7 +46,9 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className={`fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+      // Fixed: Removed transition-all which was causing the position update to lag.
+      // Now explicitly transitioning only visual properties (size, color, border).
+      className={`fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-[width,height,background-color,border-color,border-width] duration-200 ${
         isHovering ? "w-10 h-10 bg-transparent border-2 border-highlight" : ""
       }`}
     />
