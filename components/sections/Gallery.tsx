@@ -21,8 +21,8 @@ export default function Gallery() {
   // Deterministic random layout to avoid hydration mismatch
   const pileLayout = useMemo(() => {
     return photos.map((_, i) => ({
-      // Spread them out more horizontally and vertically
-      x: (i * 55 % 120) - 60, // -60% to 60% horizontal spread
+      // Spread them out across the full width with minimal margins
+      x: (i * 55 % 170) - 85, // -85% to 85% horizontal spread (full width)
       y: (i * 45 % 60) - 30, // -30% to 30% vertical spread
       // Random rotation
       rotate: (i * 13 % 40) - 20, // -20deg to 20deg
