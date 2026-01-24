@@ -50,46 +50,46 @@ function Scene() {
   return (
     <group ref={groupRef}>
       {/* The Generalist Shape (Icosahedron) */}
-      <mesh ref={icoRef} position={[3, 1, 0]} scale={[1.8, 1.8, 1.8]}>
+      <mesh ref={icoRef} position={[4, 2, 0]} scale={[2.2, 2.2, 2.2]}>
         <icosahedronGeometry args={[1, 1]} />
         <meshBasicMaterial 
-          color="#2b2b2b" 
+          color="#000000" 
           wireframe 
           transparent 
-          opacity={0.15} 
+          opacity={0.25} 
         />
       </mesh>
 
       {/* The Detail Shape (Torus) */}
-      <mesh ref={torusRef} position={[-3, -1, -2]} rotation={[1.5, 0, 0]}>
-        <torusGeometry args={[1.2, 0.05, 16, 100]} />
+      <mesh ref={torusRef} position={[-4, -2, -2]} rotation={[1.5, 0, 0]}>
+        <torusGeometry args={[1.6, 0.08, 16, 100]} />
         <meshBasicMaterial 
           color="#ff4757" 
           wireframe 
           transparent 
-          opacity={0.2} 
+          opacity={0.35} 
         />
       </mesh>
 
-      {/* New: Octahedron for extra movement */}
-      <mesh ref={octRef} position={[2, -2, -1]} scale={[1.2, 1.2, 1.2]}>
-        <octahedronGeometry args={[1, 0]} />
+      {/* Octahedron - Cyan */}
+      <mesh ref={octRef} position={[0, -3, -1]} scale={[2, 2, 2]}>
+        <octahedronGeometry args={[1, 1]} />
         <meshBasicMaterial 
-          color="#7afcff" 
+          color="#00d9ff" 
           wireframe 
           transparent 
-          opacity={0.12} 
+          opacity={0.28} 
         />
       </mesh>
 
-      {/* New: Tetrahedron for complexity */}
-      <mesh ref={tetraRef} position={[-2, 1.5, -1]} scale={[1.5, 1.5, 1.5]}>
-        <tetrahedronGeometry args={[1, 0]} />
+      {/* Tetrahedron - Orange */}
+      <mesh ref={tetraRef} position={[-2.5, 2, -1.5]} scale={[2, 2, 2]}>
+        <tetrahedronGeometry args={[1, 2]} />
         <meshBasicMaterial 
-          color="#ffa502" 
+          color="#ffa500" 
           wireframe 
           transparent 
-          opacity={0.14} 
+          opacity={0.3} 
         />
       </mesh>
     </group>
