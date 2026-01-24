@@ -21,9 +21,9 @@ export default function Gallery() {
   // Deterministic random layout to avoid hydration mismatch
   const pileLayout = useMemo(() => {
     return photos.map((_, i) => ({
-      // Spread them out from the center
-      x: (i * 45 % 80) - 40, // -40% to 40% horizontal
-      y: (i * 33 % 40) - 20, // -20% to 20% vertical
+      // Spread them out more horizontally and vertically
+      x: (i * 55 % 120) - 60, // -60% to 60% horizontal spread
+      y: (i * 45 % 60) - 30, // -30% to 30% vertical spread
       // Random rotation
       rotate: (i * 13 % 40) - 20, // -20deg to 20deg
       // Z-index stacking
@@ -44,7 +44,7 @@ export default function Gallery() {
         </div>
 
         {/* The Scatter Pile */}
-        <div className="relative h-[600px] w-full flex items-center justify-center">
+        <div className="relative h-[700px] w-full flex items-center justify-center overflow-hidden">
           
           {/* Background hint of a desk or surface */}
           <div className="absolute inset-0 rounded-full bg-ink/5 blur-3xl transform scale-75 pointer-events-none" />
@@ -56,16 +56,29 @@ export default function Gallery() {
               <div
                 key={photo.id}
                 className={cn(
-                  "absolute w-48 md:w-64 aspect-[4/5] bg-white p-3 pb-8 shadow-md transition-all duration-500 ease-out cursor-none",
-                  "group hover:z-50 hover:scale-125 hover:rotate-0 hover:shadow-2xl"
+                  "absolute w-48 md:w-64 aspect-[4/5] p-3 pb-8 transition-all duration-300 ease-out cursor-none group",
+                  "border-4 border-ink shadow-lg",
+                  "hover:z-50 hover:scale-100 hover:rotate-0 hover:shadow-2xl"
                 )}
                 style={{
-                  transform: `translate(${style.x}%, ${style.y}%) rotate(${style.rotate}deg)`,
+                  backgroundColor: "var(--paper)",
+                  transform: `translate(${style.x}%, ${style.y}%) rotate(${style.rotate}deg) scale(0.9)`,
                   zIndex: style.zIndex,
+                  transitionProperty: "transform, box-shadow, z-index",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.transform = `translate(${style.x}%, ${style.y}%) rotate(0deg) scale(1)`;
+                  el.style.zIndex = "50";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.transform = `translate(${style.x}%, ${style.y}%) rotate(${style.rotate}deg) scale(0.9)`;
+                  el.style.zIndex = style.zIndex.toString();
                 }}
               >
                 {/* Photo */}
-                <div className="w-full h-full bg-gray-100 overflow-hidden relative filter sepia-[.3] group-hover:sepia-0 transition-all duration-500">
+                <div className="w-full h-full bg-gray-200 overflow-hidden relative filter sepia-[.3] group-hover:sepia-0 transition-all duration-300">
                   <img
                     src={photo.src}
                     alt={photo.label}
@@ -75,12 +88,12 @@ export default function Gallery() {
                   />
                   
                   {/* Glossy Overlay (visible on hover) */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/0 to-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/0 to-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
 
                 {/* Label (appears on hover) */}
-                <div className="absolute bottom-2 left-0 w-full text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                  <p className="font-hand text-lg text-ink truncate px-2">{photo.label}</p>
+                <div className="absolute bottom-2 left-0 w-full text-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 delay-100">
+                  <p className="font-hand text-sm text-ink truncate px-2">{photo.label}</p>
                 </div>
               </div>
             );
