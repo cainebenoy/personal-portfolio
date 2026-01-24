@@ -64,16 +64,13 @@ export default function Hero() {
           <div className="overflow-hidden">
             <span className="inline-block text-gray-800 reveal-text relative">
               BENOY
-              <svg className="absolute -bottom-4 left-0 w-full h-8 pointer-events-none overflow-visible">
-                <path className="doodle-path" d="M0,10 Q100,20 200,5 T400,10" />
-              </svg>
             </span>
           </div>
         </h1>
 
         {/* Tagline */}
         <p className="font-marker text-lg md:text-2xl text-highlight mt-8 rotate-[2deg] reveal-text max-w-2xl">
-          Whether it&apos;s backend logic, quick prototypes, or stitching together tools—I ship working solutions.
+          From messy first drafts to production systems—I take ideas from zero to one, fast.
         </p>
       </div>
     </section>
