@@ -2,10 +2,12 @@ import SketchCanvas from "@/components/canvas/SketchCanvas";
 import InkCanvas from "@/components/canvas/InkCanvas";
 import CustomCursor from "@/components/ui/CustomCursor";
 import Navigation from "@/components/ui/Navigation";
+import CommandPalette from "@/components/ui/CommandPalette";
 import Marquee from "@/components/ui/Marquee";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import WorkAndSkills from "@/components/sections/WorkAndSkills";
+import GithubGraph from "@/components/sections/GithubGraph";
 import Experience from "@/components/sections/Experience";
 import Education from "@/components/sections/Education";
 import Certificates from "@/components/sections/Certificates";
@@ -23,6 +25,7 @@ export default function Home() {
       {/* UI Elements */}
       <CustomCursor />
       <Navigation />
+      <CommandPalette />
       
       {/* Content Flow */}
       <Hero />
@@ -31,6 +34,8 @@ export default function Home() {
       
       {/* Unified Skills + Work (Side-by-Side on Desktop) */}
       <WorkAndSkills />
+      
+      <GithubGraph />
       
       <Certificates />
       
