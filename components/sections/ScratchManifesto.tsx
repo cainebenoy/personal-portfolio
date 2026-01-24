@@ -1,10 +1,39 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const hiddenContents = [
+  {
+    title: "The Generalist's Manifesto",
+    text: '"Specialization is for insects. In a world of AI, connecting the dots matters more than drawing them. I thrive in the chaos between disciplines, translating \'what if\' into \'here it is\'."',
+    meta: "VERIFIED REALITY: TRUE"
+  },
+  {
+    title: "Secret Code #404",
+    text: '"You found the hidden layer. Not all truths are displayed on the surface. Sometimes the best insights come from looking deeper, asking why, and being comfortable with the uncertainty."',
+    meta: "STATUS: DECLASSIFIED"
+  },
+  {
+    title: "The \'Glue\' Theory",
+    text: '"Great products aren\'t built in silos. The people who win are the ones who can speak design, development, and data. The magic happens at the intersections where disciplines collide."',
+    meta: "SYSTEM: INTEGRATED"
+  },
+  {
+    title: "Why \'Master of None\'?",
+    text: '"...is oftentimes better than a master of one. Depth in one area + adaptability across many = unpredictable advantage. In chaos, the specialists get stuck. We keep moving."',
+    meta: "SKILL_TREE: INFINITE"
+  },
+  {
+    title: "Easter Egg Found",
+    text: '"Congrats! You scratched the surface. If you\'re reading this, you\'re the type of person who investigates beyond what\'s visible. That\'s exactly the energy this portfolio is built for."',
+    meta: "ACHIEVEMENT: UNLOCKED"
+  }
+];
 
 export default function ScratchManifesto() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [content] = useState(() => hiddenContents[Math.floor(Math.random() * hiddenContents.length)]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -101,14 +130,13 @@ export default function ScratchManifesto() {
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 select-none pointer-events-none">
           <div className="font-marker text-xl text-highlight mb-4">CONFIDENTIAL • THE PHILOSOPHY</div>
           <h2 className="font-display text-4xl md:text-6xl text-ink mb-6">
-            The Generalist&apos;s<br/>Manifesto
+            {content.title}
           </h2>
           <p className="font-hand text-2xl text-gray-600 max-w-xl leading-relaxed">
-            &quot;Specialization is for insects. In a world of AI, connecting the dots matters more than drawing them. 
-            I thrive in the chaos between disciplines, translating &apos;what if&apos; into &apos;here it is&apos;.&quot;
+            {content.text}
           </p>
           <div className="mt-8 font-code text-xs text-gray-400">
-            VERIFIED REALITY: TRUE
+            {content.meta}
           </div>
         </div>
 

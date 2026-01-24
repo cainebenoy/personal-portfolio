@@ -285,7 +285,7 @@ export default function Certificates() {
           <h2 className="font-display text-5xl md:text-8xl text-ink relative inline-block">
             The Archive
             <div className="absolute -top-4 -right-12 font-marker text-sm text-red-500 rotate-12 border-2 border-red-500 px-3 py-1 rounded opacity-80 shadow-sm bg-white/50 backdrop-blur-sm">
-              CLASSIFIED
+              DECLASSIFIED
             </div>
           </h2>
           <p className="mt-6 font-hand text-2xl md:text-3xl text-gray-500 max-w-2xl mx-auto">
