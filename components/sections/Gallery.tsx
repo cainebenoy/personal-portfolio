@@ -35,14 +35,15 @@ const photos = [
   { id: 27, src: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600&auto=format&fit=crop", label: "Building Dreams" },
   { id: 28, src: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=600&auto=format&fit=crop", label: "Shared Victory" },
   { id: 29, src: "https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=600&auto=format&fit=crop", label: "Making Impact" },
+  { id: 30, src: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600&auto=format&fit=crop", label: "Final Frame" },
 ];
 
 export default function Gallery() {
   // Deterministic random layout to avoid hydration mismatch
   const pileLayout = useMemo(() => {
     return photos.map((_, i) => ({
-      // Spread them out across the full width with minimal margins
-      x: (i * 55 % 170) - 85, // -85% to 85% horizontal spread (full width)
+      // Spread them out across the FULL width end to end
+      x: (i * 80 % 220) - 110, // -110% to 110% horizontal spread (full width + overflow)
       y: (i * 45 % 60) - 30, // -30% to 30% vertical spread
       // Random rotation
       rotate: (i * 13 % 40) - 20, // -20deg to 20deg
