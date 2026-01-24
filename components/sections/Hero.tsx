@@ -70,6 +70,11 @@ export default function Hero() {
             </span>
           </div>
         </h1>
+
+        {/* Tagline */}
+        <p className="font-marker text-lg md:text-2xl text-highlight mt-8 rotate-[2deg] reveal-text max-w-2xl">
+          Whether it&apos;s backend logic, quick prototypes, or stitching together tools—I ship working solutions.
+        </p>
       </div>
     </section>
   );
