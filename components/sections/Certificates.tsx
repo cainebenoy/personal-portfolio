@@ -1,12 +1,13 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element */
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { X, FileText, Maximize2, Download } from "lucide-react";
+import { X, FileText } from "lucide-react";
 
-// --- DATA STRUCTURE ---
-// All certificates from public/Certificates folder as images
+// --- DATA PREPARATION ---
+
 const certificateFiles: string[] = [
   "Aloki '25 Certificate of Achievement.jpg",
   "Aloki '25.jpg",
@@ -173,38 +174,86 @@ const certificateFiles: string[] = [
   "Yukthi 1.0 Participation Certificate.jpg",
   "Yukthi 25.jpg",
   "Zephyrus 5.0 Participation Certificate.jpg",
-  "_VOIS Machine Learning Basics Certificate.jpg",
+  "_VOIS Machine Learning Basics Certificate.jpg"
 ];
 
-type CertType = "image" | "pdf" | "file";
+// Helper to deduce issuer and description from filename
+const deduceMetadata = (fileName: string) => {
+  const lower = fileName.toLowerCase();
+  
+  // Issuer Detection
+  let issuer = "Credential";
+  if (lower.includes("google")) issuer = "Google";
+  else if (lower.includes("aws")) issuer = "Amazon AWS";
+  else if (lower.includes("ibm")) issuer = "IBM";
+  else if (lower.includes("nxtwave")) issuer = "NxtWave";
+  else if (lower.includes("coursera")) issuer = "Coursera";
+  else if (lower.includes("udemy")) issuer = "Udemy";
+  else if (lower.includes("tcs")) issuer = "TCS iON";
+  else if (lower.includes("hack")) issuer = "Hackathon";
+  else if (lower.includes("intern")) issuer = "Internship";
+  else if (lower.includes("gdg")) issuer = "Google Dev Groups";
+  else if (lower.includes("microsoft")) issuer = "Microsoft";
+  else if (lower.includes("cisco")) issuer = "Cisco";
+  else if (lower.includes("meta")) issuer = "Meta";
+  else if (lower.includes("tinkerhub")) issuer = "TinkerHub";
+  else if (lower.includes("kerala blockchain")) issuer = "KBA";
+  
+  // Description Detection
+  let desc = "Professional certification.";
+  if (lower.includes("participation")) desc = "Active participation in a technical event.";
+  else if (lower.includes("completion")) desc = "Successful course completion and mastery.";
+  else if (lower.includes("winner") || lower.includes("prize")) desc = "Award for excellence in competition.";
+  else if (lower.includes("internship")) desc = "Professional work experience.";
+  else if (lower.includes("workshop")) desc = "Hands-on technical workshop.";
+  else if (lower.includes("cyber")) desc = "Cybersecurity proficiency and safety.";
+  else if (lower.includes("ai") || lower.includes("ml") || lower.includes("intelligence")) desc = "Artificial Intelligence & ML skills.";
+  else if (lower.includes("cloud")) desc = "Cloud computing architecture.";
+  else if (lower.includes("blockchain")) desc = "Web3 and Blockchain technology.";
+  else if (lower.includes("ambassador")) desc = "Community leadership and representation.";
+
+  // Clean Name for display
+  const cleanName = fileName
+    .replace(/\.(jpg|jpeg|png|webp|svg|pdf)$/i, "") // Remove extension
+    .replace(/[-_]/g, " ") // Replace separators with spaces
+    .replace(/\d{4}/g, "") // Remove years roughly
+    .trim();
+
+  return { issuer, desc, cleanName };
+};
 
 const imageExts = ["png", "jpg", "jpeg", "gif", "webp", "bmp", "svg"];
 
+// Process data once
 const certData = certificateFiles.map((fileName, idx) => {
   const ext = fileName.toLowerCase().split(".").pop() ?? "";
-  const type: CertType = ext === "pdf" ? "pdf" : imageExts.includes(ext) ? "image" : "file";
+  const type = ext === "pdf" ? "pdf" : imageExts.includes(ext) ? "image" : "file";
+  const { issuer, desc, cleanName } = deduceMetadata(fileName);
+  
   return {
     id: `cert-${idx}`,
-    name: fileName,
-    issuer: "",
-    date: "",
+    name: cleanName,
+    fileName,
+    issuer,
+    description: desc,
     type,
-    src: `/Certificates/${encodeURIComponent(fileName)}`,
+    src: `/Certificates/${fileName}`,
   };
 });
 
 export default function Certificates() {
   const [selectedCert, setSelectedCert] = useState<(typeof certData)[number] | null>(null);
 
-  // Generate stable random styles for the stamps to avoid hydration mismatch
+  // Generate stable random styles
   const stampStyles = useMemo(() => {
     return certData.map((_, i) => ({
-      rotation: (i * 37 % 10) - 5, // -5 to 5 degrees
-      marginTop: (i * 13 % 20), // 0 to 20px offset
-      tape: i % 4 === 0, // 25% have tape
-      color: i % 6 === 0 ? "bg-[#fefce8] border-[#fef08a]" : // Yellow tint
-             i % 9 === 0 ? "bg-[#f0f9ff] border-[#bce0fd]" : // Blue tint
-             "bg-white border-gray-200" // Standard
+      rotation: (i * 37 % 12) - 6, // -6 to 6 degrees
+      marginTop: (i * 17 % 24),    // Organic vertical offset
+      tape: i % 5 === 0,           // 20% chance of tape
+      // Paper-like colors
+      color: i % 4 === 0 ? "bg-[#fffdf5] border-[#e8e6dc]" :
+             i % 7 === 0 ? "bg-[#f8fcff] border-[#dae9f5]" :
+             "bg-white border-gray-200"
     }));
   }, []);
 
@@ -222,25 +271,34 @@ export default function Certificates() {
         
         {/* Header */}
         <div className="mb-20 text-center relative">
-          <h2 className="font-display text-6xl md:text-8xl text-ink relative inline-block">
+          <h2 className="font-display text-5xl md:text-8xl text-ink relative inline-block">
             The Archive
-            <div className="absolute -top-6 -right-12 font-marker text-sm text-red-500 rotate-12 border-2 border-red-500 px-2 py-1 rounded opacity-80">
+            <div className="absolute -top-4 -right-12 font-marker text-sm text-red-500 rotate-12 border-2 border-red-500 px-3 py-1 rounded opacity-80 shadow-sm bg-white/50 backdrop-blur-sm">
               CLASSIFIED
             </div>
           </h2>
           <p className="mt-6 font-hand text-2xl md:text-3xl text-gray-500 max-w-2xl mx-auto">
             A messy, growing collection of every lesson learned. 
-            <span className="block text-sm font-code mt-2 text-gray-400">TOTAL_COUNT: {certData.length} • STATUS: VERIFIED</span>
+            <span className="block text-sm font-code mt-3 text-gray-400">
+              TOTAL_COUNT: {certData.length} • STATUS: VERIFIED
+            </span>
           </p>
         </div>
 
         {/* The Wall Container */}
-        <div className="relative bg-[#fdfbf7] p-6 md:p-12 shadow-[inset_0_0_60px_rgba(0,0,0,0.05)] border-4 border-double border-ink/10 rounded-xl overflow-hidden min-h-[800px]">
+        <div className="relative bg-[#f7f5f0] p-6 md:p-12 shadow-[inset_0_0_80px_rgba(0,0,0,0.06)] border-4 border-double border-ink/10 rounded-xl overflow-hidden min-h-[800px]">
           
-          {/* Wall Texture - Gradient only (no external CORS-blocked resources) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/5 pointer-events-none"></div>
+          {/* Wall Texture (local CSS pattern to avoid CORS) */}
+          <div
+            className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
+            style={{
+              backgroundImage:
+                'radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px)',
+              backgroundSize: '12px 12px',
+            }}
+          />
           
-          <div className="flex flex-wrap justify-center content-start gap-3 md:gap-4 relative z-10">
+          <div className="flex flex-wrap justify-center content-start gap-4 md:gap-5 relative z-10">
             {certData.map((cert, i) => {
               const style = stampStyles[i];
               return (
@@ -252,165 +310,126 @@ export default function Certificates() {
                     transform: `rotate(${style.rotation}deg)` 
                   }}
                   className={cn(
-                    "group relative w-20 h-16 md:w-28 md:h-20 shadow-sm transition-all duration-300 ease-out cursor-none",
-                    "hover:z-50 hover:scale-[2.5] hover:shadow-2xl hover:rotate-0",
+                    "group relative w-24 h-20 md:w-32 md:h-24 shadow-sm transition-all duration-300 ease-out cursor-pointer outline-none",
+                    "hover:z-50 hover:scale-[1.3] hover:shadow-xl hover:rotate-0",
                     style.color,
-                    "border-2"
+                    "border-[1px] p-2 flex flex-col items-center justify-between"
                   )}
                   title={cert.name}
                 >
                   {/* Decorative Tape */}
                   {style.tape && (
-                    <div className="absolute -top-2 left-1/2 w-8 h-3 bg-white/40 backdrop-blur-[1px] -translate-x-1/2 -rotate-2 shadow-sm border-l border-r border-white/60 z-20"></div>
+                    <div className="absolute -top-3 left-1/2 w-8 h-4 bg-white/60 backdrop-blur-[1px] -translate-x-1/2 -rotate-3 shadow-sm border-l border-r border-white/40 z-20"></div>
                   )}
 
-                  {/* Content Container */}
-                  <div className="w-full h-full p-1 flex flex-col items-center justify-between overflow-hidden relative">
-                    
-                    {/* Image Area */}
-                    <div className="relative flex-1 w-full overflow-hidden rounded-[1px] border border-black/5">
-                      {cert.type === 'image' ? (
-                        <Image 
-                          src={cert.src}
-                          alt={cert.name}
-                          fill
-                          className="object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-200"
-                          sizes="(max-width: 768px) 112px, 160px"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 text-gray-300 group-hover:bg-red-50 group-hover:text-red-500 transition-colors">
-                          <FileText size={16} strokeWidth={2.5} />
-                        </div>
-                      )}
-                      
-                      {/* Gloss Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-50 pointer-events-none" />
-                    </div>
-
-                    {/* Tiny Footer Text */}
-                    <div className="w-full text-center mt-[2px]">
-                       <div className="font-code text-[6px] md:text-[8px] uppercase tracking-tighter text-gray-500 truncate leading-none">
-                         {cert.issuer}
-                       </div>
-                    </div>
+                  {/* Thumbnail */}
+                  <div className="relative w-full h-full overflow-hidden border border-black/5 bg-gray-50">
+                    {cert.type === 'image' ? (
+                      <Image
+                        src={cert.src}
+                        alt={cert.name}
+                        fill
+                        className="object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                        sizes="(max-width: 768px) 128px, 160px"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-gray-400 group-hover:text-red-500 transition-colors">
+                        <FileText size={20} strokeWidth={1.5} />
+                        <span className="text-[6px] font-code mt-1">PDF</span>
+                      </div>
+                    )}
                   </div>
 
-                  {/* Hover "Zoom" Hint overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-30 pointer-events-none">
-                    <div className="bg-ink/80 text-white rounded-full p-1 shadow-lg transform scale-50">
-                      <Maximize2 size={12} />
-                    </div>
+                  {/* Tiny Label */}
+                  <div className="w-full text-center mt-1 overflow-hidden">
+                     <div className="font-code text-[6px] uppercase tracking-wider text-gray-400 truncate w-full">
+                       {cert.issuer}
+                     </div>
                   </div>
                 </button>
               );
             })}
           </div>
-
-          {/* Background Stamps/Decorations */}
-          <div className="absolute top-10 left-10 pointer-events-none opacity-[0.03] -rotate-12">
-            <span className="font-display text-9xl uppercase text-ink">VALID</span>
-          </div>
-          <div className="absolute bottom-20 right-10 pointer-events-none opacity-[0.03] rotate-6">
-            <div className="border-4 border-ink rounded-full w-64 h-64 flex items-center justify-center border-double p-4">
-               <span className="font-marker text-4xl text-ink text-center transform -rotate-12">SEAL OF<br/>APPROVAL</span>
-            </div>
-          </div>
-
         </div>
       </div>
-
-      {/* Empty State */}
-      {certData.length === 0 && (
-        <div className="mt-10 text-center">
-          <p className="font-hand text-xl text-gray-500">Archive awaiting uploads…</p>
-          <p className="font-code text-xs text-gray-400 mt-2">Drop resized certificate images into /public/Certificates</p>
-        </div>
-      )}
 
       {/* --- LIGHTBOX MODAL --- */}
       {selectedCert && (
         <>
-          {/* Animated backdrop */}
           <div 
-            className="fixed inset-0 z-[100] bg-ink/0 backdrop-blur-0 pointer-events-none"
-            style={{
-              animation: 'backdropFadeIn 400ms ease-out forwards'
-            }}
+            className="fixed inset-0 z-[90] bg-ink/40 backdrop-blur-sm animate-in fade-in duration-300"
+            onClick={() => setSelectedCert(null)}
           />
           
-          <div 
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 pointer-events-auto"
-            onClick={() => setSelectedCert(null)}
-            style={{
-              animation: 'fadeIn 300ms ease-out'
-            }}
-          >
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
             <div 
-              className="relative w-full max-w-5xl bg-white shadow-2xl rounded-lg overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/20 transform origin-center"
+              className="relative w-full max-w-5xl bg-[#fdfbf7] shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-[95vh] pointer-events-auto animate-in zoom-in-95 duration-500 ease-out origin-center border-8 border-white ring-1 ring-gray-200"
               onClick={(e) => e.stopPropagation()}
-              style={{
-                animation: 'scaleInCenter 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards'
-              }}
             >
-              {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold font-display text-xl md:text-2xl text-ink truncate">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-white/50 relative">
+                <div
+                  className="absolute inset-0 opacity-10 pointer-events-none mix-blend-multiply"
+                  style={{
+                    backgroundImage:
+                      'radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px)',
+                    backgroundSize: '12px 12px',
+                  }}
+                />
+
+                <div className="relative z-10 flex-1 min-w-0 pr-4">
+                  <h3 className="font-display text-2xl md:text-3xl text-ink truncate">
                     {selectedCert.name}
                   </h3>
-                  <p className="font-code text-xs text-gray-400 uppercase tracking-widest mt-1">
-                    {selectedCert.issuer || 'CERTIFICATE'} {selectedCert.date && `• ${selectedCert.date}`}
-                  </p>
+                  <div className="flex items-center gap-3 mt-1 text-gray-500 font-hand text-lg">
+                    <span className="bg-gray-100 px-2 py-0.5 rounded text-sm font-sans border border-gray-200">{selectedCert.issuer}</span>
+                    <span className="truncate">{selectedCert.description}</span>
+                  </div>
                 </div>
                 
-                <div className="flex gap-1 ml-4 flex-shrink-0">
-                  <a 
-                    href={selectedCert.src} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="p-2.5 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-200 text-gray-500 hover:shadow-sm"
-                    title="Open/Download"
-                  >
-                    <Download size={20} />
-                  </a>
+                <div className="relative z-10 flex gap-2">
                   <button 
                     onClick={() => setSelectedCert(null)}
-                    className="p-2.5 hover:bg-red-50 hover:text-red-500 rounded-lg transition-all duration-200 text-gray-500 hover:shadow-sm"
+                    className="p-2 hover:bg-red-50 hover:text-red-500 rounded-full transition-colors text-gray-500"
                     title="Close"
                   >
-                    <X size={20} />
+                    <X size={24} />
                   </button>
                 </div>
               </div>
 
-              {/* Content area */}
-              <div className="flex-1 bg-gradient-to-b from-white via-white to-gray-50 overflow-auto flex items-center justify-center p-6 min-h-[400px] relative group">
-                {/* Subtle pattern */}
-                <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
-                
-                {selectedCert.type === 'image' ? (
-                  <div className="relative w-full h-full min-h-[500px] flex items-center justify-center group/image">
-                    <Image 
-                      src={selectedCert.src} 
-                      alt={selectedCert.name}
-                      fill
-                      className="object-contain drop-shadow-lg group-hover/image:drop-shadow-2xl transition-all duration-300 relative z-10"
-                      sizes="(max-width: 1024px) 100vw, 1024px"
-                    />
-                  </div>
-                ) : (
-                  <iframe 
-                    src={selectedCert.src} 
-                    className="w-full h-full min-h-[500px] bg-white border border-gray-200 shadow-md rounded relative z-10"
-                    title={selectedCert.name}
-                  />
-                )}
+              {/* Modal Body */}
+                <div className="flex-1 bg-gray-100 overflow-auto p-4 relative min-h-[60vh] max-h-[95vh]">
+                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+                      style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
+                 />
+
+                 <div 
+                   className="relative w-full shadow-lg bg-white p-2 flex items-center justify-center"
+                   style={{ maxHeight: "calc(95vh - 160px)" }}
+                 >
+                    {selectedCert.type === 'image' ? (
+                      <img
+                        src={selectedCert.src}
+                        alt={selectedCert.name}
+                        className="object-contain max-w-full"
+                        style={{ maxHeight: "calc(95vh - 200px)" }}
+                          loading="eager"
+                        />
+                    ) : (
+                      <iframe 
+                        src={selectedCert.src} 
+                        className="w-full h-full bg-white"
+                        title={selectedCert.name}
+                      />
+                    )}
+                 </div>
               </div>
             </div>
           </div>
         </>
       )}
-
     </section>
   );
 }
