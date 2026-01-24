@@ -9,6 +9,8 @@ function Scene() {
   const groupRef = useRef<THREE.Group>(null);
   const icoRef = useRef<THREE.Mesh>(null);
   const torusRef = useRef<THREE.Mesh>(null);
+  const octRef = useRef<THREE.Mesh>(null);
+  const tetraRef = useRef<THREE.Mesh>(null);
   
   // Hook into page scroll
   const { scrollYProgress } = useScroll();
@@ -21,7 +23,7 @@ function Scene() {
       groupRef.current.position.y = Math.sin(time * 0.5) * 0.1;
       // Rotate based on scroll position (using raw value for performance)
       const scroll = scrollYProgress.get(); 
-      groupRef.current.rotation.y = scroll * Math.PI;
+      groupRef.current.rotation.y = scroll * Math.PI * 2; // Full rotation
     }
 
     if (icoRef.current) {
@@ -32,6 +34,16 @@ function Scene() {
     if (torusRef.current) {
       torusRef.current.rotation.x -= 0.002;
       torusRef.current.rotation.z += 0.002;
+    }
+
+    if (octRef.current) {
+      octRef.current.rotation.x += 0.001;
+      octRef.current.rotation.z -= 0.0015;
+    }
+
+    if (tetraRef.current) {
+      tetraRef.current.rotation.y -= 0.0025;
+      tetraRef.current.rotation.x += 0.001;
     }
   });
 
@@ -48,7 +60,7 @@ function Scene() {
         />
       </mesh>
 
-      {/* The Detail Shape (Torus Knot) */}
+      {/* The Detail Shape (Torus) */}
       <mesh ref={torusRef} position={[-3, -1, -2]} rotation={[1.5, 0, 0]}>
         <torusGeometry args={[1.2, 0.05, 16, 100]} />
         <meshBasicMaterial 
@@ -56,6 +68,28 @@ function Scene() {
           wireframe 
           transparent 
           opacity={0.2} 
+        />
+      </mesh>
+
+      {/* New: Octahedron for extra movement */}
+      <mesh ref={octRef} position={[2, -2, -1]} scale={[1.2, 1.2, 1.2]}>
+        <octahedronGeometry args={[1, 0]} />
+        <meshBasicMaterial 
+          color="#7afcff" 
+          wireframe 
+          transparent 
+          opacity={0.12} 
+        />
+      </mesh>
+
+      {/* New: Tetrahedron for complexity */}
+      <mesh ref={tetraRef} position={[-2, 1.5, -1]} scale={[1.5, 1.5, 1.5]}>
+        <tetrahedronGeometry args={[1, 0]} />
+        <meshBasicMaterial 
+          color="#ffa502" 
+          wireframe 
+          transparent 
+          opacity={0.14} 
         />
       </mesh>
     </group>
