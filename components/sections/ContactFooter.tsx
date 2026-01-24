@@ -15,6 +15,7 @@ type StripItem = {
 type CelebrationStrip = StripItem & { celebration?: boolean };
 
 const STRIPS: CelebrationStrip[] = [
+  { label: "Phone", copy: "+91 8078242214", type: "text", offset: "translate-y-1" },
   { label: "Email Me", copy: "cainebenoy@gmail.com", type: "email", offset: "translate-y-1" },
   { label: "LinkedIn", copy: "linkedin.com/in/caine-benoy", type: "link", url: "https://www.linkedin.com/in/caine-benoy-8061a9288/", offset: "-translate-y-1" },
   { label: "GitHub", copy: "github.com/cainebenoy", type: "link", url: "https://github.com/cainebenoy" },

@@ -7,7 +7,9 @@ import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import WorkAndSkills from "@/components/sections/WorkAndSkills";
 import Experience from "@/components/sections/Experience";
+import Education from "@/components/sections/Education";
 import Certificates from "@/components/sections/Certificates";
+import Honors from "@/components/sections/Honors";
 import ContactFooter from "@/components/sections/ContactFooter";
 import ScratchManifesto from "@/components/sections/ScratchManifesto";
 
@@ -40,6 +42,11 @@ export default function Home() {
       <ScratchManifesto />
       
       <Experience />
+      
+      <Education />
+      
+      <Honors />
+      
       <ContactFooter />
     </main>
   );
