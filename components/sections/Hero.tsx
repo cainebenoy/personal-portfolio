@@ -79,11 +79,6 @@ export default function Hero() {
           </span>
         </p>
       </div>
-
-      {/* Scroll Hint */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce font-hand text-gray-400 reveal-text">
-        Scratch the paper to verify reality &darr;
-      </div>
     </section>
   );
 }

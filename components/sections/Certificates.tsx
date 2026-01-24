@@ -4,7 +4,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { X, FileText } from "lucide-react";
+import { X, FileText, Loader2 } from "lucide-react";
 
 // --- DATA PREPARATION ---
 
@@ -243,13 +243,17 @@ const certData = certificateFiles.map((fileName, idx) => {
 
 export default function Certificates() {
   const [selectedCert, setSelectedCert] = useState<(typeof certData)[number] | null>(null);
+  const [visibleCount, setVisibleCount] = useState(20);
+  const [isModalLoading, setIsModalLoading] = useState(false);
 
   // Generate stable random styles
   const stampStyles = useMemo(() => {
     return certData.map((_, i) => ({
       rotation: (i * 37 % 12) - 6, // -6 to 6 degrees
       marginTop: (i * 17 % 24),    // Organic vertical offset
-      tape: i % 5 === 0,           // 20% chance of tape
+      // Tape variations for all certificates
+      tapeRotation: (i * 13 % 10) - 5, // -5 to 5 degrees rotation
+      tapeOffset: (i * 7 % 30) - 15,   // -15 to 15px horizontal offset
       // Paper-like colors
       color: i % 4 === 0 ? "bg-[#fffdf5] border-[#e8e6dc]" :
              i % 7 === 0 ? "bg-[#f8fcff] border-[#dae9f5]" :
@@ -260,6 +264,13 @@ export default function Certificates() {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") setSelectedCert(null);
   };
+
+  const loadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + 20, certData.length));
+  };
+
+  const visibleCerts = certData.slice(0, visibleCount);
+  const remainingCount = certData.length - visibleCount;
 
   return (
     <section 
@@ -299,12 +310,15 @@ export default function Certificates() {
           />
           
           <div className="flex flex-wrap justify-center content-start gap-4 md:gap-5 relative z-10">
-            {certData.map((cert, i) => {
+            {visibleCerts.map((cert, i) => {
               const style = stampStyles[i];
               return (
                 <button
                   key={cert.id}
-                  onClick={() => setSelectedCert(cert)}
+                  onClick={() => {
+                    setSelectedCert(cert);
+                    setIsModalLoading(true);
+                  }}
                   style={{ 
                     marginTop: `${style.marginTop}px`,
                     transform: `rotate(${style.rotation}deg)` 
@@ -317,13 +331,16 @@ export default function Certificates() {
                   )}
                   title={cert.name}
                 >
-                  {/* Decorative Tape */}
-                  {style.tape && (
-                    <div className="absolute -top-3 left-1/2 w-8 h-4 bg-white/60 backdrop-blur-[1px] -translate-x-1/2 -rotate-3 shadow-sm border-l border-r border-white/40 z-20"></div>
-                  )}
+                  {/* Decorative Tape - now on all certificates with random variation */}
+                  <div 
+                    className="absolute -top-3 left-1/2 w-8 h-4 bg-white/60 backdrop-blur-[1px] -translate-x-1/2 shadow-sm border-l border-r border-white/40 z-20"
+                    style={{
+                      transform: `translateX(calc(-50% + ${style.tapeOffset}px)) rotate(${style.tapeRotation}deg)`
+                    }}
+                  ></div>
 
                   {/* Thumbnail */}
-                  <div className="relative w-full h-full overflow-hidden border border-black/5 bg-gray-50">
+                  <div className="relative w-full h-full overflow-hidden border border-black/5 bg-gray-50 skeleton">
                     {cert.type === 'image' ? (
                       <Image
                         src={cert.src}
@@ -351,6 +368,25 @@ export default function Certificates() {
               );
             })}
           </div>
+
+          {/* Load More Button */}
+          {remainingCount > 0 && (
+            <div className="mt-12 text-center relative z-10">
+              <button
+                onClick={loadMore}
+                className="group relative bg-ink text-paper px-8 py-4 font-display text-xl border-4 border-ink hover:bg-paper hover:text-ink transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1"
+              >
+                <span className="relative z-10">Load More</span>
+                <span className="block font-code text-xs mt-1 opacity-80">
+                  {remainingCount} more certificate{remainingCount !== 1 ? 's' : ''} remaining
+                </span>
+                
+                {/* Decorative corner accent */}
+                <div className="absolute -top-2 -right-2 w-6 h-6 border-t-4 border-r-4 border-highlight opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-4 border-l-4 border-highlight opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -364,7 +400,7 @@ export default function Certificates() {
           
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
             <div 
-              className="relative w-full max-w-5xl bg-[#fdfbf7] shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-[95vh] pointer-events-auto animate-in zoom-in-95 duration-500 ease-out origin-center border-8 border-white ring-1 ring-gray-200"
+              className="relative w-full max-w-5xl bg-[#fdfbf7] shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-[95vh] pointer-events-auto animate-slide-in-card border-8 border-white ring-1 ring-gray-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
@@ -406,22 +442,33 @@ export default function Certificates() {
                  />
 
                  <div 
-                   className="relative w-full shadow-lg bg-white p-2 flex items-center justify-center"
+                   className="relative w-full shadow-lg bg-white p-2 flex items-center justify-center min-h-[400px]"
                    style={{ maxHeight: "calc(95vh - 160px)" }}
                  >
+                    {isModalLoading && selectedCert.type === 'image' && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
+                        <Loader2 className="animate-spin text-ink opacity-20" size={48} />
+                      </div>
+                    )}
+
                     {selectedCert.type === 'image' ? (
                       <img
                         src={selectedCert.src}
                         alt={selectedCert.name}
-                        className="object-contain max-w-full"
+                        className={cn(
+                          "object-contain max-w-full transition-opacity duration-300",
+                          isModalLoading ? "opacity-0" : "opacity-100"
+                        )}
                         style={{ maxHeight: "calc(95vh - 200px)" }}
-                          loading="eager"
-                        />
+                        onLoad={() => setIsModalLoading(false)}
+                        onError={() => setIsModalLoading(false)}
+                      />
                     ) : (
                       <iframe 
                         src={selectedCert.src} 
                         className="w-full h-full bg-white"
                         title={selectedCert.name}
+                        onLoad={() => setIsModalLoading(false)}
                       />
                     )}
                  </div>
