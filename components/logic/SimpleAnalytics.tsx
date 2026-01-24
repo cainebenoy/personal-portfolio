@@ -20,7 +20,7 @@ const getSessionId = () => {
 
 // 2. The Sender Function
 // This sends data to your /api/analytics endpoint
-export const trackEvent = async (eventName: string, properties?: Record<string, any>) => {
+export const trackEvent = async (eventName: string, properties?: Record<string, unknown>) => {
   const sessionId = getSessionId();
   
   if (process.env.NODE_ENV === 'development') {
