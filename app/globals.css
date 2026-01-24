@@ -75,3 +75,28 @@ body {
 .animate-confetti-fall {
   animation: confetti-fall 3s linear forwards;
 }
+
+/* Grunge Mask for Credentials Bin */
+.mask-image-grunge {
+  mask-image: url("https://www.transparenttextures.com/patterns/shattered-island.png");
+  -webkit-mask-image: url("https://www.transparenttextures.com/patterns/shattered-island.png");
+  mask-size: cover;
+  -webkit-mask-size: cover;
+}
+
+/* Stamp Badge Style */
+.stamp-badge {
+  border: 3px double var(--blue-ink);
+  color: var(--blue-ink);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.8rem;
+  transform: rotate(-15deg);
+  opacity: 0.7;
+}

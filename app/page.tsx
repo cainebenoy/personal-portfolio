@@ -7,6 +7,7 @@ import Services from "@/components/sections/Services";
 import Work from "@/components/sections/Work";
 import Experience from "@/components/sections/Experience";
 import Skills from "@/components/sections/Skills";
+import Certificates from "@/components/sections/Certificates";
 import ContactFooter from "@/components/sections/ContactFooter";
 import ScratchManifesto from "@/components/sections/ScratchManifesto"; // Added
 
@@ -29,6 +30,7 @@ export default function Home() {
       <ScratchManifesto /> {/* Replaces Playground/ArtGallery */}
       
       <Experience />
+      <Certificates />
       <Skills />
       <ContactFooter />
     </main>
