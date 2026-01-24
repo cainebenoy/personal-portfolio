@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useAppStore } from "@/lib/useAppStore";
+import { cn } from "@/lib/utils";
 
 const skills = [
   "Next.js", "TypeScript", "React", "Python", "Solidity", 
@@ -13,6 +15,7 @@ const skills = [
 
 export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { highlightedSkills } = useAppStore();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -22,8 +25,6 @@ export default function Skills() {
           rotation: Math.random() * 10 - 5, // -5 to 5 deg
           duration: 0,
         });
-        
-        // Hover effect handled via CSS/Tailwind, but could add physics here later
       });
     }, containerRef);
 
@@ -50,15 +51,32 @@ export default function Skills() {
           </div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-          {skills.map((skill) => (
-            <div
-              key={skill}
-              className="skill-word cursor-default font-display text-3xl text-gray-300 transition-all duration-300 hover:scale-110 hover:text-ink md:text-5xl reveal"
-            >
-              {skill}
-            </div>
-          ))}
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8 transition-all duration-300">
+          {skills.map((skill) => {
+            // Check if this skill should be highlighted
+            const isHighlighted = highlightedSkills.some(s => 
+              skill.toLowerCase().includes(s.toLowerCase()) || 
+              s.toLowerCase().includes(skill.toLowerCase())
+            );
+            
+            // If something is highlighted, but NOT this one, dim this one
+            const isDimmed = highlightedSkills.length > 0 && !isHighlighted;
+
+            return (
+              <div
+                key={skill}
+                className={cn(
+                  "skill-word cursor-default font-display text-3xl transition-all duration-300 md:text-5xl",
+                  isHighlighted 
+                    ? "text-highlight scale-125 z-20" 
+                    : "text-gray-300 hover:scale-110 hover:text-ink",
+                  isDimmed ? "opacity-20 blur-[1px]" : "opacity-100"
+                )}
+              >
+                {skill}
+              </div>
+            );
+          })}
         </div>
 
       </div>

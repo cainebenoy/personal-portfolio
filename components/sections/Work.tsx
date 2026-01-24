@@ -1,11 +1,13 @@
 "use client";
 
 import ProjectCard from "@/components/ui/ProjectCard";
+import { useAppStore } from "@/lib/useAppStore";
+
 const projects = [
   {
     title: "TruthChain",
     description: "AI + Blockchain Deepfake Detection.",
-    tags: ["React", "Solidity", "FastAPI"],
+    tags: ["React", "Solidity", "FastAPI", "Blockchain", "AI/ML"],
     emoji: "🛡️",
     color: "#1f2937", // Gray-900
     rotate: "rotate-[-2deg]",
@@ -13,7 +15,7 @@ const projects = [
   {
     title: "Veritas Vault",
     description: "Decentralized archiving for digital rights.",
-    tags: ["Next.js", "IPFS", "Firebase"],
+    tags: ["Next.js", "IPFS", "Firebase", "TypeScript"],
     emoji: "🏛️",
     color: "#1e3a8a", // Blue-900
     rotate: "rotate-[1deg]",
@@ -21,7 +23,7 @@ const projects = [
   {
     title: "Roast Me Daddy",
     description: "'Best Useless Project' Winner.",
-    tags: ["Gemini API", "Vibe Coding"],
+    tags: ["Gemini API", "Problem Solving", "Events"],
     emoji: "🔥",
     color: "#7f1d1d", // Red-900
     rotate: "rotate-[-1deg]",
@@ -29,7 +31,7 @@ const projects = [
   {
     title: "YU Playbook",
     description: "Unified sports management platform.",
-    tags: ["Next.js 15", "ShadCN", "Auth"],
+    tags: ["Next.js", "ShadCN", "Tailwind", "React"],
     emoji: "⚽",
     color: "#14532d", // Green-900
     rotate: "rotate-[2deg]",
@@ -37,6 +39,8 @@ const projects = [
 ];
 
 export default function Work() {
+  const { setHighlightedSkills } = useAppStore();
+
   return (
     <section id="work" className="relative z-10 min-h-screen py-32">
       <div className="mx-auto max-w-6xl px-4">
@@ -64,6 +68,8 @@ export default function Work() {
             <div
               key={project.title}
               className={`${index % 2 === 1 ? "md:mt-32" : ""}`}
+              onMouseEnter={() => setHighlightedSkills(project.tags)}
+              onMouseLeave={() => setHighlightedSkills([])}
             >
               <ProjectCard
                 {...project}

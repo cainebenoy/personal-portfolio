@@ -5,9 +5,8 @@ import Navigation from "@/components/ui/Navigation";
 import Marquee from "@/components/ui/Marquee";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
-import Work from "@/components/sections/Work";
+import WorkAndSkills from "@/components/sections/WorkAndSkills";
 import Experience from "@/components/sections/Experience";
-import Skills from "@/components/sections/Skills";
 import Certificates from "@/components/sections/Certificates";
 import ContactFooter from "@/components/sections/ContactFooter";
 import ScratchManifesto from "@/components/sections/ScratchManifesto";
@@ -27,7 +26,9 @@ export default function Home() {
       <Hero />
       <Marquee />
       <Services />
-      <Work />
+      
+      {/* Unified Skills + Work (Side-by-Side on Desktop) */}
+      <WorkAndSkills />
       
       <Certificates />
       
@@ -39,7 +40,6 @@ export default function Home() {
       <ScratchManifesto />
       
       <Experience />
-      <Skills />
       <ContactFooter />
     </main>
   );
