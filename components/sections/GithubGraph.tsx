@@ -20,23 +20,21 @@ export default function GithubGraph() {
         const res = await fetch("https://github-contributions-api.jogruber.de/v4/cainebenoy?y=last");
         const json = await res.json();
         
-        // Flatten the data from nested weeks to a single array of days
-        const flatData = json.total ? [] : json.contributions.flat(); // Adjust based on API response structure if needed
-        // The API actually returns { contributions: [ { date, count, level }, ... ] } ? 
-        // Actually jogruber API returns { total: {}, contributions: [ ... ] } usually. 
-        // Let's assume standard response or fallback.
+        // API returns { total: {...}, contributions: [...] }
+        const contributions = json.contributions || [];
         
-        // Fallback mock data if API fails or rate limits (for demo reliability)
-        if (!flatData || flatData.length === 0) {
+        // Use real data if available
+        if (contributions && contributions.length > 0) {
+            // Take last 40 days for the "Seismograph" look
+            setData(contributions.slice(-40));
+        } else {
+            // Fallback mock data if API fails or rate limits
             const mock: ContributionDay[] = Array.from({ length: 50 }).map(() => ({
                 date: "2024", 
                 count: Math.floor(Math.random() * 10), 
                 level: 0
             }));
             setData(mock);
-        } else {
-            // Take last 30 days for the "Seismograph" look
-            setData(flatData.slice(-40));
         }
         setLoading(false);
       } catch (e) {
