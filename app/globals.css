@@ -11,14 +11,14 @@
 
 body {
   background-color: var(--paper);
-.writing-vertical-rl { writing-mode: vertical-rl; }
-
   color: var(--ink);
   cursor: none; /* We will build a custom cursor next */
   overflow-x: hidden;
   -webkit-user-select: none; /* Safari Support */
   user-select: none;
 }
+
+.writing-vertical-rl { writing-mode: vertical-rl; }
 
 /* Paper Texture Overlay */
 .paper-texture {

@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# certificates media (ignore large assets, keep folder)
+public/Certificates/*
+!public/Certificates/.gitkeep
