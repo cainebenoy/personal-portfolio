@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useState } from "react";
 
 type StripType = "email" | "link" | "text" | "download";
 
@@ -29,7 +29,6 @@ const openInNewTab = (url: string) => {
 };
 
 export default function ContactFooter() {
-  const cursorRef = useRef<HTMLDivElement | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [confetti, setConfetti] = useState<boolean>(false);
   const [confettiPieces, setConfettiPieces] = useState<Array<{

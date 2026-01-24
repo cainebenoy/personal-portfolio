@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
 
 export default function ScratchManifesto() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isScratched, setIsScratched] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
