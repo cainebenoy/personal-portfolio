@@ -237,8 +237,7 @@ export default function Certificates() {
         {/* The Wall Container */}
         <div className="relative bg-[#fdfbf7] p-6 md:p-12 shadow-[inset_0_0_60px_rgba(0,0,0,0.05)] border-4 border-double border-ink/10 rounded-xl overflow-hidden min-h-[800px]">
           
-          {/* Wall Texture */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none mix-blend-multiply" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/cardboard.png")' }}></div>
+          {/* Wall Texture - Gradient only (no external CORS-blocked resources) */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/5 pointer-events-none"></div>
           
           <div className="flex flex-wrap justify-center content-start gap-3 md:gap-4 relative z-10">

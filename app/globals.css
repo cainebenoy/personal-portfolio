@@ -41,7 +41,10 @@ body {
   pointer-events: none;
   z-index: 0;
   opacity: 0.6;
-  background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+  /* Removed CORS-blocked external texture - using CSS gradient instead */
+  background: linear-gradient(45deg, rgba(0,0,0,0.02) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.02) 75%, rgba(0,0,0,0.02)), linear-gradient(45deg, rgba(0,0,0,0.02) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.02) 75%, rgba(0,0,0,0.02));
+  background-size: 2px 2px;
+  background-position: 0 0, 1px 1px;
   mix-blend-mode: multiply;
 }
 
@@ -89,10 +92,8 @@ body {
 
 /* Grunge Mask for Credentials Bin */
 .mask-image-grunge {
-  mask-image: url("https://www.transparenttextures.com/patterns/shattered-island.png");
-  -webkit-mask-image: url("https://www.transparenttextures.com/patterns/shattered-island.png");
-  mask-size: cover;
-  -webkit-mask-size: cover;
+  /* Removed CORS-blocked external mask - using CSS fallback */
+  opacity: 0.95;
 }
 
 /* Stamp Badge Style */

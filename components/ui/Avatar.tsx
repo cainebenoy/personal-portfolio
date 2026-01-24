@@ -18,7 +18,7 @@ export default function Avatar() {
            </div>
            
            {/* Uncomment this when you add your photo */}
-           { <Image src="/me.jpg" alt="Caine Benoy" fill className="object-cover" />}
+           { <Image src="/me.jpg" alt="Caine Benoy" fill className="object-cover" sizes="(max-width: 768px) 192px, 256px" loading="eager" priority />}
         </div>
       </div>
       
