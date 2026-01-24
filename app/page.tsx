@@ -3,7 +3,6 @@ import InkCanvas from "@/components/canvas/InkCanvas";
 import CustomCursor from "@/components/ui/CustomCursor";
 import Navigation from "@/components/ui/Navigation";
 import CommandPalette from "@/components/ui/CommandPalette";
-import ScrollPencil from "@/components/ui/ScrollPencil";
 import Marquee from "@/components/ui/Marquee";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
@@ -27,7 +26,6 @@ export default function Home() {
       <CustomCursor />
       <Navigation />
       <CommandPalette />
-      <ScrollPencil />
       
       {/* Content Flow */}
       <Hero />
