@@ -11,19 +11,43 @@ const experiences = [
     role: "Campus Lead",
     company: "TinkerHub SCAS",
     period: "Jul 2025 - Present",
-    desc: "Orchestrating hackathons, workshops, and student dev culture.",
+    desc: "Orchestrating hackathons, workshops, and student dev culture. TinkerHub Campus Lead for SCAS.",
   },
   {
-    role: "Game Dev Intern",
+    role: "Quiz Club Coordinator",
+    company: "Sahrdaya College of Advanced Studies",
+    period: "Jun 2024 - Jun 2025",
+    desc: "Event Planning, Event Management, People Management, Crowd Control & Problem Solving.",
+  },
+  {
+    role: "Game Development Intern",
     company: "Immersive Skills Academy",
     period: "Jan - Feb 2025",
-    desc: "Unity Development, C#, Physics mechanics.",
+    desc: "Developed 2D and interactive games using Unity. Designed game mechanics, implemented physics-based behaviors, created UI elements, and optimized performance.",
   },
   {
-    role: "Web Dev Intern",
+    role: "Web Development Intern",
     company: "Varlyq Technologies",
     period: "Jan - Feb 2025",
-    desc: "Django, Bootstrap, and UX implementation.",
+    desc: "Built responsive web applications using Django and Bootstrap. Designed UX interfaces, integrated APIs, worked with authentication, CRUD operations, and PostgreSQL databases.",
+  },
+  {
+    role: "AI/ML Intern",
+    company: "St. Thomas' College (Autonomous), Thrissur",
+    period: "Apr - May 2024",
+    desc: "Trained machine learning models using scikit-learn. Implemented NLP pipelines for data preprocessing and sentiment analysis. Presented findings showcasing AI's role in social solutions.",
+  },
+  {
+    role: "Student Intern",
+    company: "Mindler",
+    period: "Oct - Nov 2023",
+    desc: "Participated in structured career assessment and personal development program. Explored career paths through psychometric evaluations and attended webinars on communication and leadership.",
+  },
+  {
+    role: "Web Development Intern",
+    company: "CodersCave",
+    period: "Oct - Nov 2023",
+    desc: "Developed static and dynamic websites using HTML, CSS, JavaScript, and Flask. Implemented user authentication, form validation, and collaborated through GitHub for version control.",
   },
 ];
 
