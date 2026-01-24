@@ -1,8 +1,6 @@
 "use client";
 
 import ProjectCard from "@/components/ui/ProjectCard";
-import { useReveal } from "@/lib/useReveal";
-
 const projects = [
   {
     title: "TruthChain",
@@ -39,7 +37,6 @@ const projects = [
 ];
 
 export default function Work() {
-  useReveal("#work .reveal");
   return (
     <section id="work" className="relative z-10 min-h-screen py-32">
       <div className="mx-auto max-w-6xl px-4">
@@ -66,8 +63,7 @@ export default function Work() {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className={`${index % 2 === 1 ? "md:mt-32" : ""} reveal`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              className={`${index % 2 === 1 ? "md:mt-32" : ""}`}
             >
               <ProjectCard
                 {...project}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useReveal } from "@/lib/useReveal";
 const experiences = [
   {
     role: "SOF Insider",
@@ -29,7 +28,6 @@ const experiences = [
 ];
 
 export default function Experience() {
-  useReveal("#experience .reveal");
   return (
     <section id="experience" className="relative z-10 min-h-screen py-24">
       <div className="mx-auto max-w-4xl px-4">
@@ -50,7 +48,7 @@ export default function Experience() {
 
         <div className="ml-4 space-y-0 border-l-4 border-ink pl-8 md:ml-12">
           {experiences.map((exp, i) => (
-            <div key={i} className="relative pb-16 group reveal" style={{ transitionDelay: `${i * 90}ms` }}>
+            <div key={i} className="relative pb-16 group">
               {/* Timeline Dot */}
               <div className="absolute -left-[44px] top-0 h-5 w-5 rounded-full border-4 border-ink bg-paper transition-colors duration-300 group-hover:bg-highlight" />
               

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { useReveal } from "@/lib/useReveal";
 
 const skills = [
   "Next.js", "TypeScript", "React", "Python", "Solidity", 
@@ -14,7 +13,6 @@ const skills = [
 
 export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null);
-  useReveal("#skills .reveal");
 
   useEffect(() => {
     const ctx = gsap.context(() => {
