@@ -18,6 +18,13 @@ body {
   user-select: none;
 }
 
+/* Highlighter Selection Style */
+::selection {
+  background: var(--highlight);
+  color: white;
+  text-shadow: none;
+}
+
 .writing-vertical-rl { writing-mode: vertical-rl; }
 
 /* Paper Texture Overlay */
@@ -35,6 +42,21 @@ body {
   background-size: 2px 2px;
   background-position: 0 0, 1px 1px;
   mix-blend-mode: multiply;
+  /* Film Grain Animation */
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { background-position: 0 0, 1px 1px; }
+  10% { background-position: -5% -10%, 1px 1px; }
+  20% { background-position: -15% 5%, 1px 1px; }
+  30% { background-position: 7% -25%, 1px 1px; }
+  40% { background-position: 20% 25%, 1px 1px; }
+  50% { background-position: -25% 10%, 1px 1px; }
+  60% { background-position: 15% 5%, 1px 1px; }
+  70% { background-position: 0% 15%, 1px 1px; }
+  80% { background-position: 25% 35%, 1px 1px; }
+  90% { background-position: -10% 10%, 1px 1px; }
 }
 
 .writing-vertical {
