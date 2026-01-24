@@ -329,67 +329,86 @@ export default function Certificates() {
 
       {/* --- LIGHTBOX MODAL --- */}
       {selectedCert && (
-        <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/95 backdrop-blur-sm p-4 md:p-8 animate-in fade-in duration-200"
-          onClick={() => setSelectedCert(null)}
-        >
+        <>
+          {/* Animated backdrop */}
           <div 
-            className="relative w-full max-w-5xl bg-white shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/10"
-            onClick={(e) => e.stopPropagation()} 
+            className="fixed inset-0 z-[100] bg-ink/0 backdrop-blur-0 pointer-events-none"
+            style={{
+              animation: 'backdropFadeIn 400ms ease-out forwards'
+            }}
+          />
+          
+          <div 
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 pointer-events-auto"
+            onClick={() => setSelectedCert(null)}
+            style={{
+              animation: 'fadeIn 300ms ease-out'
+            }}
           >
-            <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50">
-              <div>
-                <h3 className="font-bold font-display text-xl md:text-2xl text-ink truncate max-w-[200px] md:max-w-md">
-                  {selectedCert.name}
-                </h3>
-                <p className="font-code text-xs text-gray-500 uppercase tracking-wider">
-                  ISSUED BY {selectedCert.issuer} • {selectedCert.date}
-                </p>
-              </div>
-              
-              <div className="flex gap-2">
-                <a 
-                  href={selectedCert.src} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-600"
-                  title="Open/Download"
-                >
-                  <Download size={20} />
-                </a>
-                <button 
-                  onClick={() => setSelectedCert(null)}
-                  className="p-2 hover:bg-red-100 hover:text-red-500 rounded-full transition-colors text-gray-600"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-            </div>
-
-            <div className="flex-1 bg-[#222] overflow-auto flex items-center justify-center p-4 min-h-[400px] relative">
-              {/* Background pattern for modal */}
-              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#444 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-              
-              {selectedCert.type === 'image' ? (
-                <div className="relative w-full h-full min-h-[60vh]">
-                  <Image 
-                    src={selectedCert.src} 
-                    alt={selectedCert.name}
-                    fill
-                    className="object-contain drop-shadow-2xl"
-                    sizes="(max-width: 1024px) 100vw, 1024px"
-                  />
+            <div 
+              className="relative w-full max-w-5xl bg-white shadow-2xl rounded-lg overflow-hidden flex flex-col max-h-[90vh] ring-1 ring-white/20 transform origin-center"
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                animation: 'scaleInCenter 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards'
+              }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold font-display text-xl md:text-2xl text-ink truncate">
+                    {selectedCert.name}
+                  </h3>
+                  <p className="font-code text-xs text-gray-400 uppercase tracking-widest mt-1">
+                    {selectedCert.issuer || 'CERTIFICATE'} {selectedCert.date && `• ${selectedCert.date}`}
+                  </p>
                 </div>
-              ) : (
-                <iframe 
-                  src={selectedCert.src} 
-                  className="w-full h-full min-h-[60vh] bg-white border shadow-sm relative z-10"
-                  title={selectedCert.name}
-                />
-              )}
+                
+                <div className="flex gap-1 ml-4 flex-shrink-0">
+                  <a 
+                    href={selectedCert.src} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-2.5 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-200 text-gray-500 hover:shadow-sm"
+                    title="Open/Download"
+                  >
+                    <Download size={20} />
+                  </a>
+                  <button 
+                    onClick={() => setSelectedCert(null)}
+                    className="p-2.5 hover:bg-red-50 hover:text-red-500 rounded-lg transition-all duration-200 text-gray-500 hover:shadow-sm"
+                    title="Close"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Content area */}
+              <div className="flex-1 bg-gradient-to-b from-white via-white to-gray-50 overflow-auto flex items-center justify-center p-6 min-h-[400px] relative group">
+                {/* Subtle pattern */}
+                <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+                
+                {selectedCert.type === 'image' ? (
+                  <div className="relative w-full h-full min-h-[500px] flex items-center justify-center group/image">
+                    <Image 
+                      src={selectedCert.src} 
+                      alt={selectedCert.name}
+                      fill
+                      className="object-contain drop-shadow-lg group-hover/image:drop-shadow-2xl transition-all duration-300 relative z-10"
+                      sizes="(max-width: 1024px) 100vw, 1024px"
+                    />
+                  </div>
+                ) : (
+                  <iframe 
+                    src={selectedCert.src} 
+                    className="w-full h-full min-h-[500px] bg-white border border-gray-200 shadow-md rounded relative z-10"
+                    title={selectedCert.name}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
 
     </section>
