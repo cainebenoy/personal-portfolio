@@ -70,14 +70,6 @@ export default function Hero() {
             </span>
           </div>
         </h1>
-
-        {/* Subtitle */}
-        <p className="font-sans text-lg md:text-xl mt-8 max-w-2xl leading-relaxed text-gray-700 reveal-text">
-          I&apos;m a generalist Computer Science student who loves building at the intersection of AI, automation, and whatever domain the problem lives in. I move fluidly across projects, from AI-based exam evaluation tools to hands-on hackathon prototypes and community-first tech initiatives.
-          <span className="font-marker text-xl md:text-2xl text-highlight block mt-4 rotate-[2deg]">
-            Whether it&apos;s backend logic, quick prototypes, or stitching together tools—I ship working solutions.
-          </span>
-        </p>
       </div>
     </section>
   );
