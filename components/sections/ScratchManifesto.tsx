@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const hiddenContents = [
   {
@@ -33,7 +33,13 @@ const hiddenContents = [
 export default function ScratchManifesto() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [content] = useState(() => hiddenContents[Math.floor(Math.random() * hiddenContents.length)]);
+  const [content, setContent] = useState(hiddenContents[0]);
+
+  useLayoutEffect(() => {
+    // Randomly select a hidden message on mount (client-side only)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setContent(hiddenContents[Math.floor(Math.random() * hiddenContents.length)]);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
