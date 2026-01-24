@@ -3,25 +3,32 @@
 import { useEffect, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
-export default function SoundToggle() {
-  const [muted, setMuted] = useState(false);
+declare global {
+  interface Window {
+    isMuted?: boolean;
+  }
+}
 
-  // Sync with any existing global toggle so multiple components stay in agreement
+export default function SoundToggle() {
+  const [muted, setMuted] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.isMuted ?? false;
+  });
+
+  // Keep global flag in sync
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const existing = (window as any).isMuted;
-    if (typeof existing === "boolean") {
-      setMuted(existing);
-    } else {
-      (window as any).isMuted = false;
+    if (typeof window !== "undefined") {
+      window.isMuted = muted;
     }
-  }, []);
+  }, [muted]);
 
   const toggle = () => {
     const next = !muted;
     setMuted(next);
     // Advertise mute state globally for any audio engine to respect
-    (window as any).isMuted = next;
+    if (typeof window !== "undefined") {
+      window.isMuted = next;
+    }
   };
 
   return (

@@ -63,7 +63,7 @@ export default function Certificates() {
           </h2>
           <p className="mt-6 font-hand text-2xl md:text-3xl text-gray-500 max-w-2xl mx-auto">
             A messy, growing collection of every lesson learned. 
-            <span className="block text-sm font-code mt-2 text-gray-400">TOTAL_COUNT: {certData.length} // STATUS: VERIFIED</span>
+            <span className="block text-sm font-code mt-2 text-gray-400">TOTAL_COUNT: {certData.length} • STATUS: VERIFIED</span>
           </p>
         </div>
 
@@ -80,14 +80,14 @@ export default function Certificates() {
               return (
                 <button
                   key={cert.id}
-                  onClick={() => setSelectedCert(cert as any)}
+                  onClick={() => setSelectedCert(cert)}
                   style={{ 
                     marginTop: `${style.marginTop}px`,
                     transform: `rotate(${style.rotation}deg)` 
                   }}
                   className={cn(
                     "group relative w-20 h-16 md:w-28 md:h-20 shadow-sm transition-all duration-300 ease-out cursor-none",
-                    "hover:z-50 hover:scale-[2.5] hover:shadow-2xl hover:rotate-0", // Pop-out effect
+                    "hover:z-50 hover:scale-[2.5] hover:shadow-2xl hover:rotate-0",
                     style.color,
                     "border-2"
                   )}
@@ -177,7 +177,7 @@ export default function Certificates() {
                   {selectedCert.name}
                 </h3>
                 <p className="font-code text-xs text-gray-500 uppercase tracking-wider">
-                  ISSUED BY {selectedCert.issuer} // {selectedCert.date}
+                  ISSUED BY {selectedCert.issuer} • {selectedCert.date}
                 </p>
               </div>
               
@@ -206,10 +206,12 @@ export default function Certificates() {
               
               {selectedCert.type === 'image' ? (
                 <div className="relative w-full h-full min-h-[60vh]">
-                  <img 
+                  <Image 
                     src={selectedCert.src} 
                     alt={selectedCert.name}
-                    className="absolute inset-0 w-full h-full object-contain drop-shadow-2xl"
+                    fill
+                    className="object-contain drop-shadow-2xl"
+                    sizes="(max-width: 1024px) 100vw, 1024px"
                   />
                 </div>
               ) : (

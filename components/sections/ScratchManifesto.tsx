@@ -101,13 +101,13 @@ export default function ScratchManifesto() {
       >
         {/* Hidden Content (Underneath) */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 select-none pointer-events-none">
-          <div className="font-marker text-xl text-highlight mb-4">CONFIDENTIAL // THE PHILOSOPHY</div>
+          <div className="font-marker text-xl text-highlight mb-4">CONFIDENTIAL • THE PHILOSOPHY</div>
           <h2 className="font-display text-4xl md:text-6xl text-ink mb-6">
-            The Generalist's<br/>Manifesto
+            The Generalist&apos;s<br/>Manifesto
           </h2>
           <p className="font-hand text-2xl text-gray-600 max-w-xl leading-relaxed">
-            "Specialization is for insects. In a world of AI, connecting the dots matters more than drawing them. 
-            I thrive in the chaos between disciplines, translating 'what if' into 'here it is'."
+            &quot;Specialization is for insects. In a world of AI, connecting the dots matters more than drawing them. 
+            I thrive in the chaos between disciplines, translating &apos;what if&apos; into &apos;here it is&apos;.&quot;
           </p>
           <div className="mt-8 font-code text-xs text-gray-400">
             VERIFIED REALITY: TRUE

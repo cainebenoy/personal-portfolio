@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 
 type StripType = "email" | "link" | "text" | "download";
 
@@ -32,6 +32,15 @@ export default function ContactFooter() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [confetti, setConfetti] = useState<boolean>(false);
+  const [confettiPieces, setConfettiPieces] = useState<Array<{
+    left: string;
+    width: string;
+    height: string;
+    backgroundColor: string;
+    borderRadius: string;
+    duration: number;
+    delay: number;
+  }>>([]);
 
   const showToast = (message: string) => {
     setToast(message);
@@ -39,6 +48,20 @@ export default function ContactFooter() {
   };
 
   const triggerCelebration = () => {
+    const colors = ["#fffd75", "#ff4757", "#7afcff", "#ffa502", "#2ed573"];
+    const pieces = Array.from({ length: 300 }).map(() => {
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      return {
+        left: `${Math.random() * 100}%`,
+        width: `${Math.random() * 8 + 4}px`,
+        height: `${Math.random() * 8 + 4}px`,
+        backgroundColor: color,
+        borderRadius: Math.random() > 0.5 ? "50%" : "0",
+        duration: 2 + Math.random() * 1,
+        delay: Math.random() * 0.3,
+      };
+    });
+    setConfettiPieces(pieces);
     setConfetti(true);
     setTimeout(() => setConfetti(false), 3000);
   };
@@ -191,21 +214,19 @@ export default function ContactFooter() {
 
       {confetti && (
         <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          {Array.from({ length: 1000 }).map((_, i) => (
+          {confettiPieces.map((p, i) => (
             <div
               key={i}
               className="absolute animate-confetti-fall"
               style={{
-                left: `${Math.random() * 100}%`,
+                left: p.left,
                 top: `-10px`,
-                width: `${Math.random() * 8 + 4}px`,
-                height: `${Math.random() * 8 + 4}px`,
-                backgroundColor: ["#fffd75", "#ff4757", "#7afcff", "#ffa502", "#2ed573"][
-                  Math.floor(Math.random() * 5)
-                ],
-                borderRadius: Math.random() > 0.5 ? "50%" : "0",
-                animation: `confetti-fall ${2 + Math.random() * 1}s linear forwards`,
-                animationDelay: `${Math.random() * 0.3}s`,
+                width: p.width,
+                height: p.height,
+                backgroundColor: p.backgroundColor,
+                borderRadius: p.borderRadius,
+                animation: `confetti-fall ${p.duration}s linear forwards`,
+                animationDelay: `${p.delay}s`,
               }}
             />
           ))}

@@ -1,26 +1,11 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 function LivingShape() {
   const mesh = useRef<THREE.Mesh>(null);
-  
-  // Create random geometry data once
-  const particles = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < 100; i++) {
-      const t = Math.random() * 100;
-      const factor = 20 + Math.random() * 100;
-      const speed = 0.01 + Math.random() / 200;
-      const xFactor = -50 + Math.random() * 100;
-      const yFactor = -50 + Math.random() * 100;
-      const zFactor = -50 + Math.random() * 100;
-      temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });
-    }
-    return temp;
-  }, []);
 
   useFrame((state) => {
     if (!mesh.current) return;

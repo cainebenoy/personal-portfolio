@@ -1,6 +1,7 @@
 "use client";
 
 import ProjectCard from "@/components/ui/ProjectCard";
+import { useReveal } from "@/lib/useReveal";
 
 const projects = [
   {
@@ -38,12 +39,13 @@ const projects = [
 ];
 
 export default function Work() {
+  useReveal("#work .reveal");
   return (
     <section id="work" className="relative z-10 min-h-screen py-32">
       <div className="mx-auto max-w-6xl px-4">
         
         {/* Section Header */}
-        <div className="mb-24 text-center">
+        <div className="mb-24 text-center reveal">
           <h2 className="relative inline-block font-display text-6xl text-ink md:text-8xl">
             The Evidence
             {/* Doodle Decoration */}
@@ -64,7 +66,8 @@ export default function Work() {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className={`${index % 2 === 1 ? "md:mt-32" : ""}`} // Stagger effect
+              className={`${index % 2 === 1 ? "md:mt-32" : ""} reveal`}
+              style={{ transitionDelay: `${index * 100}ms` }}
             >
               <ProjectCard
                 {...project}

@@ -3,6 +3,12 @@
 import { useEffect, useRef } from "react";
 import Matter from "matter-js";
 
+declare global {
+  interface Window {
+    spawnFallingStrip?: (rect: DOMRect) => void;
+  }
+}
+
 export default function PhysicsCanvas() {
   const sceneRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Matter.Engine | null>(null);
@@ -63,7 +69,7 @@ export default function PhysicsCanvas() {
     const mouse = Matter.Mouse.create(render.canvas);
     // Disable capturing scroll events so user can scroll page
     // FIX: Matter adds wheel listeners that call preventDefault; remove all variants
-    const wheelHandler = (mouse as any).mousewheel;
+    const wheelHandler = (mouse as unknown as { mousewheel: EventListener }).mousewheel;
     mouse.element.removeEventListener("mousewheel", wheelHandler);
     mouse.element.removeEventListener("DOMMouseScroll", wheelHandler);
     mouse.element.removeEventListener("wheel", wheelHandler);
@@ -84,7 +90,7 @@ export default function PhysicsCanvas() {
     Matter.Render.run(render);
 
     // Expose a simple API for tear-off strips to spawn a falling body
-    ;(window as any).spawnFallingStrip = (rect: DOMRect) => {
+    window.spawnFallingStrip = (rect: DOMRect) => {
       try {
         const eng = engineRef.current;
         if (!eng) return;
@@ -126,7 +132,7 @@ export default function PhysicsCanvas() {
       Matter.Render.stop(render);
       Matter.Runner.stop(runner);
       if (render.canvas) render.canvas.remove();
-      try { delete (window as any).spawnFallingStrip; } catch {}
+      try { delete window.spawnFallingStrip; } catch {}
     };
   }, []);
 

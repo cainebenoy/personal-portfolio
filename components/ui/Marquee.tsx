@@ -7,26 +7,26 @@ export default function Marquee() {
   const firstText = useRef<HTMLDivElement>(null);
   const secondText = useRef<HTMLDivElement>(null);
   const slider = useRef<HTMLDivElement>(null);
-  let xPercent = 0;
-  let direction = -1;
+  const xPercent = useRef(0);
+  const direction = useRef(-1);
 
   useEffect(() => {
     let animationId: number;
 
     const animate = () => {
-      if (xPercent <= -100) {
-        xPercent = 0;
+      if (xPercent.current <= -100) {
+        xPercent.current = 0;
       }
-      if (xPercent > 0) {
-        xPercent = -100;
+      if (xPercent.current > 0) {
+        xPercent.current = -100;
       }
       
       if(firstText.current && secondText.current) {
-        gsap.set(firstText.current, { xPercent: xPercent });
-        gsap.set(secondText.current, { xPercent: xPercent });
+        gsap.set(firstText.current, { xPercent: xPercent.current });
+        gsap.set(secondText.current, { xPercent: xPercent.current });
       }
       
-      xPercent += 0.05 * direction;
+      xPercent.current += 0.05 * direction.current;
       animationId = requestAnimationFrame(animate);
     };
 

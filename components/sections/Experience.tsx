@@ -1,5 +1,6 @@
 "use client";
 
+import { useReveal } from "@/lib/useReveal";
 const experiences = [
   {
     role: "SOF Insider",
@@ -28,11 +29,12 @@ const experiences = [
 ];
 
 export default function Experience() {
+  useReveal("#experience .reveal");
   return (
     <section id="experience" className="relative z-10 min-h-screen py-24">
       <div className="mx-auto max-w-4xl px-4">
         
-        <h2 className="mb-16 font-display text-5xl text-ink md:text-7xl">
+        <h2 className="mb-16 font-display text-5xl text-ink md:text-7xl reveal">
           The Journey
           {/* Doodle Line */}
           <svg className="absolute -bottom-4 left-0 h-4 w-48 overflow-visible opacity-80" viewBox="0 0 200 10">
@@ -48,7 +50,7 @@ export default function Experience() {
 
         <div className="ml-4 space-y-0 border-l-4 border-ink pl-8 md:ml-12">
           {experiences.map((exp, i) => (
-            <div key={i} className="relative pb-16 group">
+            <div key={i} className="relative pb-16 group reveal" style={{ transitionDelay: `${i * 90}ms` }}>
               {/* Timeline Dot */}
               <div className="absolute -left-[44px] top-0 h-5 w-5 rounded-full border-4 border-ink bg-paper transition-colors duration-300 group-hover:bg-highlight" />
               

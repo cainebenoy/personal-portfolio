@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useReveal } from "@/lib/useReveal";
 
 const skills = [
   "Next.js", "TypeScript", "React", "Python", "Solidity", 
@@ -13,6 +14,7 @@ const skills = [
 
 export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null);
+  useReveal("#skills .reveal");
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -34,7 +36,7 @@ export default function Skills() {
     <section id="skills" ref={containerRef} className="relative z-10 min-h-[80vh] flex items-center justify-center py-24">
       <div className="mx-auto w-full max-w-6xl px-4 text-center">
         
-        <div className="mb-16 relative inline-block">
+        <div className="mb-16 relative inline-block reveal">
           <span className="font-hand text-4xl text-ink underline decoration-wavy decoration-highlight decoration-2 underline-offset-8">
             The Arsenal (68+ Skills)
           </span>
@@ -54,7 +56,7 @@ export default function Skills() {
           {skills.map((skill) => (
             <div
               key={skill}
-              className="skill-word cursor-default font-display text-3xl text-gray-300 transition-all duration-300 hover:scale-110 hover:text-ink md:text-5xl"
+              className="skill-word cursor-default font-display text-3xl text-gray-300 transition-all duration-300 hover:scale-110 hover:text-ink md:text-5xl reveal"
             >
               {skill}
             </div>

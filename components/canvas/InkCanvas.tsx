@@ -81,9 +81,10 @@ export default function InkCanvas() {
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseleave", resetTrail);
     window.addEventListener("mouseenter", resetTrail);
-    document.addEventListener("visibilitychange", () => {
+    const onVisChange = () => {
       if (document.hidden) resetTrail();
-    });
+    };
+    document.addEventListener("visibilitychange", onVisChange);
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -151,7 +152,7 @@ export default function InkCanvas() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", resetTrail);
       window.removeEventListener("mouseenter", resetTrail);
-      document.removeEventListener("visibilitychange", resetTrail as any);
+      document.removeEventListener("visibilitychange", onVisChange);
     };
   }, []);
 

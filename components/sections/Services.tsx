@@ -1,5 +1,7 @@
 "use client";
 
+import { useReveal } from "@/lib/useReveal";
+
 const services = [
   {
     title: "Rapid Prototyping",
@@ -24,10 +26,11 @@ const services = [
 ];
 
 export default function Services() {
+  useReveal("#services .reveal");
   return (
-    <section className="relative z-10 py-24">
+    <section id="services" className="relative z-10 py-24">
       <div className="mx-auto max-w-5xl px-4">
-        <div className="rotate-1 border-2 border-ink bg-white p-8 shadow-paper md:p-12">
+        <div className="rotate-1 border-2 border-ink bg-white p-8 shadow-paper md:p-12 reveal">
           {/* Header */}
           <div className="mb-8 flex items-end justify-between border-b-2 border-dashed border-ink pb-4">
             <div>
@@ -40,7 +43,11 @@ export default function Services() {
           {/* List */}
           <div className="space-y-6">
             {services.map((s, i) => (
-              <div key={i} className="group flex flex-col items-start justify-between gap-2 border-b border-gray-100 pb-4 md:flex-row md:items-end">
+              <div
+                key={i}
+                className="group flex flex-col items-start justify-between gap-2 border-b border-gray-100 pb-4 md:flex-row md:items-end reveal"
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
                 <div className="flex-1">
                   <h3 className="font-marker text-2xl text-ink transition-colors group-hover:text-highlight">
                     {s.title}
@@ -58,7 +65,7 @@ export default function Services() {
 
           {/* Footer */}
           <div className="mt-8 text-center font-messy text-2xl text-gray-400">
-            * Satisfaction guaranteed or I'll fix the bug for free.
+            * Satisfaction guaranteed or I&apos;ll fix the bug for free.
           </div>
         </div>
       </div>
