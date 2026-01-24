@@ -12,6 +12,7 @@ import Experience from "@/components/sections/Experience";
 import Education from "@/components/sections/Education";
 import Certificates from "@/components/sections/Certificates";
 import Honors from "@/components/sections/Honors";
+import Gallery from "@/components/sections/Gallery";
 import ContactFooter from "@/components/sections/ContactFooter";
 import ScratchManifesto from "@/components/sections/ScratchManifesto";
 
@@ -51,6 +52,8 @@ export default function Home() {
       <Education />
       
       <Honors />
+      
+      <Gallery />
       
       <ContactFooter />
     </main>
