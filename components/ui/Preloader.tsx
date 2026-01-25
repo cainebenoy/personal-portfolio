@@ -49,24 +49,30 @@ export default function Preloader() {
       ease: "back.out(1.5)",
     }, 1.2);
 
-    // Phase 5: Expand the i-dot to fill screen (Wipe effect)
-    tl.to("#i-dot", {
-      scale: 60,
-      duration: 0.9,
+    // Phase 5: Make wipe overlay visible and position it at the i-dot
+    tl.set("#wipe-overlay", {
+      opacity: 1,
+    }, 2.0);
+
+    // Phase 6: Expand the wipe overlay to fill screen (creates zoom-in effect)
+    tl.to("#wipe-overlay", {
+      width: "300vw",
+      height: "300vh",
+      duration: 1.2,
       ease: "power4.in",
     }, 2.0);
 
-    // Phase 6: Fade Out container
+    // Phase 7: Fade out the entire preloader
     tl.to("#preloader-container", {
       opacity: 0,
-      duration: 0.6,
-      ease: "power2.in",
-    }, 2.5);
+      duration: 0.8,
+      ease: "power2.inOut",
+    }, 2.8);
 
-    // Phase 7: Set display none after fade
+    // Phase 8: Set display none after fade
     tl.set("#preloader-container", {
       display: "none",
-    }, 3.2);
+    }, 3.8);
 
     return () => clearInterval(typingInterval);
   }, []);
@@ -85,20 +91,47 @@ export default function Preloader() {
           <h1 
             id="typed-name" 
             className="font-display text-8xl text-paper tracking-wide relative"
+            style={{
+              // Hide the default dot on 'i' character
+              textRendering: 'optimizeLegibility',
+            }}
           >
             <span className="relative inline-block">
-              {displayText}
-              {/* Single dot over the 'i' that will expand - only show when 'i' is typed */}
-              {displayText.includes('i') && (
+              {displayText.split('').map((char, index) => (
                 <span 
-                  id="i-dot"
-                  className="absolute w-4 h-4 bg-paper rounded-full"
-                  style={{ 
-                    left: `${displayText.indexOf('i') * 0.55}em`,
-                    top: '-0.5em'
-                  }}
-                />
-              )}
+                  key={index}
+                  className={char.toLowerCase() === 'i' ? 'relative' : ''}
+                  style={char.toLowerCase() === 'i' ? {
+                    position: 'relative',
+                    display: 'inline-block',
+                  } : {}}
+                >
+                  {char.toLowerCase() === 'i' ? (
+                    <>
+                      {/* Render 'i' without the dot */}
+                      <span style={{ 
+                        display: 'inline-block',
+                        position: 'relative',
+                      }}>
+                        ı
+                      </span>
+                      {/* Custom dot that will expand */}
+                      <span 
+                        id="i-dot"
+                        className="absolute bg-paper rounded-full"
+                        style={{ 
+                          width: '0.18em',
+                          height: '0.18em',
+                          left: '50%',
+                          top: '0.05em',
+                          transform: 'translateX(-50%)',
+                          zIndex: 9999,
+                        }}
+                      />
+                    </>
+                  ) : char}
+                </span>
+              ))}
             </span>
             <span 
               ref={cursorRef}
@@ -106,6 +139,21 @@ export default function Preloader() {
             />
           </h1>
         </div>
+
+        {/* Expanding dot overlay for wipe effect */}
+        <div 
+          id="wipe-overlay"
+          className="absolute bg-paper rounded-full pointer-events-none"
+          style={{
+            width: '1px',
+            height: '1px',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 9998,
+            opacity: 0,
+          }}
+        />
 
         {/* Status text */}
         <div className="absolute bottom-12 font-code text-xs text-paper/50 tracking-widest animate-pulse">
