@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { 
   Inter, 
   Abril_Fatface, 
@@ -51,30 +52,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Easter egg console message for curious developers
-  if (typeof window !== 'undefined') {
-    console.log(
-      '%c👋 Hey there, curious developer!',
-      'font-size: 20px; font-weight: bold; color: #ff4757;'
-    );
-    console.log(
-      '%c🎨 Like what you see? I built this with Next.js, GSAP, Three.js, and lots of coffee.',
-      'font-size: 14px; color: #2b2b2b;'
-    );
-    console.log(
-      '%c🐛 Found a bug? I probably left it there on purpose. (Just kidding... maybe.)',
-      'font-size: 14px; color: #5a7cfa;'
-    );
-    console.log(
-      '%c💌 Want to chat? Shoot me an email: hello@cainebenoy.com',
-      'font-size: 14px; font-weight: bold; color: #2b2b2b;'
-    );
-    console.log(
-      '%c⚡ Pro tip: Try the command palette (Cmd/Ctrl + K)',
-      'font-size: 12px; font-style: italic; color: #666;'
-    );
-  }
-  
   return (
     <html lang="en">
       <body className={`
@@ -86,6 +63,15 @@ export default function RootLayout({
         ${reenie.variable}
         font-sans
       `}>
+        <Script id="console-easter-egg" strategy="afterInteractive">
+          {`
+            console.log('%c👋 Hey there, curious developer!', 'font-size: 20px; font-weight: bold; color: #ff4757;');
+            console.log('%c🎨 Like what you see? Built with Next.js, GSAP, Three.js, and lots of coffee.', 'font-size: 14px; color: #2b2b2b;');
+            console.log('%c🐛 Found a bug? I probably left it there on purpose. (Just kidding... maybe.)', 'font-size: 14px; color: #5a7cfa;');
+            console.log('%c💌 Want to chat? Email: cainebenoy@gmail.com', 'font-size: 14px; font-weight: bold; color: #2b2b2b;');
+            console.log('%c⚡ Pro tip: Try the command palette (Cmd/Ctrl + K)', 'font-size: 12px; font-style: italic; color: #666;');
+          `}
+        </Script>
         <div className="paper-texture" />
         {children}
       </body>
