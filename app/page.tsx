@@ -7,6 +7,7 @@ import Marquee from "@/components/ui/Marquee";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import WorkAndSkills from "@/components/sections/WorkAndSkills";
+import TechRadar from "@/components/sections/TechRadar";
 import GithubGraph from "@/components/sections/GithubGraph";
 import Socials from "@/components/sections/Socials";
 import Experience from "@/components/sections/Experience";
@@ -36,6 +37,8 @@ export default function Home() {
       
       {/* Unified Skills + Work (Side-by-Side on Desktop) */}
       <WorkAndSkills />
+      
+      <TechRadar />
       
       <GithubGraph />
       
