@@ -91,16 +91,18 @@ export default function TechRadar() {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const PROXIMITY_RADIUS = 80; // pixels
+  const PROXIMITY_RADIUS_INNER = 40; // pixels for ring 0 (tighter)
+  const PROXIMITY_RADIUS_OUTER = 80; // pixels for rings 1-2
 
-  // Helper to position items
+  // Helper to position items with consistent rounding
   const getPosition = (ring: number, angle: number) => {
     // Ring radii: 0=15%, 1=35%, 2=48%
     const radius = ring === 0 ? 15 : ring === 1 ? 35 : 48; 
     const rad = (angle * Math.PI) / 180;
     const x = 50 + radius * Math.cos(rad);
     const y = 50 + radius * Math.sin(rad);
-    return { x: `${x}%`, y: `${y}%` };
+    // Round to 2 decimal places to prevent hydration mismatch
+    return { x: `${Math.round(x * 100) / 100}%`, y: `${Math.round(y * 100) / 100}%` };
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -118,7 +120,9 @@ export default function TechRadar() {
       const dy = e.clientY - rect.top - itemY;
       const distance = Math.sqrt(dx * dx + dy * dy);
       
-      return distance < PROXIMITY_RADIUS;
+      // Use different proximity radius based on ring
+      const proximityThreshold = item.ring === 0 ? PROXIMITY_RADIUS_INNER : PROXIMITY_RADIUS_OUTER;
+      return distance < proximityThreshold;
     });
 
     setActiveItem(closestItem?.name || null);
