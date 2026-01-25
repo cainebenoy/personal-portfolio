@@ -4,24 +4,87 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 // --- DATA ---
+const techRadarData = {
+  Adopt: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Express",
+    "Python",
+    "PostgreSQL",
+    "MongoDB",
+    "REST APIs",
+    "Git",
+    "GitHub",
+    "Docker",
+    "Vercel",
+    "Tailwind CSS",
+    "Arduino",
+    "Raspberry Pi",
+    "VS Code",
+    "Linux",
+  ],
+  Trial: [
+    "LangChain",
+    "LlamaIndex",
+    "Vector DBs",
+    "LLM APIs",
+    "AI agents",
+    "FastAPI",
+    "NestJS",
+    "tRPC",
+    "GraphQL",
+    "Prisma",
+    "Supabase",
+    "Rust",
+    "Go",
+    "Docker Compose",
+    "Kubernetes",
+    "Terraform",
+    "Flutter",
+    "React Native",
+    "WebSockets",
+    "MQTT",
+    "Hardhat",
+    "Solidity",
+    "GitHub Actions",
+  ],
+  Assess: [
+    "Small LLMs",
+    "On-device LLMs",
+    "Prod RAG patterns",
+    "Multi-agent systems",
+    "AI eval & guardrails",
+    "Quantum SDKs",
+    "Spatial/XR",
+    "WASM edge",
+    "Kafka",
+    "Serverless scale",
+    "Blockchain L2s",
+    "ZK proofs",
+    "Green infra",
+    "AI code assist",
+  ],
+};
+
+// Flatten data with auto-calculated angles
 const radarData = [
-  // ADOPT (Core Stack)
-  { name: "Next.js", ring: 0, angle: 45 },
-  { name: "TypeScript", ring: 0, angle: 135 },
-  { name: "Tailwind", ring: 0, angle: 225 },
-  { name: "Supabase", ring: 0, angle: 315 },
-  
-  // TRIAL (Experimenting)
-  { name: "AI Agents", ring: 1, angle: 20 },
-  { name: "Solidity", ring: 1, angle: 100 },
-  { name: "Three.js", ring: 1, angle: 190 },
-  { name: "Rust", ring: 1, angle: 280 },
-  
-  // ASSESS (Watching)
-  { name: "WebGPU", ring: 2, angle: 60 },
-  { name: "Bun", ring: 2, angle: 150 },
-  { name: "Spatial Comp.", ring: 2, angle: 250 },
-  { name: "ZK Proofs", ring: 2, angle: 340 },
+  ...techRadarData.Adopt.map((name, idx) => ({
+    name,
+    ring: 0,
+    angle: (idx / techRadarData.Adopt.length) * 360,
+  })),
+  ...techRadarData.Trial.map((name, idx) => ({
+    name,
+    ring: 1,
+    angle: (idx / techRadarData.Trial.length) * 360,
+  })),
+  ...techRadarData.Assess.map((name, idx) => ({
+    name,
+    ring: 2,
+    angle: (idx / techRadarData.Assess.length) * 360,
+  })),
 ];
 
 export default function TechRadar() {
@@ -39,8 +102,7 @@ export default function TechRadar() {
 
   return (
     <section id="radar" className="relative z-10 py-24 overflow-hidden">
-      <div className="mx-auto max-w-4xl px-4 text-center">
-        
+      <div className="mx-auto max-w-6xl px-4 text-center">
         <div className="mb-12">
           <h2 className="font-display text-4xl md:text-6xl text-ink">Tech Radar</h2>
           <p className="mt-2 font-hand text-xl text-gray-500">
@@ -49,10 +111,9 @@ export default function TechRadar() {
         </div>
 
         {/* The Radar Container */}
-        <div className="relative aspect-square max-w-[600px] mx-auto">
-          
+        <div className="relative aspect-square max-w-[900px] mx-auto">
           {/* Hand-Drawn Rings (SVG) */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none animate-spin-slow [animation-duration:60s]" viewBox="0 0 100 100">
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
             {/* Ring 1 (Adopt) */}
             <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.3" className="text-ink opacity-30" strokeDasharray="4 2" />
             {/* Ring 2 (Trial) */}
@@ -84,20 +145,24 @@ export default function TechRadar() {
                 onMouseLeave={() => setActiveItem(null)}
               >
                 {/* The Blip */}
-                <div className={cn(
-                  "w-3 h-3 rounded-full border-2 transition-all duration-300 cursor-none",
-                  item.ring === 0 ? "bg-ink border-ink" : 
-                  item.ring === 1 ? "bg-highlight border-highlight" : 
-                  "bg-white border-gray-400",
-                  isHovered ? "scale-150" : "scale-100"
-                )} />
+                <div
+                  className={cn(
+                    "w-2 h-2 rounded-full border transition-all duration-300 cursor-pointer",
+                    item.ring === 0 ? "bg-ink border-ink" : 
+                    item.ring === 1 ? "bg-highlight border-highlight" : 
+                    "bg-white border-gray-400",
+                    isHovered ? "scale-200 shadow-lg" : "scale-100"
+                  )}
+                />
 
                 {/* The Label */}
-                <div className={cn(
-                  "absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap font-hand text-lg transition-all duration-300 z-20",
-                  isHovered ? "opacity-100 translate-x-2 text-ink scale-110" : "opacity-0 scale-90 pointer-events-none"
-                )}>
-                  <span className="bg-white/80 backdrop-blur-sm px-2 py-1 rounded shadow-sm border border-gray-100">
+                <div
+                  className={cn(
+                    "absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap font-hand text-sm transition-all duration-300 z-20 pointer-events-none",
+                    isHovered ? "opacity-100 translate-x-2 text-ink scale-110" : "opacity-0 scale-90"
+                  )}
+                >
+                  <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded shadow-md border border-gray-200">
                     {item.name}
                   </span>
                 </div>
@@ -110,13 +175,13 @@ export default function TechRadar() {
         {/* Legend */}
         <div className="mt-12 flex justify-center gap-8 font-code text-xs text-gray-500">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-ink" /> Core
+            <span className="w-2 h-2 rounded-full bg-ink" /> Adopt ({techRadarData.Adopt.length})
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-highlight" /> Learning
+            <span className="w-2 h-2 rounded-full bg-highlight" /> Trial ({techRadarData.Trial.length})
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full border border-gray-400" /> Watching
+            <span className="w-2 h-2 rounded-full border border-gray-400" /> Assess ({techRadarData.Assess.length})
           </div>
         </div>
 
