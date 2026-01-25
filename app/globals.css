@@ -3,10 +3,23 @@
 @tailwind utilities;
 
 :root {
+  /* Sketch Mode (Light) */
   --paper: #f4f1ea;
   --ink: #2b2b2b;
   --highlight: #ff4757;
   --blue-ink: #2f3542;
+  --canvas-color: rgba(75, 78, 83, 0.8);
+  --canvas-bg: rgba(255, 255, 255, 0);
+}
+
+html[data-theme="blueprint"] {
+  /* Blueprint Mode (Dark) */
+  --paper: #1a1f2e;
+  --ink: #e8e8e8;
+  --highlight: #ff6b35;
+  --blue-ink: #5a7cfa;
+  --canvas-color: rgba(90, 124, 250, 0.7);
+  --canvas-bg: rgba(26, 31, 46, 0);
 }
 
 body {
@@ -16,6 +29,7 @@ body {
   overflow-x: hidden;
   -webkit-user-select: none; /* Safari Support */
   user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .writing-vertical-rl { writing-mode: vertical-rl; }

@@ -127,12 +127,14 @@ export default function InkCanvas() {
           const t = Math.min(smoothedSpeed / speedForThinnest, 1);
           const dynamicWidth = maxWidth - (maxWidth - minWidth) * t;
 
-          // Graphite-ish color: dark gray with a bit of softness
-          ctx.strokeStyle = "rgba(75, 78, 83, 0.8)";
+          // Get color from CSS variables (theme-aware)
+          const canvasColor = getComputedStyle(document.documentElement).getPropertyValue('--canvas-color').trim();
+          ctx.strokeStyle = canvasColor || "rgba(75, 78, 83, 0.8)";
           ctx.lineWidth = dynamicWidth;
         } else {
           // First few points: use the "slow" fat size
-          ctx.strokeStyle = "rgba(75, 78, 83, 0.8)";
+          const canvasColor = getComputedStyle(document.documentElement).getPropertyValue('--canvas-color').trim();
+          ctx.strokeStyle = canvasColor || "rgba(75, 78, 83, 0.8)";
           ctx.lineWidth = 5.0;
         }
 

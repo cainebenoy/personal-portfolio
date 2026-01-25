@@ -21,7 +21,13 @@ export default function CommandPalette() {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
-  const { toggleTheme } = useAppStore(); // Assuming you kept the store from earlier
+  const { toggleTheme } = useAppStore();
+
+  const handleThemeToggle = () => {
+    toggleTheme();
+    const newTheme = useAppStore.getState().theme;
+    localStorage.setItem('theme-preference', newTheme);
+  };
 
   const actions: Action[] = [
     // Navigation
@@ -36,7 +42,7 @@ export default function CommandPalette() {
         icon: Moon, 
         group: "Actions", 
         shortcut: "T",
-        action: () => toggleTheme() 
+        action: () => handleThemeToggle() 
     },
     { 
         id: "act-copy", 

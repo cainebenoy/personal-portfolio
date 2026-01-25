@@ -1,11 +1,29 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useScroll } from "framer-motion";
 import * as THREE from "three";
+import { useAppStore } from "@/lib/useAppStore";
 
 function Scene() {
+  const theme = useAppStore((state) => state.theme);
+  
+  const colors = useMemo(() => {
+    return theme === "blueprint"
+      ? {
+          wireframe: "#5a7cfa",
+          torus: "#ff6b35",
+          cyan: "#00d9ff",
+          orange: "#ffa500",
+        }
+      : {
+          wireframe: "#000000",
+          torus: "#ff4757",
+          cyan: "#00d9ff",
+          orange: "#ffa500",
+        };
+  }, [theme]);
   const groupRef = useRef<THREE.Group>(null);
   const icoRef = useRef<THREE.Mesh>(null);
   const torusRef = useRef<THREE.Mesh>(null);
@@ -53,7 +71,7 @@ function Scene() {
       <mesh ref={icoRef} position={[4, 2, 0]} scale={[2.2, 2.2, 2.2]}>
         <icosahedronGeometry args={[1, 1]} />
         <meshBasicMaterial 
-          color="#000000" 
+          color={colors.wireframe} 
           wireframe 
           transparent 
           opacity={0.25} 
@@ -64,7 +82,7 @@ function Scene() {
       <mesh ref={torusRef} position={[-4, -2, -2]} rotation={[1.5, 0, 0]}>
         <torusGeometry args={[1.6, 0.08, 16, 100]} />
         <meshBasicMaterial 
-          color="#ff4757" 
+          color={colors.torus} 
           wireframe 
           transparent 
           opacity={0.35} 
@@ -75,7 +93,7 @@ function Scene() {
       <mesh ref={octRef} position={[0, -3, -1]} scale={[2, 2, 2]}>
         <octahedronGeometry args={[1, 1]} />
         <meshBasicMaterial 
-          color="#00d9ff" 
+          color={colors.cyan} 
           wireframe 
           transparent 
           opacity={0.28} 
@@ -86,7 +104,7 @@ function Scene() {
       <mesh ref={tetraRef} position={[-2.5, 2, -1.5]} scale={[2, 2, 2]}>
         <tetrahedronGeometry args={[1, 2]} />
         <meshBasicMaterial 
-          color="#ffa500" 
+          color={colors.orange} 
           wireframe 
           transparent 
           opacity={0.3} 
