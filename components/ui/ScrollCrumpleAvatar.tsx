@@ -118,90 +118,96 @@ export default function ScrollCrumpleAvatar() {
         rotation = p * 220;
       }
 
-      ctx.scale(scale, scale);
+      // Scale avatar to 1/4 size (0.25)
+      ctx.scale(scale * 0.25, scale * 0.25);
       ctx.rotate((rotation * Math.PI) / 180);
       ctx.drawImage(currentImg, -currentImg.naturalWidth / 2, -currentImg.naturalHeight / 2);
 
-      // --- C. DRAW FUN DOODLES (hand-drawn aesthetic) ---
+      ctx.restore();
+
+      // --- C. DRAW DOODLES AROUND THE AVATAR (not on it) ---
+      ctx.restore(); // Restore from crumple transforms first
+      
       const w = currentImg.naturalWidth / dpr;
       const h = currentImg.naturalHeight / dpr;
-      const wiggle = Math.sin(percent * 10) * 8; // Subtle alive movement
+      const wiggle = Math.sin(percent * 10) * 8;
+      const canvasW = canvas.width / dpr;
+      const canvasCx = canvasW / 2;
+      const canvasH = canvas.height / dpr;
+      const canvasCy = canvasH / 2;
 
-      ctx.fillStyle = "rgba(43, 43, 43, 0.7)";
-      ctx.strokeStyle = "rgba(43, 43, 43, 0.7)";
+      ctx.fillStyle = "rgba(43, 43, 43, 0.6)";
+      ctx.strokeStyle = "rgba(43, 43, 43, 0.6)";
       ctx.lineWidth = 2.5;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
-      // 1. Left side: "</> CODE" tag with hand-drawn feel
-      ctx.font = "bold 32px monospace";
-      ctx.fillStyle = "rgba(43, 43, 43, 0.6)";
-      ctx.fillText("<code>", -w * 0.35 + wiggle, -h * 0.25);
+      // 1. Left side: "</> CODE" tag
+      ctx.font = "bold 40px monospace";
+      ctx.fillText("<CODE>", canvasCx - (w * 0.25) - 100 + wiggle, canvasCy - 80);
       
-      // 2. Right side: Arrow annotation
-      const arrowX = w * 0.28;
-      const arrowY = -h * 0.2 + wiggle;
-      ctx.strokeStyle = "rgba(255, 71, 87, 0.5)";
-      ctx.lineWidth = 2;
+      // 2. Top right: Arrow pointing to avatar head
+      const arrowX = canvasCx + (w * 0.15) + 80;
+      const arrowY = canvasCy - (h * 0.25) - 60 + wiggle;
+      ctx.strokeStyle = "rgba(255, 71, 87, 0.7)";
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.moveTo(arrowX - 30, arrowY);
-      ctx.lineTo(arrowX - 80, arrowY + 60);
+      ctx.moveTo(arrowX - 40, arrowY);
+      ctx.lineTo(arrowX - 100, arrowY + 50);
       ctx.stroke();
       // Arrowhead
       ctx.beginPath();
-      ctx.moveTo(arrowX - 80, arrowY + 60);
-      ctx.lineTo(arrowX - 75, arrowY + 50);
-      ctx.lineTo(arrowX - 85, arrowY + 55);
+      ctx.moveTo(arrowX - 100, arrowY + 50);
+      ctx.lineTo(arrowX - 93, arrowY + 38);
+      ctx.lineTo(arrowX - 108, arrowY + 45);
       ctx.fill();
-      
-      // Arrow label
-      ctx.fillStyle = "rgba(43, 43, 43, 0.6)";
-      ctx.font = "italic 24px monospace";
-      ctx.fillText("thinking...", arrowX + 20, arrowY - 15);
+      ctx.fillStyle = "rgba(255, 71, 87, 0.7)";
+      ctx.font = "italic 26px monospace";
+      ctx.fillText("building", arrowX + 10, arrowY - 20);
 
-      // 3. Bottom left: Geometric doodles (squares & circles)
+      // 3. Bottom left: Geometric doodles
       ctx.strokeStyle = "rgba(43, 43, 43, 0.5)";
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 3;
+      const doodleX = canvasCx - (w * 0.2) - 120;
+      const doodleY = canvasCy + (h * 0.2) + 60;
       // Square
-      ctx.strokeRect(-w * 0.38, h * 0.15 + wiggle, 50, 50);
+      ctx.strokeRect(doodleX - 30, doodleY + wiggle, 60, 60);
       // Circle
       ctx.beginPath();
-      ctx.arc(-w * 0.25, h * 0.28 - wiggle, 28, 0, Math.PI * 2);
+      ctx.arc(doodleX + 90, doodleY + 30 - wiggle, 30, 0, Math.PI * 2);
       ctx.stroke();
       // Triangle
       ctx.beginPath();
-      ctx.moveTo(-w * 0.15, h * 0.35);
-      ctx.lineTo(-w * 0.05, h * 0.15 + wiggle);
-      ctx.lineTo(-w * 0.02, h * 0.35);
+      ctx.moveTo(doodleX + 200, doodleY + 60);
+      ctx.lineTo(doodleX + 240, doodleY);
+      ctx.lineTo(doodleX + 280, doodleY + 60);
       ctx.closePath();
       ctx.stroke();
 
-      // 4. Top right: "MAKER" stamp (hand-drawn style)
+      // 4. Bottom right: "MAKER" stamp
       ctx.save();
-      ctx.translate(w * 0.32, -h * 0.28);
-      ctx.rotate(-0.15 + (wiggle * 0.002));
-      ctx.strokeStyle = "rgba(255, 71, 87, 0.6)";
+      ctx.translate(canvasCx + (w * 0.22) + 100, canvasCy + (h * 0.2) + 50);
+      ctx.rotate(-0.2 + (wiggle * 0.002));
+      ctx.strokeStyle = "rgba(255, 71, 87, 0.7)";
       ctx.lineWidth = 3;
-      // Stamp border
       ctx.beginPath();
-      ctx.ellipse(0, 0, 70, 35, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, 80, 40, 0, 0, Math.PI * 2);
       ctx.stroke();
-      ctx.fillStyle = "rgba(255, 71, 87, 0.5)";
-      ctx.font = "bold 28px monospace";
+      ctx.fillStyle = "rgba(255, 71, 87, 0.6)";
+      ctx.font = "bold 32px monospace";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText("MAKER", 0, 0);
       ctx.restore();
 
-      // 5. Bottom right: Stack of tech tags
-      ctx.fillStyle = "rgba(43, 43, 43, 0.5)";
-      ctx.font = "bold 20px monospace";
+      // 5. Top left: Tech tags stack
+      ctx.fillStyle = "rgba(43, 43, 43, 0.6)";
+      ctx.font = "bold 24px monospace";
       ctx.textAlign = "left";
-      ctx.fillText("React", w * 0.2, h * 0.3 + wiggle);
-      ctx.fillText("Next.js", w * 0.2, h * 0.36 + wiggle * 0.5);
-      ctx.fillText("Canvas", w * 0.2, h * 0.42 - wiggle * 0.3);
-
-      ctx.restore();
+      const tagX = canvasCx - (w * 0.25) - 80;
+      ctx.fillText("React", tagX, canvasCy - (h * 0.2) - 30 + wiggle);
+      ctx.fillText("Next.js", tagX, canvasCy - (h * 0.15) + wiggle * 0.5);
+      ctx.fillText("Canvas", tagX, canvasCy - (h * 0.1) - wiggle * 0.3);
     }
   }, [percent, images, loaded]);
 
