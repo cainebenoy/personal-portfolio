@@ -49,10 +49,20 @@ export default function Preloader() {
       ease: "back.out(1.5)",
     }, 1.2);
 
-    // Phase 5: Make wipe overlay visible and position it at the i-dot
-    tl.set("#wipe-overlay", {
-      opacity: 1,
-    }, 2.0);
+    // Phase 5: Position wipe overlay at i-dot location and make visible
+    tl.call(() => {
+      const iDot = document.getElementById("i-dot");
+      const wipeOverlay = document.getElementById("wipe-overlay");
+      if (iDot && wipeOverlay) {
+        const rect = iDot.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        wipeOverlay.style.left = `${centerX}px`;
+        wipeOverlay.style.top = `${centerY}px`;
+        wipeOverlay.style.opacity = "1";
+      }
+    }, [], 2.0);
 
     // Phase 6: Expand the wipe overlay to fill screen (creates zoom-in effect)
     tl.to("#wipe-overlay", {
@@ -143,12 +153,10 @@ export default function Preloader() {
         {/* Expanding dot overlay for wipe effect */}
         <div 
           id="wipe-overlay"
-          className="absolute bg-paper rounded-full pointer-events-none"
+          className="fixed bg-paper rounded-full pointer-events-none"
           style={{
             width: '1px',
             height: '1px',
-            top: '50%',
-            left: '50%',
             transform: 'translate(-50%, -50%)',
             zIndex: 9998,
             opacity: 0,
