@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import ProjectCard from "@/components/ui/ProjectCard";
+import ProjectModal from "@/components/ui/ProjectModal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,6 +71,7 @@ const projects = [
 
 export default function WorkAndSkills() {
   const [highlightedSkills, setHighlightedSkills] = useState<string[]>([]);
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Random float animation for skills
@@ -146,8 +148,9 @@ export default function WorkAndSkills() {
                 )}
                 onMouseEnter={() => setHighlightedSkills(project.tags)}
                 onMouseLeave={() => setHighlightedSkills([])}
+                onClick={() => setSelectedProject(project)}
               >
-                <div className="relative group">
+                <div className="relative group cursor-pointer">
                     {/* Connection Line (Visual Connector) */}
                     <div className={cn(
                         "hidden lg:block absolute top-1/2 -left-32 w-32 h-[2px] bg-highlight origin-right transition-all duration-300",
@@ -165,6 +168,13 @@ export default function WorkAndSkills() {
 
         </div>
       </div>
+      
+      {/* Project Modal */}
+      <ProjectModal 
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+        project={selectedProject}
+      />
     </section>
   );
 }

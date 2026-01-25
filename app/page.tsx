@@ -3,6 +3,8 @@ import InkCanvas from "@/components/canvas/InkCanvas";
 import CustomCursor from "@/components/ui/CustomCursor";
 import Navigation from "@/components/ui/Navigation";
 import CommandPalette from "@/components/ui/CommandPalette";
+import Preloader from "@/components/ui/Preloader";
+import ThemeInit from "@/components/logic/ThemeInit";
 import Marquee from "@/components/ui/Marquee";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
@@ -21,6 +23,10 @@ import ScratchManifesto from "@/components/sections/ScratchManifesto";
 export default function Home() {
   return (
     <main className="relative min-h-screen">
+      {/* Preloader & Theme Init */}
+      <Preloader />
+      <ThemeInit />
+      
       {/* Background Layers */}
       <SketchCanvas />
       <InkCanvas />
