@@ -134,15 +134,23 @@ export default function ContactFooter() {
           <div
             key={strip.id}
             className={cn(
-              "tear-strip bg-white border-l-2 border-r-2 border-gray-100 writing-vertical-rl p-3 md:p-5 cursor-none transition-all duration-300 font-code text-[10px] md:text-xs shadow-paper",
+              "tear-strip bg-white border-l-2 border-r-2 border-gray-100 writing-vertical-rl p-3 md:p-5 cursor-pointer transition-all duration-300 font-code text-[10px] md:text-xs shadow-paper",
               "hover:translate-y-4 hover:text-highlight hover:z-20",
-              tornIds.includes(strip.id) ? "animate-tear opacity-0 pointer-events-none" : "opacity-100",
+              tornIds.includes(strip.id) ? "animate-tear opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto",
               i % 2 === 0 ? "translate-y-1" : "-translate-y-1",
               strip.color
             )}
             onClick={(e) => {
+                e.stopPropagation();
                 const rect = e.currentTarget.getBoundingClientRect();
                 handleInteraction(strip, rect);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.stopPropagation();
+                const rect = e.currentTarget.getBoundingClientRect();
+                handleInteraction(strip, rect);
+              }
             }}
             role="button"
             tabIndex={0}
