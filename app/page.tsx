@@ -8,6 +8,7 @@ import Preloader from "@/components/ui/Preloader";
 import ThemeInit from "@/components/logic/ThemeInit";
 import Marquee from "@/components/ui/Marquee";
 import Hero from "@/components/sections/Hero";
+import ScrollCrumpleAvatar from "@/components/ui/ScrollCrumpleAvatar";
 import Services from "@/components/sections/Services";
 import WorkAndSkills from "@/components/sections/WorkAndSkills";
 import TechRadar from "@/components/sections/TechRadar";
@@ -40,6 +41,7 @@ export default function Home() {
       
       {/* Content Flow */}
       <Hero />
+      <ScrollCrumpleAvatar />
       <Marquee />
       <Services />
       
