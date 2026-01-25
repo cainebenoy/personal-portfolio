@@ -109,7 +109,7 @@ export default function ContactFooter() {
   };
 
   return (
-    <section id="contact" className="relative z-10 min-h-[60vh] flex flex-col justify-end pb-0 overflow-hidden">
+    <section id="contact" className="relative z-10 min-h-[60vh] flex flex-col justify-end pb-0">
       
       {/* Toast */}
       {toast && (

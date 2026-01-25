@@ -23,31 +23,31 @@ export default function Preloader() {
       } else {
         clearInterval(typingInterval);
       }
-    }, 150);
+    }, 120);
 
     // Phase 2: Cursor blink animation
     if (cursorRef.current) {
       tl.to(cursorRef.current, {
         opacity: 0,
-        duration: 0.4,
+        duration: 0.3,
         repeat: -1,
         yoyo: true,
-        ease: "power1.inOut",
+        ease: "sine.inOut",
       }, 0);
     }
 
     // Phase 3: Stop cursor blink and fade it out
     tl.to(cursorRef.current, {
       opacity: 0,
-      duration: 0.5,
-      ease: "power2.out",
+      duration: 0.4,
+      ease: "sine.out",
     }, 1.8);
 
     // Phase 4: Scale up text slightly
     tl.to("#typed-name", {
       scale: 1.15,
-      duration: 0.6,
-      ease: "power2.out",
+      duration: 0.5,
+      ease: "sine.out",
     }, 1.5);
 
     // Phase 5: Position wipe overlay at i-dot location and make visible
@@ -69,16 +69,16 @@ export default function Preloader() {
     tl.to("#wipe-overlay", {
       width: "400vw",
       height: "400vh",
-      duration: 1.6,
-      ease: "power3.inOut",
+      duration: 1.5,
+      ease: "sine.inOut",
     }, 2.2);
 
     // Phase 7: Fade out the entire preloader
     tl.to("#preloader-container", {
       opacity: 0,
-      duration: 1.0,
-      ease: "power2.out",
-    }, 3.4);
+      duration: 0.8,
+      ease: "sine.out",
+    }, 3.35);
 
     // Phase 8: Set display none after fade
     tl.set("#preloader-container", {
