@@ -125,94 +125,100 @@ export default function ScrollCrumpleAvatar() {
 
       ctx.restore();
 
-      // --- C. DRAW DOODLES AROUND THE AVATAR (not on it) ---
-      ctx.restore(); // Restore from crumple transforms first
-      
+      // --- D. DRAW FUN ELEMENTS (The Doodles) - Around the avatar ---
       const w = currentImg.naturalWidth / dpr;
       const h = currentImg.naturalHeight / dpr;
-      const wiggle = Math.sin(percent * 10) * 8;
-      const canvasW = canvas.width / dpr;
-      const canvasCx = canvasW / 2;
-      const canvasH = canvas.height / dpr;
-      const canvasCy = canvasH / 2;
+      const wiggle = Math.sin(percent * 15) * 5; // Fast jitter
+      const float = Math.sin(percent * 5) * 10;  // Slow float
 
-      ctx.fillStyle = "rgba(43, 43, 43, 0.5)";
-      ctx.strokeStyle = "rgba(43, 43, 43, 0.5)";
-      ctx.lineWidth = 2;
+      ctx.save(); // Isolate doodle styles
+
+      // Common Doodle Style (Pencil)
+      ctx.strokeStyle = "rgba(30, 30, 30, 0.8)"; 
+      ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.lineWidth = 3;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
+      ctx.font = "bold 24px monospace"; 
 
-      // Top left: Curved connectors with dots
-      const tl1X = canvasCx - (w * 0.4) - 60;
-      const tl1Y = canvasCy - (h * 0.35) - 100;
+      // 1. "NOT A BUG" Tag (Top Left - Pointing to Head)
+      ctx.save();
+      ctx.translate(-w * 0.25, -h * 0.35 + float);
+      ctx.rotate(-0.1);
+      // Box
+      ctx.strokeRect(0, 0, 160, 50); 
+      ctx.fillText("NOT A BUG", 15, 32);
+      // Arrow pointing to head
       ctx.beginPath();
-      ctx.moveTo(tl1X, tl1Y);
-      ctx.quadraticCurveTo(tl1X - 40, tl1Y - 40, tl1X - 80, tl1Y - 20);
+      ctx.moveTo(160, 25);
+      ctx.quadraticCurveTo(200, 25, 220, 80); // Curved line to image center area
       ctx.stroke();
-      ctx.fillRect(tl1X - 85, tl1Y - 25, 8, 8); // endpoint dot
-      ctx.fillRect(tl1X - 5, tl1Y - 5, 8, 8); // startpoint dot
-
-      // Top right: Wavy line
-      const tr1X = canvasCx + (w * 0.4) + 60;
-      const tr1Y = canvasCy - (h * 0.3) - 80 + wiggle;
-      ctx.strokeStyle = "rgba(255, 71, 87, 0.5)";
-      ctx.lineWidth = 2.5;
+      // Arrowhead
       ctx.beginPath();
-      for (let i = 0; i <= 5; i++) {
-        const x = tr1X - (i * 30);
-        const y = tr1Y + Math.sin(i * 0.6) * 20;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+      ctx.moveTo(220, 80);
+      ctx.lineTo(210, 65);
+      ctx.moveTo(220, 80);
+      ctx.lineTo(200, 75);
+      ctx.stroke();
+      ctx.restore();
+
+      // 2. "Caffeine" Formula (Bottom Right)
+      ctx.save();
+      ctx.translate(w * 0.3, h * 0.25 + wiggle);
+      ctx.rotate(0.1);
+      ctx.font = "bold 30px sans-serif";
+      ctx.fillText("C₈H₁₀N₄O₂", 0, 0); // Caffeine molecule
+      ctx.font = "italic 16px serif";
+      ctx.fillText("(Fuel Source)", 10, 20);
+      // Underline
+      ctx.beginPath();
+      ctx.moveTo(-10, 25);
+      ctx.bezierCurveTo(50, 35, 100, 15, 140, 25);
+      ctx.stroke();
+      ctx.restore();
+
+      // 3. Infinite Loop (Bottom Left)
+      ctx.save();
+      ctx.translate(-w * 0.35, h * 0.2);
+      ctx.font = "20px monospace";
+      ctx.fillStyle = "#c0392b"; // Red pen correction
+      ctx.fillText("while(alive) {", 0, 0);
+      ctx.fillText("  build();", 20, 25);
+      ctx.fillText("}", 0, 50);
+      ctx.restore();
+
+      // 4. "404" Sticker (Top Right)
+      ctx.save();
+      ctx.translate(w * 0.3, -h * 0.3 + float);
+      ctx.rotate(0.2);
+      // Circle sticker
+      ctx.beginPath();
+      ctx.arc(0, 0, 40, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 255, 0, 0.3)"; // Highlighter yellow highlight
+      ctx.fill();
+      ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.stroke();
+      ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.fillText("404", -20, 10);
+      ctx.font = "12px monospace";
+      ctx.fillText("SLEEP NOT FOUND", -50, 30);
+      ctx.restore();
+
+      // 5. Messy Scribble (Background Texture)
+      ctx.save();
+      ctx.translate(-w * 0.1, h * 0.4);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      // Draw a messy spring
+      for(let i=0; i<10; i++) {
+          ctx.quadraticCurveTo(10 + i*5, -20, 20 + i*5, 0);
+          ctx.quadraticCurveTo(30 + i*5, 20, 40 + i*5, 0);
       }
+      ctx.strokeStyle = "rgba(0,0,0,0.2)";
       ctx.stroke();
+      ctx.restore();
 
-      // Left: Scattered small circles in a column
-      const leftX = canvasCx - (w * 0.45) - 140;
-      ctx.strokeStyle = "rgba(43, 43, 43, 0.4)";
-      ctx.lineWidth = 1.5;
-      for (let i = 0; i < 4; i++) {
-        ctx.beginPath();
-        ctx.arc(leftX, canvasCy - 50 + (i * 35) + wiggle * (i % 2 === 0 ? 1 : -1), 5, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      // Right: Minimal bracket design
-      const rightX = canvasCx + (w * 0.42) + 150;
-      const rightY = canvasCy + (h * 0.2) + 60;
-      ctx.strokeStyle = "rgba(255, 71, 87, 0.4)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(rightX, rightY - 40);
-      ctx.lineTo(rightX - 20, rightY - 40);
-      ctx.lineTo(rightX - 20, rightY + 40);
-      ctx.lineTo(rightX, rightY + 40);
-      ctx.stroke();
-
-      // Bottom left: Dashed line with label
-      const blX = canvasCx - (w * 0.35) - 100;
-      const blY = canvasCy + (h * 0.4) + 80;
-      ctx.strokeStyle = "rgba(43, 43, 43, 0.4)";
-      ctx.setLineDash([5, 5]);
-      ctx.beginPath();
-      ctx.moveTo(blX - 60, blY);
-      ctx.lineTo(blX + 60, blY);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = "rgba(43, 43, 43, 0.5)";
-      ctx.font = "italic 16px monospace";
-      ctx.textAlign = "center";
-      ctx.fillText("code", blX, blY - 15);
-
-      // Bottom right: Minimal "✓" checkmark
-      const brX = canvasCx + (w * 0.35) + 120;
-      const brY = canvasCy + (h * 0.38) + 70;
-      ctx.strokeStyle = "rgba(255, 71, 87, 0.5)";
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(brX - 15, brY);
-      ctx.lineTo(brX - 5, brY + 10);
-      ctx.lineTo(brX + 20, brY - 15);
-      ctx.stroke();
+      ctx.restore(); // Restore context
     }
   }, [percent, images, loaded]);
 
