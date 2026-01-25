@@ -118,8 +118,8 @@ export default function ScrollCrumpleAvatar() {
         rotation = p * 220;
       }
 
-      // Scale avatar to 3/4 size (0.75)
-      ctx.scale(scale * 0.75, scale * 0.75);
+      // Scale avatar to 0.6 size
+      ctx.scale(scale * 0.6, scale * 0.6);
       ctx.rotate((rotation * Math.PI) / 180);
       ctx.drawImage(currentImg, -currentImg.naturalWidth / 2, -currentImg.naturalHeight / 2);
 
@@ -136,78 +136,83 @@ export default function ScrollCrumpleAvatar() {
       const canvasH = canvas.height / dpr;
       const canvasCy = canvasH / 2;
 
-      ctx.fillStyle = "rgba(43, 43, 43, 0.6)";
-      ctx.strokeStyle = "rgba(43, 43, 43, 0.6)";
-      ctx.lineWidth = 2.5;
+      ctx.fillStyle = "rgba(43, 43, 43, 0.5)";
+      ctx.strokeStyle = "rgba(43, 43, 43, 0.5)";
+      ctx.lineWidth = 2;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
-      // 1. Left side: "</> CODE" tag
-      ctx.font = "bold 40px monospace";
-      ctx.fillText("<CODE>", canvasCx - (w * 0.25) - 100 + wiggle, canvasCy - 80);
-      
-      // 2. Top right: Arrow pointing to avatar head
-      const arrowX = canvasCx + (w * 0.15) + 80;
-      const arrowY = canvasCy - (h * 0.25) - 60 + wiggle;
-      ctx.strokeStyle = "rgba(255, 71, 87, 0.7)";
+      // Top left: Curved connectors with dots
+      const tl1X = canvasCx - (w * 0.4) - 60;
+      const tl1Y = canvasCy - (h * 0.35) - 100;
+      ctx.beginPath();
+      ctx.moveTo(tl1X, tl1Y);
+      ctx.quadraticCurveTo(tl1X - 40, tl1Y - 40, tl1X - 80, tl1Y - 20);
+      ctx.stroke();
+      ctx.fillRect(tl1X - 85, tl1Y - 25, 8, 8); // endpoint dot
+      ctx.fillRect(tl1X - 5, tl1Y - 5, 8, 8); // startpoint dot
+
+      // Top right: Wavy line
+      const tr1X = canvasCx + (w * 0.4) + 60;
+      const tr1Y = canvasCy - (h * 0.3) - 80 + wiggle;
+      ctx.strokeStyle = "rgba(255, 71, 87, 0.5)";
       ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.moveTo(arrowX - 40, arrowY);
-      ctx.lineTo(arrowX - 100, arrowY + 50);
-      ctx.stroke();
-      // Arrowhead
-      ctx.beginPath();
-      ctx.moveTo(arrowX - 100, arrowY + 50);
-      ctx.lineTo(arrowX - 93, arrowY + 38);
-      ctx.lineTo(arrowX - 108, arrowY + 45);
-      ctx.fill();
-      ctx.fillStyle = "rgba(255, 71, 87, 0.7)";
-      ctx.font = "italic 26px monospace";
-      ctx.fillText("building", arrowX + 10, arrowY - 20);
-
-      // 3. Bottom left: Geometric doodles
-      ctx.strokeStyle = "rgba(43, 43, 43, 0.5)";
-      ctx.lineWidth = 3;
-      const doodleX = canvasCx - (w * 0.2) - 120;
-      const doodleY = canvasCy + (h * 0.2) + 60;
-      // Square
-      ctx.strokeRect(doodleX - 30, doodleY + wiggle, 60, 60);
-      // Circle
-      ctx.beginPath();
-      ctx.arc(doodleX + 90, doodleY + 30 - wiggle, 30, 0, Math.PI * 2);
-      ctx.stroke();
-      // Triangle
-      ctx.beginPath();
-      ctx.moveTo(doodleX + 200, doodleY + 60);
-      ctx.lineTo(doodleX + 240, doodleY);
-      ctx.lineTo(doodleX + 280, doodleY + 60);
-      ctx.closePath();
+      for (let i = 0; i <= 5; i++) {
+        const x = tr1X - (i * 30);
+        const y = tr1Y + Math.sin(i * 0.6) * 20;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
       ctx.stroke();
 
-      // 4. Bottom right: "MAKER" stamp
-      ctx.save();
-      ctx.translate(canvasCx + (w * 0.22) + 100, canvasCy + (h * 0.2) + 50);
-      ctx.rotate(-0.2 + (wiggle * 0.002));
-      ctx.strokeStyle = "rgba(255, 71, 87, 0.7)";
-      ctx.lineWidth = 3;
+      // Left: Scattered small circles in a column
+      const leftX = canvasCx - (w * 0.45) - 140;
+      ctx.strokeStyle = "rgba(43, 43, 43, 0.4)";
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.arc(leftX, canvasCy - 50 + (i * 35) + wiggle * (i % 2 === 0 ? 1 : -1), 5, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Right: Minimal bracket design
+      const rightX = canvasCx + (w * 0.42) + 150;
+      const rightY = canvasCy + (h * 0.2) + 60;
+      ctx.strokeStyle = "rgba(255, 71, 87, 0.4)";
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.ellipse(0, 0, 80, 40, 0, 0, Math.PI * 2);
+      ctx.moveTo(rightX, rightY - 40);
+      ctx.lineTo(rightX - 20, rightY - 40);
+      ctx.lineTo(rightX - 20, rightY + 40);
+      ctx.lineTo(rightX, rightY + 40);
       ctx.stroke();
-      ctx.fillStyle = "rgba(255, 71, 87, 0.6)";
-      ctx.font = "bold 32px monospace";
+
+      // Bottom left: Dashed line with label
+      const blX = canvasCx - (w * 0.35) - 100;
+      const blY = canvasCy + (h * 0.4) + 80;
+      ctx.strokeStyle = "rgba(43, 43, 43, 0.4)";
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(blX - 60, blY);
+      ctx.lineTo(blX + 60, blY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "rgba(43, 43, 43, 0.5)";
+      ctx.font = "italic 16px monospace";
       ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("MAKER", 0, 0);
-      ctx.restore();
+      ctx.fillText("code", blX, blY - 15);
 
-      // 5. Top left: Tech tags stack
-      ctx.fillStyle = "rgba(43, 43, 43, 0.6)";
-      ctx.font = "bold 24px monospace";
-      ctx.textAlign = "left";
-      const tagX = canvasCx - (w * 0.25) - 80;
-      ctx.fillText("React", tagX, canvasCy - (h * 0.2) - 30 + wiggle);
-      ctx.fillText("Next.js", tagX, canvasCy - (h * 0.15) + wiggle * 0.5);
-      ctx.fillText("Canvas", tagX, canvasCy - (h * 0.1) - wiggle * 0.3);
+      // Bottom right: Minimal "✓" checkmark
+      const brX = canvasCx + (w * 0.35) + 120;
+      const brY = canvasCy + (h * 0.38) + 70;
+      ctx.strokeStyle = "rgba(255, 71, 87, 0.5)";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(brX - 15, brY);
+      ctx.lineTo(brX - 5, brY + 10);
+      ctx.lineTo(brX + 20, brY - 15);
+      ctx.stroke();
     }
   }, [percent, images, loaded]);
 
