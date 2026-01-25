@@ -12,6 +12,9 @@ import {
 } from "next/font/google";
 import "./globals.css";
 
+// Rebuild trigger for Vercel deployment
+const BUILD_TIME = new Date().toISOString();
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const abril = Abril_Fatface({ weight: "400", subsets: ["latin"], variable: "--font-abril" });
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
