@@ -224,10 +224,10 @@ export default function TechRadar() {
                 <div
                   className={cn(
                     "absolute left-6 sm:left-8 top-1/2 -translate-y-1/2 whitespace-nowrap font-hand text-xs sm:text-sm transition-all duration-200 z-20 pointer-events-none",
-                    isHovered ? "opacity-100 translate-x-2 text-ink scale-110" : "opacity-0 scale-90"
+                    isHovered ? "opacity-100 translate-x-2 scale-110" : "opacity-0 scale-90"
                   )}
                 >
-                  <span className="bg-white/95 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-2 rounded shadow-lg border-2 border-ink font-medium text-[9px] sm:text-[11px]">
+                  <span className="theme-surface border border-ink text-ink px-2 sm:px-3 py-1 sm:py-2 rounded shadow-lg font-medium text-[9px] sm:text-[11px]">
                     {item.name}
                   </span>
                 </div>

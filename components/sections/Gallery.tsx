@@ -61,6 +61,10 @@ export default function Gallery() {
                   "border-4 border-ink shadow-lg",
                   "hover:z-50 hover:scale-100 hover:rotate-0 hover:shadow-2xl gallery-style"
                 )}
+                style={{
+                  transform: `translate(${style.x}%, ${style.y}%) rotate(${style.rotate}deg) scale(0.9)`,
+                  zIndex: style.zIndex,
+                }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
                   el.style.transform = `translate(${style.x}%, ${style.y}%) rotate(0deg) scale(1)`;
@@ -78,7 +82,7 @@ export default function Gallery() {
                     src={photo.src}
                     alt={photo.label}
                     className="w-full h-full object-cover"
-                    loading="lazy"
+                    loading="eager"
                     draggable={false}
                   />
                   

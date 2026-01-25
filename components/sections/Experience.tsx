@@ -77,7 +77,7 @@ export default function Experience() {
               <div className="absolute -left-[44px] top-0 h-5 w-5 rounded-full border-4 border-ink bg-paper transition-colors duration-300 group-hover:bg-highlight" />
               
               {/* Content */}
-              <span className="inline-block rounded bg-gray-200 px-2 py-1 font-code text-xs text-gray-700">
+              <span className="inline-block rounded border border-ink theme-surface px-2 py-1 font-code text-xs text-ink shadow-sm">
                 {exp.period}
               </span>
               <h3 className="mt-2 font-marker text-3xl text-ink">{exp.role}</h3>
