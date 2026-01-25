@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 // --- DATA ---
@@ -89,6 +89,9 @@ const radarData = [
 
 export default function TechRadar() {
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const PROXIMITY_RADIUS = 80; // pixels
 
   // Helper to position items
   const getPosition = (ring: number, angle: number) => {
@@ -98,6 +101,31 @@ export default function TechRadar() {
     const x = 50 + radius * Math.cos(rad);
     const y = 50 + radius * Math.sin(rad);
     return { x: `${x}%`, y: `${y}%` };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    
+    const rect = containerRef.current.getBoundingClientRect();
+
+    // Check proximity to all items
+    const closestItem = radarData.find((item) => {
+      const pos = getPosition(item.ring, item.angle);
+      const itemX = parseFloat(pos.x) / 100 * rect.width;
+      const itemY = parseFloat(pos.y) / 100 * rect.height;
+      
+      const dx = e.clientX - rect.left - itemX;
+      const dy = e.clientY - rect.top - itemY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      return distance < PROXIMITY_RADIUS;
+    });
+
+    setActiveItem(closestItem?.name || null);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveItem(null);
   };
 
   return (
@@ -110,8 +138,18 @@ export default function TechRadar() {
           </p>
         </div>
 
-        {/* The Radar Container */}
-        <div className="relative aspect-square max-w-[900px] mx-auto">
+        {/* The Radar Container with Background */}
+        <div 
+          ref={containerRef}
+          className="relative aspect-square max-w-[900px] mx-auto bg-paper shadow-lg border-4 border-ink rounded-lg overflow-hidden"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+          {/* Background texture */}
+          <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
+            backgroundImage: "url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\"><defs><pattern id=\"dots\" x=\"0\" y=\"0\" width=\"10\" height=\"10\" patternUnits=\"userSpaceOnUse\"><circle cx=\"5\" cy=\"5\" r=\"1\" fill=\"%23000\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23dots)\"/></svg>')"
+          }} />
+
           {/* Hand-Drawn Rings (SVG) */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
             {/* Ring 1 (Adopt) */}
@@ -141,28 +179,29 @@ export default function TechRadar() {
                 key={item.name}
                 className="absolute transform -translate-x-1/2 -translate-y-1/2 group"
                 style={{ left: pos.x, top: pos.y }}
-                onMouseEnter={() => setActiveItem(item.name)}
-                onMouseLeave={() => setActiveItem(null)}
               >
                 {/* The Blip */}
                 <div
                   className={cn(
-                    "w-2 h-2 rounded-full border transition-all duration-300 cursor-pointer",
+                    "w-5 h-5 rounded-full border-2 transition-all duration-200 cursor-pointer shadow-md",
                     item.ring === 0 ? "bg-ink border-ink" : 
                     item.ring === 1 ? "bg-highlight border-highlight" : 
                     "bg-white border-gray-400",
-                    isHovered ? "scale-200 shadow-lg" : "scale-100"
+                    isHovered ? "scale-150 shadow-xl" : "scale-100 hover:scale-125"
                   )}
+                  style={isHovered ? {
+                    boxShadow: item.ring === 0 ? '0 0 20px rgba(0,0,0,0.4)' : item.ring === 1 ? '0 0 20px rgba(255,203,5,0.4)' : '0 0 20px rgba(150,150,150,0.4)'
+                  } : {}}
                 />
 
                 {/* The Label */}
                 <div
                   className={cn(
-                    "absolute left-4 top-1/2 -translate-y-1/2 whitespace-nowrap font-hand text-sm transition-all duration-300 z-20 pointer-events-none",
+                    "absolute left-8 top-1/2 -translate-y-1/2 whitespace-nowrap font-hand text-sm transition-all duration-200 z-20 pointer-events-none",
                     isHovered ? "opacity-100 translate-x-2 text-ink scale-110" : "opacity-0 scale-90"
                   )}
                 >
-                  <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded shadow-md border border-gray-200">
+                  <span className="bg-white/95 backdrop-blur-sm px-3 py-2 rounded shadow-lg border-2 border-ink font-medium">
                     {item.name}
                   </span>
                 </div>
