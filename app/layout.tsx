@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Analytics } from '@vercel/analytics/next';
 import { 
   Inter, 
   Abril_Fatface, 
@@ -74,6 +75,7 @@ export default function RootLayout({
         </Script>
         <div className="paper-texture" />
         {children}
+        <Analytics />
       </body>
     </html>
   );
