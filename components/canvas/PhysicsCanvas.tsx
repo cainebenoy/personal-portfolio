@@ -160,5 +160,5 @@ export default function PhysicsCanvas() {
     };
   }, []);
 
-  return <div ref={sceneRef} className="fixed inset-0 z-20 pointer-events-none [&>canvas]:pointer-events-auto" />;
+  return <div ref={sceneRef} className="fixed inset-0 z-5 pointer-events-none [&>canvas]:pointer-events-auto" />;
 }
