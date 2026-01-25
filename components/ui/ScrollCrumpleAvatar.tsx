@@ -192,52 +192,21 @@ export default function ScrollCrumpleAvatar() {
       ctx.stroke();
       ctx.restore();
 
-      // 5. "Brain On Coffee" Icon
-      ctx.save();
-      ctx.translate(w * 0.05, -h * 0.12 + float * 0.4);
-      ctx.rotate(-0.04);
-      ctx.strokeStyle = "rgba(30, 30, 30, 0.9)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(-20, -10, -20, -30, 0, -32);
-      ctx.bezierCurveTo(20, -34, 30, -18, 22, -5);
-      ctx.bezierCurveTo(26, 10, 16, 22, 0, 20);
-      ctx.bezierCurveTo(-18, 22, -26, 8, -22, -2);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(28, -10);
-      ctx.lineTo(38, -20);
-      ctx.lineTo(34, -8);
-      ctx.lineTo(42, -2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(-30, -2);
-      ctx.lineTo(-40, -14);
-      ctx.lineTo(-36, -2);
-      ctx.lineTo(-44, 4);
-      ctx.stroke();
-      ctx.font = "12px monospace";
-      ctx.fillStyle = "rgba(30, 30, 30, 0.9)";
-      ctx.fillText("brain.on(coffee)", -36, 38);
-      ctx.restore();
-
       // 6. FPS/Ping HUD
       ctx.save();
       ctx.translate(w * 0.48 + 300, h * 0.08 + 300 + wiggle * 0.3);
       ctx.rotate(0.02);
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 3;
       ctx.beginPath();
-      ctx.roundRect(0, 0, 90, 50, 6);
+      ctx.roundRect(0, 0, 180, 100, 12);
       ctx.fill();
       ctx.stroke();
       ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.font = "11px monospace";
-      ctx.fillText("FPS: 144", 10, 18);
-      ctx.fillText("PING: 999ms", 10, 34);
+      ctx.font = "22px monospace";
+      ctx.fillText("FPS: 144", 20, 36);
+      ctx.fillText("PING: 999ms", 20, 68);
       ctx.restore();
 
       ctx.restore(); // Restore doodle context
