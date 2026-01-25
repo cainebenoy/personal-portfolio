@@ -275,29 +275,29 @@ export default function Certificates() {
   return (
     <section 
       id="certificates" 
-      className="relative z-10 py-32"
+      className="relative z-10 py-12 md:py-32"
       onKeyDown={handleKeyDown}
     >
-      <div className="mx-auto max-w-[1400px] px-4 md:px-8">
+      <div className="mx-auto max-w-[1400px] px-2 sm:px-4 md:px-8">
         
         {/* Header */}
-        <div className="mb-20 text-center relative">
-          <h2 className="font-display text-5xl md:text-8xl text-ink relative inline-block">
+        <div className="mb-8 md:mb-20 text-center relative">
+          <h2 className="font-display text-2xl sm:text-4xl md:text-8xl text-ink relative inline-block">
             The Archive
-            <div className="absolute -top-4 -right-12 font-marker text-sm text-red-500 rotate-12 border-2 border-red-500 px-3 py-1 rounded opacity-80 shadow-sm bg-white/50 backdrop-blur-sm">
+            <div className="absolute -top-2 -right-8 sm:-right-12 font-marker text-xs sm:text-sm text-red-500 rotate-12 border-2 border-red-500 px-2 sm:px-3 py-1 rounded opacity-80 shadow-sm bg-white/50 backdrop-blur-sm whitespace-nowrap">
               DECLASSIFIED
             </div>
           </h2>
-          <p className="mt-6 font-hand text-2xl md:text-3xl text-gray-500 max-w-2xl mx-auto">
+          <p className="mt-3 md:mt-6 font-hand text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-500 max-w-2xl mx-auto px-2">
             A messy, growing collection of every lesson learned. 
-            <span className="block text-sm font-code mt-3 text-gray-400">
+            <span className="block text-xs sm:text-sm font-code mt-2 md:mt-3 text-gray-400">
               TOTAL_COUNT: {certData.length} • STATUS: VERIFIED
             </span>
           </p>
         </div>
 
         {/* The Wall Container */}
-        <div className="relative bg-[#f7f5f0] p-6 md:p-12 shadow-[inset_0_0_80px_rgba(0,0,0,0.06)] border-4 border-double border-ink/10 rounded-xl overflow-hidden min-h-[800px]">
+        <div className="relative bg-[#f7f5f0] p-3 sm:p-6 md:p-12 shadow-[inset_0_0_80px_rgba(0,0,0,0.06)] border-2 md:border-4 border-double border-ink/10 rounded-xl overflow-hidden min-h-[600px] sm:min-h-[700px] md:min-h-[800px]">
           
           {/* Wall Texture (local CSS pattern to avoid CORS) */}
           <div

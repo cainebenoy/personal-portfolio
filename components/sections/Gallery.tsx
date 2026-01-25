@@ -37,15 +37,15 @@ export default function Gallery() {
       <div className="mx-auto max-w-6xl px-6">
         
         {/* Header */}
-        <div className="mb-12 text-center relative z-20">
-          <h2 className="font-display text-5xl md:text-7xl text-ink">Field Notes</h2>
-          <p className="mt-4 font-hand text-2xl text-gray-500">
+        <div className="mb-6 sm:mb-8 md:mb-12 text-center relative z-20">
+          <h2 className="font-display text-3xl sm:text-5xl md:text-7xl text-ink">Field Notes</h2>
+          <p className="mt-2 sm:mt-3 md:mt-4 font-hand text-lg sm:text-xl md:text-2xl text-gray-500">
             Moments from the arena.
           </p>
         </div>
 
         {/* The Scatter Pile */}
-        <div className="relative h-[700px] w-full flex items-center justify-center overflow-hidden">
+        <div className="relative h-[400px] sm:h-[500px] md:h-[700px] w-full flex items-center justify-center overflow-hidden">
           
           {/* Background hint of a desk or surface */}
           <div className="absolute inset-0 rounded-full bg-ink/5 blur-3xl transform scale-75 pointer-events-none" />

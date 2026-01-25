@@ -127,10 +127,10 @@ export default function ScratchManifesto() {
   }, []);
 
   return (
-    <section id="manifesto" className="relative z-10 py-24 flex justify-center">
+    <section id="manifesto" className="relative z-10 py-12 md:py-24 flex justify-center px-2 sm:px-4">
       <div 
         ref={containerRef}
-        className="relative w-full max-w-4xl min-h-[400px] mx-4 bg-white shadow-xl rotate-1 border-4 border-ink p-8 md:p-16 overflow-hidden"
+        className="relative w-full max-w-4xl min-h-[300px] sm:min-h-[400px] bg-white shadow-xl rotate-1 border-2 sm:border-4 border-ink p-4 sm:p-8 md:p-16 overflow-hidden"
       >
         {/* Hidden Content (Underneath) */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 select-none pointer-events-none">
