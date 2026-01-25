@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { track } from "@vercel/analytics";
+import HireModal from "@/components/ui/HireModal";
 
 type StripType = "link" | "copy" | "action" | "download";
 
@@ -27,6 +28,23 @@ const strips: StripItem[] = [
 export default function ContactFooter() {
   const [tornIds, setTornIds] = useState<string[]>([]);
   const [toast, setToast] = useState<string | null>(null);
+  const [isHireModalOpen, setIsHireModalOpen] = useState(false);
+
+  const handleHireSubmit = async (details: { name: string; email: string; phone: string }) => {
+    const response = await fetch("/api/hire", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(details),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to submit");
+    }
+
+    const data = await response.json();
+    setToast("Thanks! I'll be in touch soon.");
+    setTimeout(() => setToast(null), 3000);
+  };
 
 
 
@@ -37,8 +55,7 @@ export default function ContactFooter() {
 
     // Show celebration message for HIRE ME
     if (strip.isCelebration) {
-      setToast("LET'S BUILD SOMETHING AMAZING.");
-      setTimeout(() => setToast(null), 2000);
+      setIsHireModalOpen(true);
     }
 
     // Action Logic
@@ -75,6 +92,12 @@ export default function ContactFooter() {
   return (
     <section id="contact" className="relative z-10 min-h-[60vh] flex flex-col justify-end pb-0">
       
+      {/* Hire Modal */}
+      <HireModal
+        isOpen={isHireModalOpen}
+        onClose={() => setIsHireModalOpen(false)}
+        onSubmit={handleHireSubmit}
+      />
       {/* Toast */}
       {toast && (
         <div className="fixed top-10 left-1/2 -translate-x-1/2 bg-ink text-paper px-6 py-3 rounded-full shadow-xl z-50 font-code text-sm copy-toast">
