@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable no-inline-styles */
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
@@ -31,7 +32,7 @@ export default function ProjectCard({
 
       {/* Image Placeholder area */}
       <div
-        className="relative flex h-64 w-full items-center justify-center overflow-hidden grayscale transition-all duration-500 group-hover:grayscale-0"
+        className="relative flex h-64 w-full items-center justify-center overflow-hidden grayscale transition-all duration-500 group-hover:grayscale-0 project-card-image"
         style={{ backgroundColor: color }}
       >
         <div className="text-center text-white">

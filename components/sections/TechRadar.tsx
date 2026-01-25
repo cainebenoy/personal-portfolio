@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable no-inline-styles */
 import { useState, useRef, useLayoutEffect } from "react";
 import { cn } from "@/lib/utils";
 
@@ -169,19 +170,12 @@ export default function TechRadar() {
         {/* The Radar Container with Background */}
         <div 
           ref={containerRef}
-          className="relative aspect-square w-full max-w-[900px] mx-auto bg-paper shadow-lg border-2 sm:border-4 border-ink rounded-lg"
+          className="relative aspect-square w-full max-w-[900px] mx-auto bg-paper shadow-lg border-2 sm:border-4 border-ink rounded-lg tech-radar-container"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          style={{
-            overflow: 'visible',
-            paddingLeft: '60px',
-            paddingRight: '60px',
-          }}
         >
           {/* Background texture */}
-          <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
-            backgroundImage: "url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\"><defs><pattern id=\"dots\" x=\"0\" y=\"0\" width=\"10\" height=\"10\" patternUnits=\"userSpaceOnUse\"><circle cx=\"5\" cy=\"5\" r=\"1\" fill=\"%23000\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23dots)\"/></svg>')"
-          }} />
+          <div className="absolute inset-0 opacity-5 pointer-events-none tech-radar-texture" />
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
             {/* Ring 1 (Adopt) */}
             <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.3" className="text-ink opacity-30" strokeDasharray="4 2" />
@@ -223,7 +217,7 @@ export default function TechRadar() {
                   )}
                   style={isHovered ? {
                     boxShadow: item.ring === 0 ? '0 0 20px rgba(0,0,0,0.4)' : item.ring === 1 ? '0 0 20px rgba(255,203,5,0.4)' : '0 0 20px rgba(150,150,150,0.4)'
-                  } : {}}
+                  } : undefined}
                 />
 
                 {/* The Label */}

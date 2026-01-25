@@ -152,9 +152,7 @@ export default function Socials() {
                         className="block bg-[#0a192f] p-5 text-blue-100 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01] group relative overflow-hidden rounded border border-[#112240]"
                     >
                         {/* Grid Pattern Overlay */}
-                        <div className="absolute inset-0 opacity-10 pointer-events-none" 
-                             style={{ backgroundImage: 'linear-gradient(#64ffda 1px, transparent 1px), linear-gradient(90deg, #64ffda 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
-                        </div>
+                        <div className="absolute inset-0 opacity-10 pointer-events-none github-grid"></div>
 
                         <div className="relative z-10">
                             <div className="flex justify-between items-start mb-2">

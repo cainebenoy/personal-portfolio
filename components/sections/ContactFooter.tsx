@@ -109,19 +109,19 @@ export default function ContactFooter() {
         <h2 className="font-display text-6xl md:text-9xl leading-none text-ink hover:text-highlight transition-colors duration-300">
           Let's Build.
         </h2>
-        <p className="font-hand text-2xl mt-4 text-gray-600">
+        <p className="font-hand text-2xl mt-4 theme-muted">
           Grab a strip. Let's make something weird.
         </p>
       </div>
 
       {/* Tear-off Container */}
-      <div className="w-full max-w-5xl mx-auto flex justify-center items-end border-t-4 border-dashed border-gray-300 pt-0 relative bg-white/50 shadow-sm overflow-x-auto pb-4 gap-1 md:gap-2 pointer-events-auto">
+      <div className="w-full max-w-5xl mx-auto flex flex-wrap justify-center items-end border-t-4 border-dashed theme-border pt-0 relative theme-surface-alt shadow-sm overflow-hidden pb-4 gap-1 md:gap-2 pointer-events-auto">
         
         {strips.map((strip, i) => (
           <div
             key={strip.id}
             className={cn(
-              "tear-strip bg-white border-l-2 border-r-2 border-gray-100 writing-vertical-rl p-3 md:p-5 cursor-pointer transition-all duration-300 font-code text-[10px] md:text-xs shadow-paper",
+              "tear-strip theme-surface border-l-2 border-r-2 theme-border writing-vertical-rl p-3 md:p-5 cursor-pointer transition-all duration-300 font-code text-[10px] md:text-xs shadow-paper",
               "hover:translate-y-4 hover:text-highlight hover:z-20",
               tornIds.includes(strip.id) ? "animate-tear opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto",
               i % 2 === 0 ? "translate-y-1" : "-translate-y-1",
@@ -147,7 +147,7 @@ export default function ContactFooter() {
         ))}
       </div>
 
-      <footer className="w-full text-center font-hand text-gray-400 text-lg py-8 bg-[#f0eee0] pointer-events-auto">
+      <footer className="w-full text-center font-hand theme-muted text-lg py-8 theme-surface-alt border-t theme-border pointer-events-auto">
         © 2026 Caine Benoy. Built with chaos & code.
       </footer>
     </section>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 
 interface HireModalProps {
@@ -14,6 +14,13 @@ export default function HireModal({ isOpen, onClose, onSubmit }: HireModalProps)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (progressRef.current) {
+      progressRef.current.style.width = `${progress}%`;
+    }
+  }, [progress]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -92,7 +99,7 @@ export default function HireModal({ isOpen, onClose, onSubmit }: HireModalProps)
 
         {/* Header */}
         <div className="mb-6">
-          <h3 className="font-display text-2xl text-ink">Let''s Work Together</h3>
+          <h3 className="font-display text-2xl text-ink">Let's Work Together</h3>
           <p className="font-hand text-ink/70 mt-2">Tell me about yourself</p>
         </div>
 
@@ -160,8 +167,8 @@ export default function HireModal({ isOpen, onClose, onSubmit }: HireModalProps)
           {loading && (
             <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className="h-full bg-highlight transition-all duration-300 ease-out"
-                style={{ width: `${progress}%` }}
+                ref={progressRef}
+                className="h-full bg-highlight progress-bar-fill"
               />
             </div>
           )}

@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable no-inline-styles */
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 
@@ -101,43 +102,24 @@ export default function Preloader() {
         <div className="relative z-10 flex items-center justify-center">
           <h1 
             id="typed-name" 
-            className="font-display text-8xl text-paper tracking-wide relative"
-            style={{
-              // Hide the default dot on 'i' character
-              textRendering: 'optimizeLegibility',
-            }}
+            className="font-display text-8xl text-paper tracking-wide relative preloader-text"
           >
             <span className="relative inline-block">
               {displayText.split('').map((char, index) => (
                 <span 
                   key={index}
-                  className={char.toLowerCase() === 'i' ? 'relative' : ''}
-                  style={char.toLowerCase() === 'i' ? {
-                    position: 'relative',
-                    display: 'inline-block',
-                  } : {}}
+                  className={char.toLowerCase() === 'i' ? 'i-char' : ''}
                 >
                   {char.toLowerCase() === 'i' ? (
                     <>
                       {/* Render 'i' without the dot */}
-                      <span style={{ 
-                        display: 'inline-block',
-                        position: 'relative',
-                      }}>
+                      <span className="i-char">
                         ı
                       </span>
                       {/* Custom dot that will expand */}
                       <span 
                         id="i-dot"
-                        className="absolute bg-paper rounded-full"
-                        style={{ 
-                          width: '0.18em',
-                          height: '0.18em',
-                          left: '50%',
-                          top: '0.05em',
-                          transform: 'translateX(-50%)',
-                          zIndex: 9999,
-                        }}
+                        className="absolute i-dot bg-paper rounded-full"
                       />
                     </>
                   ) : char}

@@ -59,14 +59,8 @@ export default function Gallery() {
                 className={cn(
                   "absolute w-48 md:w-64 aspect-[4/5] p-3 pb-8 transition-all duration-300 ease-out cursor-none group",
                   "border-4 border-ink shadow-lg",
-                  "hover:z-50 hover:scale-100 hover:rotate-0 hover:shadow-2xl"
+                  "hover:z-50 hover:scale-100 hover:rotate-0 hover:shadow-2xl gallery-style"
                 )}
-                style={{
-                  backgroundColor: "var(--paper)",
-                  transform: `translate(${style.x}%, ${style.y}%) rotate(${style.rotate}deg) scale(0.9)`,
-                  zIndex: style.zIndex,
-                  transitionProperty: "transform, box-shadow, z-index",
-                }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLDivElement;
                   el.style.transform = `translate(${style.x}%, ${style.y}%) rotate(0deg) scale(1)`;

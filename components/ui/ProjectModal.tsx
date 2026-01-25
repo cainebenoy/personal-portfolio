@@ -37,7 +37,7 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
             <div className="font-marker text-red-600 text-xl rotate-[-1deg] mb-1">CONFIDENTIAL</div>
             <h2 className="font-display text-4xl text-ink">{project.title}</h2>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-black/10 rounded-full transition-colors">
+          <button onClick={onClose} className="p-2 hover:bg-black/10 rounded-full transition-colors" aria-label="Close modal" title="Close">
             <X size={24} className="text-ink" />
           </button>
         </div>

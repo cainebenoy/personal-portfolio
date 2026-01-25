@@ -25,6 +25,7 @@ const reenie = Reenie_Beanie({ weight: "400", subsets: ["latin"], variable: "--f
 export const metadata: Metadata = {
   title: "Caine Benoy | Generalist Portfolio",
   description: "A jack of all trades is a master of none, but oftentimes better than a master of one.",
+  metadataBase: new URL("https://cainebenoy.com"),
   openGraph: {
     title: "Caine Benoy | Generalist Portfolio",
     description: "Full-stack developer, designer, and creative technologist. Building digital experiences with code, design, and a touch of physics.",

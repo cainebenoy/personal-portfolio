@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable no-inline-styles */
 /* eslint-disable @next/next/no-img-element */
 import { useState, useMemo } from "react";
 import Image from "next/image";
@@ -288,7 +289,7 @@ export default function Certificates() {
               DECLASSIFIED
             </div>
           </h2>
-          <p className="mt-3 md:mt-6 font-hand text-base sm:text-xl md:text-2xl lg:text-3xl text-gray-500 max-w-2xl mx-auto px-2">
+          <p className="mt-3 md:mt-6 font-hand text-base sm:text-xl md:text-2xl lg:text-3xl theme-muted max-w-2xl mx-auto px-2">
             A messy, growing collection of every lesson learned. 
             <span className="block text-xs sm:text-sm font-code mt-2 md:mt-3 text-gray-400">
               TOTAL_COUNT: {certData.length} • STATUS: VERIFIED
@@ -297,17 +298,10 @@ export default function Certificates() {
         </div>
 
         {/* The Wall Container */}
-        <div className="relative bg-[#f7f5f0] p-3 sm:p-6 md:p-12 shadow-[inset_0_0_80px_rgba(0,0,0,0.06)] border-2 md:border-4 border-double border-ink/10 rounded-xl overflow-hidden min-h-[600px] sm:min-h-[700px] md:min-h-[800px]">
+        <div className="relative theme-surface-alt p-3 sm:p-6 md:p-12 shadow-[inset_0_0_80px_rgba(0,0,0,0.06)] border-2 md:border-4 border-double theme-border rounded-xl overflow-hidden min-h-[600px] sm:min-h-[700px] md:min-h-[800px]">
           
           {/* Wall Texture (local CSS pattern to avoid CORS) */}
-          <div
-            className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
-            style={{
-              backgroundImage:
-                'radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px)',
-              backgroundSize: '12px 12px',
-            }}
-          />
+          <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply cert-wall-texture" />
           
           <div className="flex flex-wrap justify-center content-start gap-4 md:gap-5 relative z-10">
             {visibleCerts.map((cert, i) => {
@@ -327,20 +321,20 @@ export default function Certificates() {
                     "group relative w-24 h-20 md:w-32 md:h-24 shadow-sm transition-all duration-300 ease-out cursor-pointer outline-none",
                     "hover:z-50 hover:scale-[1.3] hover:shadow-xl hover:rotate-0",
                     style.color,
-                    "border-[1px] p-2 flex flex-col items-center justify-between"
+                    "border-[1px] p-2 flex flex-col items-center justify-between theme-border"
                   )}
                   title={cert.name}
                 >
                   {/* Decorative Tape - now on all certificates with random variation */}
                   <div 
-                    className="absolute -top-3 left-1/2 w-8 h-4 bg-white/60 backdrop-blur-[1px] -translate-x-1/2 shadow-sm border-l border-r border-white/40 z-20"
+                    className="cert-tape"
                     style={{
                       transform: `translateX(calc(-50% + ${style.tapeOffset}px)) rotate(${style.tapeRotation}deg)`
                     }}
                   ></div>
 
                   {/* Thumbnail */}
-                  <div className="relative w-full h-full overflow-hidden border border-black/5 bg-gray-50 skeleton">
+                  <div className="relative w-full h-full overflow-hidden border border-black/5 theme-surface skeleton">
                     {cert.type === 'image' ? (
                       <Image
                         src={cert.src}
@@ -351,7 +345,7 @@ export default function Certificates() {
                         loading="lazy"
                       />
                     ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-gray-400 group-hover:text-red-500 transition-colors">
+                      <div className="w-full h-full flex flex-col items-center justify-center theme-surface-alt text-gray-400 group-hover:text-red-500 transition-colors">
                         <FileText size={20} strokeWidth={1.5} />
                         <span className="text-[6px] font-code mt-1">PDF</span>
                       </div>
@@ -398,28 +392,21 @@ export default function Certificates() {
             onClick={() => setSelectedCert(null)}
           />
           
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
+              <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 pointer-events-none">
             <div 
-              className="relative w-full max-w-5xl bg-[#fdfbf7] shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-[95vh] pointer-events-auto animate-slide-in-card border-8 border-white ring-1 ring-gray-200"
+              className="relative w-full max-w-5xl theme-surface shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-[95vh] pointer-events-auto animate-slide-in-card border-8 border-white/40 ring-1 theme-border"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-white/50 relative">
-                <div
-                  className="absolute inset-0 opacity-10 pointer-events-none mix-blend-multiply"
-                  style={{
-                    backgroundImage:
-                      'radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px)',
-                    backgroundSize: '12px 12px',
-                  }}
-                />
+              <div className="flex items-center justify-between p-6 border-b theme-border theme-surface-alt relative">
+                <div className="absolute inset-0 opacity-10 pointer-events-none mix-blend-multiply cert-modal-texture" />
 
                 <div className="relative z-10 flex-1 min-w-0 pr-4">
                   <h3 className="font-display text-2xl md:text-3xl text-ink truncate">
                     {selectedCert.name}
                   </h3>
-                  <div className="flex items-center gap-3 mt-1 text-gray-500 font-hand text-lg">
-                    <span className="bg-gray-100 px-2 py-0.5 rounded text-sm font-sans border border-gray-200">{selectedCert.issuer}</span>
+                  <div className="flex items-center gap-3 mt-1 theme-muted font-hand text-lg">
+                    <span className="theme-surface px-2 py-0.5 rounded text-sm font-sans border theme-border">{selectedCert.issuer}</span>
                     <span className="truncate">{selectedCert.description}</span>
                   </div>
                 </div>
@@ -436,17 +423,15 @@ export default function Certificates() {
               </div>
 
               {/* Modal Body */}
-                <div className="flex-1 bg-gray-100 overflow-auto p-4 relative min-h-[60vh] max-h-[95vh]">
-                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-                      style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
-                 />
+                <div className="flex-1 theme-surface-alt overflow-auto p-4 relative min-h-[60vh] max-h-[95vh]">
+                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none cert-modal-texture" />
 
                  <div 
-                   className="relative w-full shadow-lg bg-white p-2 flex items-center justify-center min-h-[400px]"
+                   className="relative w-full shadow-lg theme-surface p-2 flex items-center justify-center min-h-[400px]"
                    style={{ maxHeight: "calc(95vh - 160px)" }}
                  >
                     {isModalLoading && selectedCert.type === 'image' && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
+                      <div className="absolute inset-0 flex items-center justify-center theme-surface z-10">
                         <Loader2 className="animate-spin text-ink opacity-20" size={48} />
                       </div>
                     )}

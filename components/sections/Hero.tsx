@@ -50,7 +50,7 @@ export default function Hero() {
       {/* Text Column */}
       <div className="order-2 md:order-1 flex flex-col items-center md:items-start">
         {/* Introduction Badge */}
-        <div className="font-hand text-2xl md:text-4xl text-gray-500 mb-6 rotate-[-3deg] inline-block reveal-text bg-paper px-2">
+        <div className="font-hand text-2xl md:text-4xl theme-muted mb-6 rotate-[-3deg] inline-block reveal-text bg-paper px-2">
           Generalist | SOF Insider | TinkerHub Lead
         </div>
 
