@@ -28,84 +28,17 @@ export default function ContactFooter() {
   const [tornIds, setTornIds] = useState<string[]>([]);
   const [toast, setToast] = useState<string | null>(null);
 
-  // Trigger the "Paper Ball Barrage" using the global Physics engine
-  const triggerBarrage = (startRect: DOMRect) => {
-    if (!(window as any).spawnPhysicsObject) return;
 
-    // 1. Spawn 60 "Trash Ideas" (Crumpled Paper Balls) in waves
-    let count = 0;
-    const interval = setInterval(() => {
-        // Dynamic spread: wider at the beginning, tighter later
-        const spreadPhase = count / 60; // 0 to 1
-        const maxSpread = 800 * (1 - spreadPhase * 0.3); // Spread decreases over time
-        
-        const xOffset = (Math.random() - 0.5) * maxSpread;
-        const yOffset = (Math.random() - 0.5) * 300; // Vertical variation
-        
-        const spawnX = Math.min(
-          Math.max(startRect.left + startRect.width/2 + xOffset, 20),
-          window.innerWidth - 20
-        );
-        const spawnY = Math.min(
-          Math.max(startRect.top + yOffset, -150),
-          window.innerHeight - 20
-        );
-        
-        // Call global function (defined in PhysicsCanvas.tsx)
-        (window as any).spawnPhysicsObject({
-            x: spawnX,
-            y: spawnY,
-            type: 'ball',
-            color: '#f0f0f0'
-        });
-
-        count++;
-        if (count >= 60) clearInterval(interval);
-    }, 30); // Faster spawn for more density
-
-    // 2. Spawn 3 "Golden Tickets" in sequence
-    setTimeout(() => {
-        (window as any).spawnPhysicsObject({
-            x: startRect.left + startRect.width/2 + (Math.random() - 0.5) * 200,
-            y: -250,
-            type: 'ticket',
-            color: '#ffd700' // Gold
-        });
-    }, 1500);
-
-    setTimeout(() => {
-        (window as any).spawnPhysicsObject({
-            x: startRect.left + startRect.width/2 + (Math.random() - 0.5) * 200,
-            y: -250,
-            type: 'ticket',
-            color: '#ffd700'
-        });
-    }, 2000);
-
-    setTimeout(() => {
-        (window as any).spawnPhysicsObject({
-            x: startRect.left + startRect.width/2 + (Math.random() - 0.5) * 200,
-            y: -250,
-            type: 'ticket',
-            color: '#ffd700'
-        });
-        setToast("LET'S BUILD SOMETHING GOLDEN.");
-    }, 2500);
-  };
 
   const handleInteraction = async (strip: StripItem, rect: DOMRect) => {
     setTornIds((prev) => [...prev, strip.id]);
     
     track("interaction", { type: strip.type, label: strip.label });
 
-    // Celebration Logic (Barrage)
+    // Show celebration message for HIRE ME
     if (strip.isCelebration) {
-      triggerBarrage(rect);
-    } else {
-      // Normal behavior: Spawn single strip falling
-      if ((window as any).spawnFallingStrip) {
-         (window as any).spawnFallingStrip(rect);
-      }
+      setToast("LET'S BUILD SOMETHING AMAZING.");
+      setTimeout(() => setToast(null), 2000);
     }
 
     // Action Logic
