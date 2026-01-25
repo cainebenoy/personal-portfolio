@@ -86,21 +86,20 @@ export default function Preloader() {
             id="typed-name" 
             className="font-display text-8xl text-paper tracking-wide relative"
           >
-            {displayText.split('').map((char, index) => (
-              <span 
-                key={index} 
-                className="relative inline-block"
-              >
-                {char}
-                {/* Dot over the 'i' that will expand */}
-                {char.toLowerCase() === 'i' && (
-                  <span 
-                    id="i-dot"
-                    className="absolute left-1/2 -translate-x-1/2 -top-4 w-3 h-3 bg-paper rounded-full"
-                  />
-                )}
-              </span>
-            ))}
+            <span className="relative inline-block">
+              {displayText}
+              {/* Single dot over the 'i' that will expand - only show when 'i' is typed */}
+              {displayText.includes('i') && (
+                <span 
+                  id="i-dot"
+                  className="absolute w-4 h-4 bg-paper rounded-full"
+                  style={{ 
+                    left: `${displayText.indexOf('i') * 0.55}em`,
+                    top: '-0.5em'
+                  }}
+                />
+              )}
+            </span>
             <span 
               ref={cursorRef}
               className="inline-block w-1 h-24 bg-highlight ml-2 align-middle"
