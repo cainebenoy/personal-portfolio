@@ -123,7 +123,7 @@ export default function ScrollCrumpleAvatar() {
       // Reset opacity for doodles
       ctx.globalAlpha = 1;
 
-      // --- D. DRAW FUN ELEMENTS (The Doodles) - Scattered AROUND the avatar ---
+      // --- D. DRAW FUN ELEMENTS (The Doodles) - Scattered FAR AROUND the avatar ---
       // IMPORTANT: Draw doodles BEFORE ctx.restore() so they use same coordinate space as avatar
       const w = currentImg.naturalWidth / dpr;
       const h = currentImg.naturalHeight / dpr;
@@ -135,186 +135,189 @@ export default function ScrollCrumpleAvatar() {
       // Common Doodle Style
       ctx.strokeStyle = "rgba(30, 30, 30, 0.8)"; 
       ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 6;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.font = "bold 24px monospace"; 
+      ctx.font = "bold 48px monospace"; 
 
-      // 1. "NOT A BUG" Tag (Top Left - Far)
+      // 1. "NOT A BUG" Tag (Far Top Left)
       ctx.save();
-      ctx.translate(-w * 0.5, -h * 0.45 + float);
+      ctx.translate(-w * 0.75, -h * 0.65 + float);
       ctx.rotate(-0.1);
-      ctx.strokeRect(0, 0, 160, 50); 
-      ctx.fillText("NOT A BUG", 15, 32);
+      ctx.strokeRect(0, 0, 320, 100); 
+      ctx.fillText("NOT A BUG", 30, 64);
       ctx.beginPath();
-      ctx.moveTo(160, 25);
-      ctx.quadraticCurveTo(200, 25, 220, 80);
+      ctx.moveTo(320, 50);
+      ctx.quadraticCurveTo(400, 50, 440, 160);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(220, 80);
-      ctx.lineTo(210, 65);
-      ctx.moveTo(220, 80);
-      ctx.lineTo(200, 75);
+      ctx.moveTo(440, 160);
+      ctx.lineTo(420, 130);
+      ctx.moveTo(440, 160);
+      ctx.lineTo(400, 150);
       ctx.stroke();
       ctx.restore();
 
-      // 2. "// TODO: Sleep" (Top Middle)
+      // 2. "// TODO: Sleep" (Far Top)
       ctx.save();
-      ctx.translate(0, -h * 0.48 + wiggle);
+      ctx.translate(0, -h * 0.7 + wiggle);
       ctx.rotate(0.05);
-      ctx.font = "18px monospace";
+      ctx.font = "36px monospace";
       ctx.fillText("// TODO: sleep()", 0, 0);
       ctx.restore();
 
-      // 3. "404" Sticker (Top Right - Far)
+      // 3. "404" Sticker (Far Top Right)
       ctx.save();
-      ctx.translate(w * 0.48, -h * 0.42 + float);
+      ctx.translate(w * 0.72, -h * 0.62 + float);
       ctx.rotate(0.2);
       ctx.beginPath();
-      ctx.arc(0, 0, 40, 0, Math.PI * 2);
+      ctx.arc(0, 0, 80, 0, Math.PI * 2);
       ctx.fillStyle = "rgba(255, 255, 0, 0.3)";
       ctx.fill();
       ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.lineWidth = 6;
       ctx.stroke();
       ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.fillText("404", -20, 10);
-      ctx.font = "12px monospace";
-      ctx.fillText("SLEEP NOT FOUND", -50, 30);
+      ctx.font = "bold 48px monospace";
+      ctx.fillText("404", -40, 20);
+      ctx.font = "24px monospace";
+      ctx.fillText("SLEEP NOT FOUND", -100, 60);
       ctx.restore();
 
-      // 4. "SHIP IT" Stamp (Left Side - Far)
+      // 4. "SHIP IT" Stamp (Far Left)
       ctx.save();
-      ctx.translate(-w * 0.55, 0 + wiggle);
+      ctx.translate(-w * 0.8, 0 + wiggle);
       ctx.rotate(-0.25);
       ctx.strokeStyle = "rgba(200, 0, 0, 0.8)";
       ctx.fillStyle = "rgba(200, 0, 0, 0.8)";
-      ctx.lineWidth = 4;
-      ctx.strokeRect(-80, -30, 160, 60);
-      ctx.font = "bold 26px monospace";
-      ctx.fillText("SHIP IT", -60, 8);
+      ctx.lineWidth = 8;
+      ctx.strokeRect(-160, -60, 320, 120);
+      ctx.font = "bold 52px monospace";
+      ctx.fillText("SHIP IT", -120, 16);
       ctx.restore();
 
-      // 5. "Stack Overflow" Bookmark (Right Side - Far)
+      // 5. "Stack Overflow" Bookmark (Far Right)
       ctx.save();
-      ctx.translate(w * 0.52, -h * 0.15 + float * 0.2);
+      ctx.translate(w * 0.78, -h * 0.2 + float * 0.2);
       ctx.rotate(-0.4);
       ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.lineTo(80, 0);
-      ctx.lineTo(80, 40);
-      ctx.lineTo(40, 55);
-      ctx.lineTo(0, 40);
+      ctx.lineTo(160, 0);
+      ctx.lineTo(160, 80);
+      ctx.lineTo(80, 110);
+      ctx.lineTo(0, 80);
       ctx.closePath();
       ctx.stroke();
-      ctx.font = "14px monospace";
+      ctx.font = "28px monospace";
       ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.fillText("Stack", 10, 18);
-      ctx.fillText("Overflow", 10, 34);
+      ctx.fillText("Stack", 20, 36);
+      ctx.fillText("Overflow", 20, 68);
       ctx.restore();
 
-      // 6. Battery 1% (Bottom Right - Far)
+      // 6. Battery 1% (Far Bottom Right)
       ctx.save();
-      ctx.translate(w * 0.45, h * 0.45 + float * 0.3);
+      ctx.translate(w * 0.7, h * 0.65 + float * 0.3);
       ctx.rotate(-0.05);
       ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.lineWidth = 3;
-      ctx.strokeRect(0, -15, 80, 30);
+      ctx.lineWidth = 6;
+      ctx.strokeRect(0, -30, 160, 60);
       ctx.beginPath();
-      ctx.moveTo(80, -8);
-      ctx.lineTo(90, -8);
-      ctx.lineTo(90, 8);
-      ctx.lineTo(80, 8);
+      ctx.moveTo(160, -16);
+      ctx.lineTo(180, -16);
+      ctx.lineTo(180, 16);
+      ctx.lineTo(160, 16);
       ctx.closePath();
       ctx.stroke();
       ctx.fillStyle = "#e74c3c";
-      ctx.fillRect(3, -12, 14, 24);
-      ctx.font = "14px monospace";
+      ctx.fillRect(6, -24, 28, 48);
+      ctx.font = "28px monospace";
       ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.fillText("1%", 30, 5);
+      ctx.fillText("1%", 60, 10);
       ctx.restore();
 
-      // 7. Infinite Loop Code (Bottom Left - Far)
+      // 7. Infinite Loop Code (Far Bottom Left)
       ctx.save();
-      ctx.translate(-w * 0.48, h * 0.38);
-      ctx.font = "20px monospace";
+      ctx.translate(-w * 0.72, h * 0.55);
+      ctx.font = "40px monospace";
       ctx.fillStyle = "#c0392b";
       ctx.fillText("while(alive) {", 0, 0);
-      ctx.fillText("  build();", 20, 25);
-      ctx.fillText("}", 0, 50);
+      ctx.fillText("  build();", 40, 50);
+      ctx.fillText("}", 0, 100);
       ctx.restore();
 
-      // 8. Brain CPU Loading (Top Left - Far)
+      // 8. Brain CPU Loading (Far Top Left Area)
       ctx.save();
-      ctx.translate(-w * 0.4, -h * 0.35 + float * 0.4);
+      ctx.translate(-w * 0.6, -h * 0.5 + float * 0.4);
       ctx.rotate(0.02);
-      ctx.font = "16px monospace";
+      ctx.font = "32px monospace";
       ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
       ctx.fillText("brain.cpu", 0, 0);
-      ctx.translate(0, 10);
+      ctx.translate(0, 20);
       ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(0, 0, 140, 18);
+      ctx.lineWidth = 4;
+      ctx.strokeRect(0, 0, 280, 36);
       const load = 0.73;
       ctx.fillStyle = "rgba(52, 152, 219, 0.8)";
-      ctx.fillRect(2, 2, (140 - 4) * load, 18 - 4);
-      ctx.font = "12px monospace";
+      ctx.fillRect(4, 4, (280 - 8) * load, 36 - 8);
+      ctx.font = "24px monospace";
       ctx.fillStyle = "rgba(30, 30, 30, 0.9)";
-      ctx.fillText("73%", 55, 14);
+      ctx.fillText("73%", 110, 28);
       ctx.restore();
 
-      // 9. Tiny Bug With Label (Top Right Area)
+      // 9. Tiny Bug With Label (Far Top Right Area)
       ctx.save();
-      ctx.translate(w * 0.35, -h * 0.28 + wiggle * 0.4);
+      ctx.translate(w * 0.52, -h * 0.42 + wiggle * 0.4);
       ctx.rotate(-0.08);
       ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 4;
       ctx.beginPath();
-      ctx.ellipse(0, 0, 14, 10, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, 28, 20, 0, 0, Math.PI * 2);
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(-12, 0, 6, 0, Math.PI * 2);
+      ctx.arc(-24, 0, 12, 0, Math.PI * 2);
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(5, -8); ctx.lineTo(15, -14);
-      ctx.moveTo(5, 8);  ctx.lineTo(15, 14);
-      ctx.moveTo(-5, -8); ctx.lineTo(-15, -14);
-      ctx.moveTo(-5, 8);  ctx.lineTo(-15, 14);
+      ctx.moveTo(10, -16); ctx.lineTo(30, -28);
+      ctx.moveTo(10, 16);  ctx.lineTo(30, 28);
+      ctx.moveTo(-10, -16); ctx.lineTo(-30, -28);
+      ctx.moveTo(-10, 16);  ctx.lineTo(-30, 28);
       ctx.stroke();
-      ctx.font = "12px monospace";
+      ctx.font = "24px monospace";
       ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
-      ctx.fillText("bug()", 20, -5);
+      ctx.fillText("bug()", 40, -10);
       ctx.restore();
 
-      // 10. Caffeine Formula (Bottom Area)
+      // 10. Caffeine Formula (Far Bottom)
       ctx.save();
-      ctx.translate(0, h * 0.5 + wiggle);
+      ctx.translate(0, h * 0.72 + wiggle);
       ctx.rotate(0.1);
-      ctx.font = "bold 30px sans-serif";
+      ctx.font = "bold 60px sans-serif";
       ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
       ctx.fillText("C₈H₁₀N₄O₂", 0, 0);
-      ctx.font = "italic 16px serif";
-      ctx.fillText("(Fuel Source)", 10, 20);
+      ctx.font = "italic 32px serif";
+      ctx.fillText("(Fuel Source)", 20, 40);
       ctx.beginPath();
-      ctx.moveTo(-10, 25);
-      ctx.bezierCurveTo(50, 35, 100, 15, 140, 25);
+      ctx.moveTo(-20, 50);
+      ctx.bezierCurveTo(100, 70, 200, 30, 280, 50);
+      ctx.lineWidth = 3;
       ctx.stroke();
       ctx.restore();
 
-      // 11. Extra Scribble Cluster (Bottom Right Corner)
+      // 11. Extra Scribble Cluster (Far Bottom Right Corner)
       ctx.save();
-      ctx.translate(w * 0.4, h * 0.28);
+      ctx.translate(w * 0.6, h * 0.42);
       ctx.rotate(0.1);
       ctx.beginPath();
       ctx.moveTo(0, 0);
       for (let i = 0; i < 14; i++) {
-        const dx = Math.sin(i * 0.7) * 20;
-        const dy = Math.cos(i * 0.5) * 10;
-        ctx.quadraticCurveTo(dx, dy, i * 10, (i % 2 === 0 ? 10 : -10));
+        const dx = Math.sin(i * 0.7) * 40;
+        const dy = Math.cos(i * 0.5) * 20;
+        ctx.quadraticCurveTo(dx, dy, i * 20, (i % 2 === 0 ? 20 : -20));
       }
       ctx.strokeStyle = "rgba(0, 0, 0, 0.15)";
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 4;
       ctx.stroke();
       ctx.restore();
 
