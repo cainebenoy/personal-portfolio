@@ -32,34 +32,65 @@ export default function ContactFooter() {
   const triggerBarrage = (startRect: DOMRect) => {
     if (!(window as any).spawnPhysicsObject) return;
 
-    // 1. Spawn 30 "Trash Ideas" (Crumpled Balls)
+    // 1. Spawn 60 "Trash Ideas" (Crumpled Paper Balls) in waves
     let count = 0;
     const interval = setInterval(() => {
-        const xOffset = (Math.random() - 0.5) * 500;
-        const spawnX = startRect.left + startRect.width/2 + xOffset;
+        // Dynamic spread: wider at the beginning, tighter later
+        const spreadPhase = count / 60; // 0 to 1
+        const maxSpread = 800 * (1 - spreadPhase * 0.3); // Spread decreases over time
+        
+        const xOffset = (Math.random() - 0.5) * maxSpread;
+        const yOffset = (Math.random() - 0.5) * 300; // Vertical variation
+        
+        const spawnX = Math.min(
+          Math.max(startRect.left + startRect.width/2 + xOffset, 20),
+          window.innerWidth - 20
+        );
+        const spawnY = Math.min(
+          Math.max(startRect.top + yOffset, -150),
+          window.innerHeight - 20
+        );
         
         // Call global function (defined in PhysicsCanvas.tsx)
         (window as any).spawnPhysicsObject({
             x: spawnX,
-            y: -100, // Drop from sky
+            y: spawnY,
             type: 'ball',
             color: '#f0f0f0'
         });
 
         count++;
-        if (count > 30) clearInterval(interval);
-    }, 50);
+        if (count >= 60) clearInterval(interval);
+    }, 30); // Faster spawn for more density
 
-    // 2. Spawn 1 "Golden Ticket" after chaos
+    // 2. Spawn 3 "Golden Tickets" in sequence
     setTimeout(() => {
         (window as any).spawnPhysicsObject({
-            x: startRect.left + startRect.width/2,
-            y: -200,
+            x: startRect.left + startRect.width/2 + (Math.random() - 0.5) * 200,
+            y: -250,
             type: 'ticket',
             color: '#ffd700' // Gold
         });
-        setToast("LET'S BUILD SOMETHING GOLDEN.");
+    }, 1500);
+
+    setTimeout(() => {
+        (window as any).spawnPhysicsObject({
+            x: startRect.left + startRect.width/2 + (Math.random() - 0.5) * 200,
+            y: -250,
+            type: 'ticket',
+            color: '#ffd700'
+        });
     }, 2000);
+
+    setTimeout(() => {
+        (window as any).spawnPhysicsObject({
+            x: startRect.left + startRect.width/2 + (Math.random() - 0.5) * 200,
+            y: -250,
+            type: 'ticket',
+            color: '#ffd700'
+        });
+        setToast("LET'S BUILD SOMETHING GOLDEN.");
+    }, 2500);
   };
 
   const handleInteraction = async (strip: StripItem, rect: DOMRect) => {

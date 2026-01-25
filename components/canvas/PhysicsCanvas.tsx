@@ -22,6 +22,10 @@ export default function PhysicsCanvas() {
 
     // 1. Setup Matter.js
     const engine = Matter.Engine.create();
+    
+    // Enhanced gravity for more dramatic falling effect
+    engine.world.gravity.y = 1.2; // Stronger gravity
+    
     const render = Matter.Render.create({
       element: sceneRef.current,
       engine: engine,
@@ -116,36 +120,58 @@ export default function PhysicsCanvas() {
 
         let body;
         if (config.type === 'ball') {
-          // Paper Ball (Circle with rough friction)
-          body = Matter.Bodies.circle(config.x, config.y, 15 + Math.random() * 10, {
-            restitution: 0.7, // Bouncy
-            friction: 0.5,
+          // Paper Ball (Circle with irregular sizes for realism)
+          const radius = 12 + Math.random() * 14;
+          const hue = 35 + Math.random() * 25; // Paper color variation: cream to light brown
+          const saturation = 20 + Math.random() * 30;
+          const lightness = 75 + Math.random() * 15;
+          
+          body = Matter.Bodies.circle(config.x, config.y, radius, {
+            restitution: 0.6 + Math.random() * 0.3, // Variable bounciness
+            friction: 0.6,
+            frictionAir: 0.008, // More air resistance
+            density: 0.001,
             render: {
-              fillStyle: config.color || '#f0f0f0',
-              strokeStyle: '#ccc',
+              fillStyle: `hsl(${hue}, ${saturation}%, ${lightness}%)`,
+              strokeStyle: `hsl(${hue}, ${saturation}%, ${Math.max(40, lightness - 20)}%)`,
+              lineWidth: 1
+            }
+          });
+          
+          // Apply random initial velocity (spread across viewport)
+          const vx = (Math.random() - 0.5) * 12 + (Math.random() - 0.5) * 3;
+          const vy = -8 - Math.random() * 6; // Upward initial burst
+          Matter.Body.setVelocity(body, { x: vx, y: vy });
+          Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.4);
+          
+        } else if (config.type === 'ticket') {
+          // Golden Ticket with gradient effect
+          body = Matter.Bodies.rectangle(config.x, config.y, 140, 70, {
+            restitution: 0.5,
+            friction: 0.4,
+            frictionAir: 0.006,
+            density: 0.0015,
+            render: {
+              fillStyle: config.color || '#ffd700',
+              strokeStyle: '#b8860b',
               lineWidth: 2
             }
           });
-        } else if (config.type === 'ticket') {
-          // Golden Ticket
-          body = Matter.Bodies.rectangle(config.x, config.y, 120, 60, {
-            restitution: 0.4,
-            render: {
-              fillStyle: config.color || '#ffd700',
-              strokeStyle: '#b8860b', // Dark gold border
-              lineWidth: 3
-            }
-          });
+          
+          // Golden ticket gets more dramatic initial velocity
+          const vx = (Math.random() - 0.5) * 10;
+          const vy = -12 - Math.random() * 8;
+          Matter.Body.setVelocity(body, { x: vx, y: vy });
+          Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.5);
         }
 
         if (body) {
-          Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.3);
           Matter.World.add(eng.world, body);
 
-          // Remove after ~15s to avoid buildup
+          // Remove after ~18s to let animation settle naturally
           setTimeout(() => {
             try { Matter.World.remove(eng.world, body); } catch {}
-          }, 15000);
+          }, 18000);
         }
       } catch {}
     };
