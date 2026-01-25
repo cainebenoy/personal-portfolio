@@ -11,26 +11,32 @@ const linkedinPosts = [
   {
     id: 1,
     date: "Featured Post",
-    content: "Organizing a 24-hour hackathon taught me more about 'Distributed Systems' than any textbook. It's not just about uptime; it's about people management... 🧵",
-    image: "https://placehold.co/600x400/png?text=Hackathon+Post", 
+    content: `How a Weekend Project Impressed EY.
+     🚀 It started with a frantic call from my friend Jeffin Joy. With just four days left until the grand finale of The Upside Down Boardroom at LUFTETAR 2026—our National Level Intercollegiate Management Fest at Sahrdaya College of Advanced Studies—he threw me a challenge...`,
+    image: "https://media.licdn.com/dms/image/v2/D5622AQFH95VPkbuYiA/feedshare-shrink_2048_1536/B56ZvcCIusH4Ak-/0/1768923107492?e=1770854400&v=beta&t=UwuGiyfQTMXlDIvsRiXIiYVKcbHJXbC0b_rgzIK0NIA", 
     stats: "405 Likes • 42 Comments",
-    link: "https://linkedin.com/in/cainebenoy" 
+    link: "https://www.linkedin.com/posts/cainebenoy_engineering-hardware-arduino-activity-7420320030812168192-xCDX?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEXLt0YBjg549kKUPcg9x84FuwkG9ciLHoU" 
   },
-  {
+  { 
     id: 2,
     date: "Latest Highlight",
-    content: "Just deployed TruthChain! 🛡️ A hybrid blockchain/AI solution to combat deepfakes. It wasn't easy integrating Solidity with FastAPI, but here is how we did it...",
-    image: "https://placehold.co/600x400/png?text=TruthChain+Launch",
+    content: `“They said I couldn’t do it. I did it not once, but twice.”
+
+I’m writing this with a heart full of happiness and gratitude. Being someone who has attended a lot of hackathons, both online and offline, it has always been a dream of mine to organize a hackathon in my own college...`,
+    image: "https://media.licdn.com/dms/image/v2/D5622AQGMJ1vauMU9ww/feedshare-shrink_2048_1536/B56ZvWZfg_HcAk-/0/1768828565937?e=1770854400&v=beta&t=TIs2BLfVvexwh0PUC2rqFWbwjPTlCTVOzVi7ylG0Ib0",
     stats: "210 Likes • 15 Comments",
-    link: "https://linkedin.com/in/cainebenoy"
+    link: "https://www.linkedin.com/posts/cainebenoy_they-said-i-couldnt-do-it-i-did-it-not-activity-7419004762634809344-k8vN?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEXLt0YBjg549kKUPcg9x84FuwkG9ciLHoU"
   },
   {
     id: 3,
     date: "Community",
-    content: "Unpopular opinion: Generalists are the new specialists. In the age of AI, being able to connect the dots is more valuable than just drawing them perfectly.",
-    image: null, 
+    content: `"The future shouldn't just be inherited; it must be architected."
+
+I wrote this line in my application a few days ago, and today, I’m excited to share that I’ve been selected as an SOF Insider.
+My decision to join was solidified after a fantastic online discussion...`,
+    image: "https://media.licdn.com/dms/image/v2/D5622AQFaUGCPm2xbrQ/feedshare-shrink_800/B56ZusRJMCIoAg-/0/1768121735747?e=1770854400&v=beta&t=5n0rmVdmhvm3JvQboEiWHEqWg98Q53GckzTyvfqwim8", 
     stats: "890 Likes • 156 Comments",
-    link: "https://linkedin.com/in/cainebenoy"
+    link: "https://www.linkedin.com/posts/cainebenoy_sofinsider-building-future-activity-7416040073860714496-oo53?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEXLt0YBjg549kKUPcg9x84FuwkG9ciLHoU"
   }
 ];
 
