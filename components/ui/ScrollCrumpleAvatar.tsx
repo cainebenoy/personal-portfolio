@@ -192,56 +192,7 @@ export default function ScrollCrumpleAvatar() {
       ctx.stroke();
       ctx.restore();
 
-      // 5. "Eat · Sleep · Code · Repeat" Banner
-      ctx.save();
-      ctx.translate(-w * 0.28, h * 0.05 + float * 0.3);
-      ctx.rotate(-0.08);
-      ctx.strokeStyle = "rgba(30, 30, 30, 0.85)";
-      ctx.fillStyle = "rgba(255, 255, 180, 0.45)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(220, 0);
-      ctx.lineTo(210, 50);
-      ctx.lineTo(-10, 50);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-      ctx.fillStyle = "rgba(30, 30, 30, 0.9)";
-      ctx.font = "bold 18px monospace";
-      ctx.fillText("EAT · SLEEP", 15, 20);
-      ctx.fillText("CODE · REPEAT", 15, 40);
-      ctx.restore();
-
-      // 6. Coffee Cup "Refactor Fuel"
-      ctx.save();
-      ctx.translate(w * 0.12, h * 0.22 + wiggle * 0.3);
-      ctx.rotate(0.06);
-      ctx.strokeStyle = "rgba(30, 30, 30, 0.9)";
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.moveTo(-20, -5);
-      ctx.lineTo(-18, 25);
-      ctx.quadraticCurveTo(0, 35, 18, 25);
-      ctx.lineTo(20, -5);
-      ctx.closePath();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(24, 10, 8, -Math.PI / 2, Math.PI / 2);
-      ctx.stroke();
-      for (let i = 0; i < 3; i++) {
-        ctx.beginPath();
-        ctx.moveTo(-10 + i * 8, -10);
-        ctx.bezierCurveTo(-14 + i * 8, -25, -6 + i * 8, -35, -10 + i * 8, -45);
-        ctx.stroke();
-      }
-      ctx.font = "11px monospace";
-      ctx.fillStyle = "rgba(30, 30, 30, 0.9)";
-      ctx.fillText("refactor", -18, 12);
-      ctx.fillText("fuel", -8, 25);
-      ctx.restore();
-
-      // 7. "Brain On Coffee" Icon
+      // 5. "Brain On Coffee" Icon
       ctx.save();
       ctx.translate(w * 0.05, -h * 0.12 + float * 0.4);
       ctx.rotate(-0.04);
@@ -272,47 +223,9 @@ export default function ScrollCrumpleAvatar() {
       ctx.fillText("brain.on(coffee)", -36, 38);
       ctx.restore();
 
-      // 8. "Commit Early, Commit Often" Sticky
+      // 6. FPS/Ping HUD
       ctx.save();
-      ctx.translate(-w * 0.18, h * 0.28 + float * 0.2);
-      ctx.rotate(0.12);
-      ctx.fillStyle = "rgba(200, 255, 200, 0.6)";
-      ctx.strokeStyle = "rgba(30, 30, 30, 0.85)";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(180, 0);
-      ctx.lineTo(175, 70);
-      ctx.lineTo(10, 80);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-      ctx.fillStyle = "rgba(30, 30, 30, 0.95)";
-      ctx.font = "16px monospace";
-      ctx.fillText("git commit", 16, 24);
-      ctx.fillText("early;", 16, 42);
-      ctx.fillText("git commit often;", 16, 60);
-      ctx.restore();
-
-      // 9. "Senior Dev Approved" Stamp
-      ctx.save();
-      ctx.translate(w * 0.02, -h * 0.02 + wiggle * 0.2);
-      ctx.rotate(-0.3);
-      ctx.strokeStyle = "rgba(180, 0, 0, 0.85)";
-      ctx.fillStyle = "rgba(180, 0, 0, 0.85)";
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, 90, 30, 0, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.font = "bold 14px monospace";
-      ctx.fillStyle = "rgba(180, 0, 0, 0.85)";
-      ctx.fillText("SENIOR DEV", -58, -2);
-      ctx.fillText("APPROVED", -50, 16);
-      ctx.restore();
-
-      // 10. FPS/Ping HUD
-      ctx.save();
-      ctx.translate(w * 0.32, h * 0.05 + wiggle * 0.3);
+      ctx.translate(w * 0.48, h * 0.08 + wiggle * 0.3);
       ctx.rotate(0.02);
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
