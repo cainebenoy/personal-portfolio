@@ -88,11 +88,12 @@ export default function Preloader() {
         
         {/* Main SVG for the name animation */}
         <svg 
-          className="relative z-10 w-96 h-48" 
-          viewBox="0 0 600 300" 
+          className="relative z-10 w-full max-w-2xl" 
+          viewBox="0 0 400 200" 
           preserveAspectRatio="xMidYMid meet"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Glow effect filter */}
+          {/* Glow and pencil sketch filters */}
           <defs>
             <filter id="glow">
               <feGaussianBlur stdDeviation="3" result="coloredBlur" />
@@ -101,14 +102,20 @@ export default function Preloader() {
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
+            
+            {/* Pencil sketch effect - creates wobbly, hand-drawn look */}
+            <filter id="pencil-sketch">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
           </defs>
 
           {/* Glow background circle */}
           <circle
             id="name-glow"
-            cx="300"
-            cy="150"
-            r="180"
+            cx="200"
+            cy="100"
+            r="140"
             fill="none"
             stroke="rgba(255, 71, 87, 0.15)"
             strokeWidth="1"
@@ -116,55 +123,90 @@ export default function Preloader() {
             filter="url(#glow)"
           />
 
-          {/* The name "Caine" in beautiful cursive/script style */}
+          {/* The sketchy "Caine" signature */}
           <path
             id="caine-path"
-            d="M 80 180 Q 95 80 140 100 Q 160 110 170 140 Q 175 160 165 170 Q 150 180 135 165 Q 125 155 130 140 M 170 100 L 185 170 M 185 100 L 200 170 Q 210 180 225 170 L 225 100 M 245 170 Q 245 80 290 80 Q 320 80 330 110 Q 335 130 320 160 Q 305 175 280 175 Q 250 175 245 150 M 350 170 Q 350 80 385 100 Q 410 115 420 160 L 350 140"
+            d="M40 90
+               Q45 40 70 40
+               Q95 40 95 70
+               Q95 95 75 95
+               Q55 95 50 80
+
+               M105 70
+               q15 -20 30 0
+               q10 15 22 0
+               m-52 0
+               q10 25 30 25
+               q18 0 28 -18
+
+               M175 70
+               q12 -25 30 0
+               q8 15 18 0
+               m-48 0
+               q10 25 30 25
+               q20 0 28 -22
+
+               M240 70
+               q10 -20 26 0
+               q5 8 11 0
+               m-37 0
+               q8 25 26 25
+               q15 0 23 -20
+
+               M295 70
+               q12 -20 28 0
+               q6 10 14 0
+               m-42 0
+               q10 26 30 26
+               q18 0 26 -22
+               q3 -8 3 -15"
             fill="none"
             stroke="#f4f1ea"
-            strokeWidth="6"
+            strokeWidth="4"
             strokeDasharray="800"
             strokeDashoffset="800"
             strokeLinecap="round"
             strokeLinejoin="round"
+            filter="url(#pencil-sketch)"
           />
 
-          {/* Decorative underline */}
+          {/* Decorative underline with sketchy effect */}
           <path
             id="underline-path"
-            d="M 70 200 Q 300 190 530 200"
+            d="M30 115 Q200 110 370 115"
             fill="none"
             stroke="#ff4757"
             strokeWidth="3"
             strokeDasharray="500"
             strokeDashoffset="500"
             strokeLinecap="round"
+            filter="url(#pencil-sketch)"
           />
 
           {/* Left flourish circle */}
           <circle
             id="flourish-left"
-            cx="50"
-            cy="140"
-            r="8"
+            cx="15"
+            cy="85"
+            r="6"
             fill="none"
             stroke="#ff4757"
             strokeWidth="2"
             opacity="0"
-            style={{ transform: "scale(0)", transformOrigin: "50px 140px" }}
+            style={{ transform: "scale(0)", transformOrigin: "15px 85px" }}
           />
 
           {/* Right flourish circle */}
           <circle
             id="flourish-right"
-            cx="550"
-            cy="160"
-            r="8"
+            cx="385"
+            cy="110"
+            r="6"
             fill="none"
             stroke="#ff4757"
             strokeWidth="2"
             opacity="0"
-            style={{ transform: "scale(0)", transformOrigin: "550px 160px" }}
+            style={{ transform: "scale(0)", transformOrigin: "385px 110px" }}
           />
         </svg>
 
