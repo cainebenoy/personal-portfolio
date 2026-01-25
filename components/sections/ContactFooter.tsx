@@ -1,240 +1,159 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { track } from "@vercel/analytics";
 
-type StripType = "email" | "link" | "text" | "download";
+type StripType = "link" | "copy" | "action" | "download";
 
-type StripItem = {
+interface StripItem {
+  id: string;
   label: string;
-  copy: string;
+  value: string;
   type: StripType;
-  url?: string;
-  offset?: string;
-};
+  color?: string;
+  isCelebration?: boolean;
+}
 
-type CelebrationStrip = StripItem & { celebration?: boolean };
-
-const STRIPS: CelebrationStrip[] = [
-  { label: "Phone", copy: "+91 8078242214", type: "text", offset: "translate-y-1" },
-  { label: "Email Me", copy: "cainebenoy@gmail.com", type: "email", offset: "translate-y-1" },
-  { label: "LinkedIn", copy: "linkedin.com/in/caine-benoy", type: "link", url: "https://www.linkedin.com/in/caine-benoy-8061a9288/", offset: "-translate-y-1" },
-  { label: "GitHub", copy: "github.com/cainebenoy", type: "link", url: "https://github.com/cainebenoy" },
-  { label: "Resume", copy: "Caine_Benoy_Resume.pdf", type: "download", offset: "translate-y-1" },
-  { label: "Location", copy: "Thrissur, Kerala", type: "text", offset: "-translate-y-1" },
-  { label: "TinkerHub", copy: "tinkerhub.org", type: "link", url: "https://tinkerhub.org/@caine_benoy" },
-  { label: "Hire Me", copy: "Let's Build!", type: "text", celebration: true },
+const strips: StripItem[] = [
+  { id: "1", label: "Email Me", value: "cainebenoy@gmail.com", type: "copy" },
+  { id: "2", label: "LinkedIn", value: "https://www.linkedin.com/in/caine-benoy-8061a9288/", type: "link" },
+  { id: "3", label: "RESUME PDF", value: "/resume.pdf", type: "download", color: "text-blue-600 font-bold" },
+  { id: "4", label: "Location", value: "Thrissur, Kerala", type: "copy" },
+  { id: "5", label: "GitHub", value: "https://github.com/cainebenoy", type: "link" },
+  { id: "6", label: "HIRE ME", value: "Available Now", type: "action", color: "text-red-500 font-bold", isCelebration: true },
 ];
 
-const openInNewTab = (url: string) => {
-  window.open(url, "_blank", "noopener,noreferrer");
-};
-
 export default function ContactFooter() {
+  const [tornIds, setTornIds] = useState<string[]>([]);
   const [toast, setToast] = useState<string | null>(null);
-  const [confetti, setConfetti] = useState<boolean>(false);
-  const [confettiPieces, setConfettiPieces] = useState<Array<{
-    left: string;
-    width: string;
-    height: string;
-    backgroundColor: string;
-    borderRadius: string;
-    duration: number;
-    delay: number;
-  }>>([]);
 
-  const showToast = (message: string) => {
-    setToast(message);
-    setTimeout(() => setToast(null), 1500);
-  };
+  // Trigger the "Paper Ball Barrage" using the global Physics engine
+  const triggerBarrage = (startRect: DOMRect) => {
+    if (!(window as any).spawnPhysicsObject) return;
 
-  const triggerCelebration = () => {
-    const colors = ["#fffd75", "#ff4757", "#7afcff", "#ffa502", "#2ed573"];
-    const pieces = Array.from({ length: 300 }).map(() => {
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      return {
-        left: `${Math.random() * 100}%`,
-        width: `${Math.random() * 8 + 4}px`,
-        height: `${Math.random() * 8 + 4}px`,
-        backgroundColor: color,
-        borderRadius: Math.random() > 0.5 ? "50%" : "0",
-        duration: 2 + Math.random() * 1,
-        delay: Math.random() * 0.3,
-      };
-    });
-    setConfettiPieces(pieces);
-    setConfetti(true);
-    setTimeout(() => setConfetti(false), 3000);
-  };
+    // 1. Spawn 30 "Trash Ideas" (Crumpled Balls)
+    let count = 0;
+    const interval = setInterval(() => {
+        const xOffset = (Math.random() - 0.5) * 500;
+        const spawnX = startRect.left + startRect.width/2 + xOffset;
+        
+        // Call global function (defined in PhysicsCanvas.tsx)
+        (window as any).spawnPhysicsObject({
+            x: spawnX,
+            y: -100, // Drop from sky
+            type: 'ball',
+            color: '#f0f0f0'
+        });
 
-  const copyText = async (text: string) => {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-      return;
-    }
+        count++;
+        if (count > 30) clearInterval(interval);
+    }, 50);
 
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.style.position = "fixed";
-    textarea.style.left = "-9999px";
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textarea);
-  };
-
-  const handleAction = async (item: CelebrationStrip) => {
-    if (item.celebration) {
-      triggerCelebration();
-      return;
-    }
-
-    if (item.type === "email") {
-      await copyText(item.copy);
-      showToast("Email copied to clipboard");
-      return;
-    }
-
-    if (item.type === "link" && item.url) {
-      openInNewTab(item.url);
-      return;
-    }
-
-    if (item.type === "download") {
-      const link = document.createElement("a");
-      link.href = "/resume.pdf";
-      link.download = item.copy;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast("Resume downloaded");
-      return;
-    }
-
-    await copyText(item.copy);
-    showToast("Copied to clipboard");
-  };
-
-  const triggerTear = (target: HTMLDivElement, item: CelebrationStrip) => {
-    if (target.classList.contains("tearing")) return;
-
-    target.classList.add("tearing");
-
+    // 2. Spawn 1 "Golden Ticket" after chaos
     setTimeout(() => {
-      target.classList.add("opacity-0", "pointer-events-none");
-    }, 700);
-
-    void handleAction(item);
+        (window as any).spawnPhysicsObject({
+            x: startRect.left + startRect.width/2,
+            y: -200,
+            type: 'ticket',
+            color: '#ffd700' // Gold
+        });
+        setToast("LET'S BUILD SOMETHING GOLDEN.");
+    }, 2000);
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>, item: CelebrationStrip) => {
-    triggerTear(e.currentTarget, item);
-  };
+  const handleInteraction = async (strip: StripItem, rect: DOMRect) => {
+    setTornIds((prev) => [...prev, strip.id]);
+    
+    track("interaction", { type: strip.type, label: strip.label });
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>, item: CelebrationStrip) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      triggerTear(e.currentTarget, item);
+    // Celebration Logic (Barrage)
+    if (strip.isCelebration) {
+      triggerBarrage(rect);
+    } else {
+      // Normal behavior: Spawn single strip falling
+      if ((window as any).spawnFallingStrip) {
+         (window as any).spawnFallingStrip(rect);
+      }
+    }
+
+    // Action Logic
+    if (strip.type === "download") {
+        const link = document.createElement("a");
+        link.href = strip.value;
+        link.download = "Caine_Benoy_Resume.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setToast("Downloading Resume...");
+        setTimeout(() => setToast(null), 2000);
+    } 
+    else if (strip.type === "copy") {
+      try {
+        await navigator.clipboard.writeText(strip.value);
+        setToast(`Copied: ${strip.value}`);
+      } catch (err) {
+        const textarea = document.createElement("textarea");
+        textarea.value = strip.value;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        setToast(`Copied: ${strip.value}`);
+      }
+      setTimeout(() => setToast(null), 1500);
+    } 
+    else if (strip.type === "link") {
+      window.open(strip.value, "_blank", "noopener,noreferrer");
     }
   };
 
   return (
-    <section
-      id="contact"
-      className="relative z-10 min-h-[80vh] flex flex-col justify-end pb-0 pointer-events-none bg-[#f0eee0]"
-    >
-      <div className="text-center mb-12 pointer-events-auto px-4">
-        <h2 className="font-display text-5xl md:text-8xl leading-none text-ink hover:text-highlight transition-colors duration-300">
-          Let&apos;s Build.
-        </h2>
-        <p className="font-hand text-xl md:text-2xl mt-4 text-gray-600">
-          Grab a strip. Let&apos;s make something weird.
-        </p>
-        <p className="mt-2 text-sm text-gray-500">
-          Click a strip to copy or open the corresponding link.
-        </p>
-
-        <div className="mt-10 flex justify-center">
-          <div className="relative inline-flex items-end rounded-t-xl bg-[#f5f2e6] px-3 py-6 shadow-lg">
-            <div className="pointer-events-none absolute inset-x-2 bottom-0 h-6 bg-gradient-to-b from-transparent to-black/10 blur-md" />
-
-            <div className="relative flex gap-3 md:gap-4">
-              {STRIPS.map((item, i) => {
-                const offsetClass = item.offset ?? "";
-                const isLink = item.type === "link";
-                const isEmail = item.type === "email";
-                const isCelebration = item.celebration;
-
-                const ariaLabel = isCelebration
-                  ? "Celebrate and trigger confetti"
-                  : isEmail
-                  ? "Copy email to clipboard"
-                  : isLink
-                  ? `Open ${item.label} in a new tab`
-                  : item.type === "download"
-                  ? "Download resume"
-                  : `Copy ${item.label} to clipboard`;
-
-                return (
-                  <div
-                    key={item.label + i}
-                    role="button"
-                    tabIndex={0}
-                    aria-label={ariaLabel}
-                    className={[
-                      "tear-strip writing-vertical-rl font-code text-[10px] md:text-xs",
-                      "bg-white border-l border-r border-dashed border-gray-300",
-                      "px-3 py-4 md:px-4 md:py-5",
-                      "cursor-pointer select-none",
-                      "hover:-translate-y-1 hover:scale-105 hover:text-highlight",
-                      "transition-transform duration-200 ease-out",
-                      "shadow-paper",
-                      "focus:outline-none focus:ring-2 focus:ring-highlight/60 focus:ring-offset-2 focus:ring-offset-[#f5f2e6]",
-                      "origin-bottom",
-                      offsetClass,
-                    ].join(" ")}
-                    onClick={(e) => handleClick(e, item)}
-                    onKeyDown={(e) => handleKeyDown(e, item)}
-                  >
-                    {item.label}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+    <section id="contact" className="relative z-10 min-h-[60vh] flex flex-col justify-end pb-0 overflow-hidden">
+      
+      {/* Toast */}
+      {toast && (
+        <div className="fixed top-10 left-1/2 -translate-x-1/2 bg-ink text-paper px-6 py-3 rounded-full shadow-xl z-50 font-code text-sm copy-toast">
+          {toast}
         </div>
+      )}
+
+      <div className="text-center mb-16 pointer-events-auto px-4">
+        <h2 className="font-display text-6xl md:text-9xl leading-none text-ink hover:text-highlight transition-colors duration-300">
+          Let's Build.
+        </h2>
+        <p className="font-hand text-2xl mt-4 text-gray-600">
+          Grab a strip. Let's make something weird.
+        </p>
       </div>
 
-      {toast && (
-        <div className="copy-toast pointer-events-none fixed inset-x-0 bottom-16 flex justify-center">
-          <div className="rounded-full bg-black text-white text-xs md:text-sm px-4 py-2 shadow-lg">
-            {toast}
+      {/* Tear-off Container */}
+      <div className="w-full max-w-5xl mx-auto flex justify-center items-end border-t-4 border-dashed border-gray-300 pt-0 relative bg-white/50 shadow-sm overflow-x-auto pb-4 gap-1 md:gap-2">
+        
+        {strips.map((strip, i) => (
+          <div
+            key={strip.id}
+            className={cn(
+              "tear-strip bg-white border-l-2 border-r-2 border-gray-100 writing-vertical-rl p-3 md:p-5 cursor-none transition-all duration-300 font-code text-[10px] md:text-xs shadow-paper",
+              "hover:translate-y-4 hover:text-highlight hover:z-20",
+              tornIds.includes(strip.id) ? "animate-tear opacity-0 pointer-events-none" : "opacity-100",
+              i % 2 === 0 ? "translate-y-1" : "-translate-y-1",
+              strip.color
+            )}
+            onClick={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                handleInteraction(strip, rect);
+            }}
+            role="button"
+            tabIndex={0}
+          >
+            {strip.label}
           </div>
-        </div>
-      )}
+        ))}
+      </div>
 
-      {confetti && (
-        <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          {confettiPieces.map((p, i) => (
-            <div
-              key={i}
-              className="absolute animate-confetti-fall"
-              style={{
-                left: p.left,
-                top: `-10px`,
-                width: p.width,
-                height: p.height,
-                backgroundColor: p.backgroundColor,
-                borderRadius: p.borderRadius,
-                animation: `confetti-fall ${p.duration}s linear forwards`,
-                animationDelay: `${p.delay}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-      <footer className="w-full text-center font-hand text-gray-400 text-base md:text-lg py-6 bg-[#f0eee0] pointer-events-auto">
-        © 2026 Caine Benoy. Built with chaos &amp; code.
+      <footer className="w-full text-center font-hand text-gray-400 text-lg py-8 bg-[#f0eee0] pointer-events-auto">
+        © 2026 Caine Benoy. Built with chaos & code.
       </footer>
     </section>
   );

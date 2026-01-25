@@ -6,6 +6,7 @@ import Matter from "matter-js";
 declare global {
   interface Window {
     spawnFallingStrip?: (rect: DOMRect) => void;
+    spawnPhysicsObject?: (config: any) => void;
   }
 }
 
@@ -127,12 +128,55 @@ export default function PhysicsCanvas() {
       } catch {}
     };
 
+    // NEW: Spawn Physics Objects (Balls and Tickets)
+    window.spawnPhysicsObject = (config: any) => {
+      try {
+        const eng = engineRef.current;
+        if (!eng) return;
+
+        let body;
+        if (config.type === 'ball') {
+          // Paper Ball (Circle with rough friction)
+          body = Matter.Bodies.circle(config.x, config.y, 15 + Math.random() * 10, {
+            restitution: 0.7, // Bouncy
+            friction: 0.5,
+            render: {
+              fillStyle: config.color || '#f0f0f0',
+              strokeStyle: '#ccc',
+              lineWidth: 2
+            }
+          });
+        } else if (config.type === 'ticket') {
+          // Golden Ticket
+          body = Matter.Bodies.rectangle(config.x, config.y, 120, 60, {
+            restitution: 0.4,
+            render: {
+              fillStyle: config.color || '#ffd700',
+              strokeStyle: '#b8860b', // Dark gold border
+              lineWidth: 3
+            }
+          });
+        }
+
+        if (body) {
+          Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.3);
+          Matter.World.add(eng.world, body);
+
+          // Remove after ~15s to avoid buildup
+          setTimeout(() => {
+            try { Matter.World.remove(eng.world, body); } catch {}
+          }, 15000);
+        }
+      } catch {}
+    };
+
     // Cleanup
     return () => {
       Matter.Render.stop(render);
       Matter.Runner.stop(runner);
       if (render.canvas) render.canvas.remove();
       try { delete window.spawnFallingStrip; } catch {}
+      try { delete window.spawnPhysicsObject; } catch {}
     };
   }, []);
 
