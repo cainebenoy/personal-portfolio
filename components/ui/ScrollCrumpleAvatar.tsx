@@ -118,8 +118,8 @@ export default function ScrollCrumpleAvatar() {
         rotation = p * 220;
       }
 
-      // Scale avatar to 1/4 size (0.25)
-      ctx.scale(scale * 0.25, scale * 0.25);
+      // Scale avatar to 3/4 size (0.75)
+      ctx.scale(scale * 0.75, scale * 0.75);
       ctx.rotate((rotation * Math.PI) / 180);
       ctx.drawImage(currentImg, -currentImg.naturalWidth / 2, -currentImg.naturalHeight / 2);
 
