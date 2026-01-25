@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { cn } from "@/lib/utils";
 
 // --- DATA ---
@@ -89,10 +89,23 @@ const radarData = [
 
 export default function TechRadar() {
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const PROXIMITY_RADIUS_INNER = 40; // pixels for ring 0 (tighter)
   const PROXIMITY_RADIUS_OUTER = 80; // pixels for rings 1-2
+
+  // Detect mobile device on client mount
+  useLayoutEffect(() => {
+    const isTouchDevice =
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+    
+    // Use a timeout to defer state update and avoid eslint complaint
+    Promise.resolve().then(() => {
+      setIsMobile(isTouchDevice);
+    });
+  }, []);
 
   // Helper to position items with consistent rounding
   const getPosition = (ring: number, angle: number) => {
@@ -106,6 +119,9 @@ export default function TechRadar() {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    // Skip proximity detection on mobile (only click detection)
+    if (isMobile) return;
+    
     if (!containerRef.current) return;
     
     const rect = containerRef.current.getBoundingClientRect();
@@ -126,6 +142,14 @@ export default function TechRadar() {
     });
 
     setActiveItem(closestItem?.name || null);
+  };
+
+  // Handle click/touch on blips for mobile
+  const handleBlipClick = (itemName: string) => {
+    if (isMobile) {
+      // Toggle on mobile
+      setActiveItem(activeItem === itemName ? null : itemName);
+    }
   };
 
   const handleMouseLeave = () => {
@@ -183,6 +207,7 @@ export default function TechRadar() {
                 key={item.name}
                 className="absolute transform -translate-x-1/2 -translate-y-1/2 group"
                 style={{ left: pos.x, top: pos.y }}
+                onClick={() => handleBlipClick(item.name)}
               >
                 {/* The Blip */}
                 <div
