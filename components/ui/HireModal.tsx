@@ -13,6 +13,7 @@ export default function HireModal({ isOpen, onClose, onSubmit }: HireModalProps)
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [progress, setProgress] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,13 +46,31 @@ export default function HireModal({ isOpen, onClose, onSubmit }: HireModalProps)
     }
 
     setLoading(true);
+    setProgress(0);
+
+    // Gradually increase progress while submitting - smooth creep
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 85) return 85;
+        return prev + Math.random() * 3;
+      });
+    }, 75);
+
     try {
       await onSubmit(formData);
-      setFormData({ name: "", email: "", phone: "" });
-      onClose();
+      clearInterval(progressInterval);
+      setProgress(100);
+      
+      // Wait 1 second with progress bar fully filled, then close the modal
+      setTimeout(() => {
+        setFormData({ name: "", email: "", phone: "" });
+        setLoading(false);
+        onClose();
+      }, 1000);
     } catch (err) {
+      clearInterval(progressInterval);
+      setProgress(0);
       setError(err instanceof Error ? err.message : "Failed to submit. Please try again.");
-    } finally {
       setLoading(false);
     }
   };
@@ -66,13 +85,14 @@ export default function HireModal({ isOpen, onClose, onSubmit }: HireModalProps)
           onClick={onClose}
           className="absolute top-4 right-4 p-2 hover:bg-gray-200 rounded-full transition-colors"
           aria-label="Close"
+          disabled={loading}
         >
           <X size={20} className="text-ink" />
         </button>
 
         {/* Header */}
         <div className="mb-6">
-          <h3 className="font-display text-2xl text-ink">Let's Work Together</h3>
+          <h3 className="font-display text-2xl text-ink">Let''s Work Together</h3>
           <p className="font-hand text-ink/70 mt-2">Tell me about yourself</p>
         </div>
 
@@ -136,6 +156,16 @@ export default function HireModal({ isOpen, onClose, onSubmit }: HireModalProps)
             </div>
           )}
 
+          {/* Progress Bar */}
+          {loading && (
+            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-highlight transition-all duration-300 ease-out"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          )}
+
           {/* Buttons */}
           <div className="flex gap-3 pt-4">
             <button
@@ -149,9 +179,16 @@ export default function HireModal({ isOpen, onClose, onSubmit }: HireModalProps)
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-highlight text-white rounded font-code text-sm font-bold hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="flex-1 px-4 py-2 bg-highlight text-white rounded font-code text-sm font-bold hover:opacity-90 transition-opacity disabled:opacity-50 relative overflow-hidden"
             >
-              {loading ? "Sending..." : "Send Details"}
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="inline-block w-1 h-1 bg-white rounded-full animate-pulse" />
+                  Sending...
+                </span>
+              ) : (
+                "Send Details"
+              )}
             </button>
           </div>
         </form>
