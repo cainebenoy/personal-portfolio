@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useAppStore } from "@/lib/useAppStore";
 
 // --- CONFIGURATION ---
 const FRAME_COUNT = 82; 
@@ -14,6 +15,7 @@ export default function ScrollCrumpleAvatar() {
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [percent, setPercent] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const theme = useAppStore((state) => state.theme);
 
   // Smooth scroll interpolation
   const targetPercentRef = useRef(0);
@@ -130,6 +132,11 @@ export default function ScrollCrumpleAvatar() {
       const wiggle = Math.sin(percent * 15) * 5; // Fast jitter
       const float = Math.sin(percent * 5) * 10;  // Slow float
 
+      // Theme-aware colors
+      const isDarkMode = theme === "blueprint";
+      const doodleColor = isDarkMode ? "rgba(232, 232, 232, 0.9)" : "rgba(30, 30, 30, 0.8)";
+      const doodleStroke = isDarkMode ? "rgba(232, 232, 232, 0.8)" : "rgba(30, 30, 30, 0.8)";
+
       ctx.save(); // Isolate doodle styles
 
       // 1. "SHIP IT" Stamp (Left Side)
@@ -148,11 +155,11 @@ export default function ScrollCrumpleAvatar() {
       ctx.save();
       ctx.translate(w * 0.65, -h * 0.35 + float);
       ctx.rotate(-0.1);
-      ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.strokeStyle = doodleStroke;
       ctx.lineWidth = 3;
       ctx.strokeRect(0, 0, 160, 50); 
       ctx.font = "bold 24px monospace";
-      ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.fillStyle = doodleColor;
       ctx.fillText("NOT A BUG", 15, 32);
       ctx.beginPath();
       ctx.moveTo(160, 25);
@@ -170,7 +177,7 @@ export default function ScrollCrumpleAvatar() {
       ctx.save();
       ctx.translate(-w * 0.72, h * 0.55);
       ctx.font = "20px monospace";
-      ctx.fillStyle = "#c0392b";
+      ctx.fillStyle = isDarkMode ? "#ff6b9d" : "#c0392b";
       ctx.fillText("while(alive) {", 0, 0);
       ctx.fillText("  build();", 20, 25);
       ctx.fillText("}", 0, 50);
@@ -187,7 +194,7 @@ export default function ScrollCrumpleAvatar() {
         const dy = Math.cos(i * 0.5) * 10;
         ctx.quadraticCurveTo(dx, dy, i * 10, (i % 2 === 0 ? 10 : -10));
       }
-      ctx.strokeStyle = "rgba(0, 0, 0, 0.15)";
+      ctx.strokeStyle = isDarkMode ? "rgba(232, 232, 232, 0.3)" : "rgba(0, 0, 0, 0.15)";
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.restore();
@@ -196,14 +203,14 @@ export default function ScrollCrumpleAvatar() {
       ctx.save();
       ctx.translate(w * 0.48 + 300, h * 0.08 + 300 + wiggle * 0.3);
       ctx.rotate(0.02);
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
+      ctx.fillStyle = isDarkMode ? "rgba(232, 232, 232, 0.1)" : "rgba(0, 0, 0, 0.05)";
+      ctx.strokeStyle = isDarkMode ? "rgba(232, 232, 232, 0.4)" : "rgba(0, 0, 0, 0.25)";
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.roundRect(0, 0, 180, 100, 12);
       ctx.fill();
       ctx.stroke();
-      ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.fillStyle = doodleColor;
       ctx.font = "22px monospace";
       ctx.fillText("FPS: 144", 20, 36);
       ctx.fillText("PING: 999ms", 20, 68);
