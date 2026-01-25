@@ -154,6 +154,22 @@ export default function ScrollCrumpleAvatar() {
       ctx.fillText("}", 0, 50);
       ctx.restore();
 
+      // 3. Scribble Cluster (Right Side)
+      ctx.save();
+      ctx.translate(w * 0.6, h * 0.42);
+      ctx.rotate(0.1);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      for (let i = 0; i < 14; i++) {
+        const dx = Math.sin(i * 0.7) * 20;
+        const dy = Math.cos(i * 0.5) * 10;
+        ctx.quadraticCurveTo(dx, dy, i * 10, (i % 2 === 0 ? 10 : -10));
+      }
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.15)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.restore();
+
       ctx.restore(); // Restore doodle context
 
       ctx.restore();
