@@ -157,11 +157,11 @@ export default function TechRadar() {
   };
 
   return (
-    <section id="radar" className="relative z-10 py-24 overflow-hidden">
-      <div className="mx-auto max-w-6xl px-4 text-center">
-        <div className="mb-12">
-          <h2 className="font-display text-4xl md:text-6xl text-ink">Tech Radar</h2>
-          <p className="mt-2 font-hand text-xl text-gray-500">
+    <section id="radar" className="relative z-10 py-12 md:py-24 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-2 sm:px-4 text-center">
+        <div className="mb-8 md:mb-12">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-6xl text-ink">Tech Radar</h2>
+          <p className="mt-2 font-hand text-base sm:text-lg md:text-xl text-gray-500">
             What I use, what I&apos;m learning, and what I&apos;m watching.
           </p>
         </div>
@@ -169,7 +169,7 @@ export default function TechRadar() {
         {/* The Radar Container with Background */}
         <div 
           ref={containerRef}
-          className="relative aspect-square max-w-[900px] mx-auto bg-paper shadow-lg border-4 border-ink rounded-lg overflow-hidden"
+          className="relative aspect-square w-full max-w-[900px] mx-auto bg-paper shadow-lg border-2 sm:border-4 border-ink rounded-lg overflow-hidden"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
@@ -192,10 +192,10 @@ export default function TechRadar() {
             <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" strokeWidth="0.1" className="text-ink opacity-10" />
           </svg>
 
-          {/* Labels for Rings */}
-          <div className="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 font-code text-[10px] text-gray-400">ADOPT</div>
-          <div className="absolute top-[15%] left-1/2 -translate-x-1/2 -translate-y-1/2 font-code text-[10px] text-gray-400">TRIAL</div>
-          <div className="absolute top-[2%] left-1/2 -translate-x-1/2 -translate-y-1/2 font-code text-[10px] text-gray-400">ASSESS</div>
+          {/* Labels for Rings - positioned above the rings to be visible */}
+          <div className="absolute top-[28%] left-1/2 -translate-x-1/2 -translate-y-full font-code text-[8px] sm:text-[10px] text-gray-400 whitespace-nowrap pb-1">ADOPT</div>
+          <div className="absolute top-[8%] left-1/2 -translate-x-1/2 -translate-y-full font-code text-[8px] sm:text-[10px] text-gray-400 whitespace-nowrap pb-1">TRIAL</div>
+          <div className="absolute top-[-2%] left-1/2 -translate-x-1/2 -translate-y-full font-code text-[8px] sm:text-[10px] text-gray-400 whitespace-nowrap pb-1">ASSESS</div>
 
           {/* Radar Blips */}
           {radarData.map((item) => {
@@ -212,7 +212,7 @@ export default function TechRadar() {
                 {/* The Blip */}
                 <div
                   className={cn(
-                    "w-5 h-5 rounded-full border-2 transition-all duration-200 cursor-pointer shadow-md",
+                    "rounded-full border transition-all duration-200 cursor-pointer shadow-md w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 border-1 sm:border-2",
                     item.ring === 0 ? "bg-ink border-ink" : 
                     item.ring === 1 ? "bg-highlight border-highlight" : 
                     "bg-white border-gray-400",
@@ -226,11 +226,11 @@ export default function TechRadar() {
                 {/* The Label */}
                 <div
                   className={cn(
-                    "absolute left-8 top-1/2 -translate-y-1/2 whitespace-nowrap font-hand text-sm transition-all duration-200 z-20 pointer-events-none",
+                    "absolute left-6 sm:left-8 top-1/2 -translate-y-1/2 whitespace-nowrap font-hand text-xs sm:text-sm transition-all duration-200 z-20 pointer-events-none",
                     isHovered ? "opacity-100 translate-x-2 text-ink scale-110" : "opacity-0 scale-90"
                   )}
                 >
-                  <span className="bg-white/95 backdrop-blur-sm px-3 py-2 rounded shadow-lg border-2 border-ink font-medium">
+                  <span className="bg-white/95 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-2 rounded shadow-lg border-2 border-ink font-medium text-[9px] sm:text-[11px]">
                     {item.name}
                   </span>
                 </div>
@@ -241,7 +241,7 @@ export default function TechRadar() {
         </div>
 
         {/* Legend */}
-        <div className="mt-12 flex justify-center gap-8 font-code text-xs text-gray-500">
+        <div className="mt-8 md:mt-12 flex flex-wrap justify-center gap-4 md:gap-8 font-code text-[10px] sm:text-xs text-gray-500">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-ink" /> Adopt ({techRadarData.Adopt.length})
           </div>
