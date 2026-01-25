@@ -102,26 +102,26 @@ export default function ScrollCrumpleAvatar() {
       ctx.translate(cx, cy);
       ctx.scale(dpr, dpr);
 
-      let scale = 1;
-      let rotation = 0;
+      let opacity = 1;
 
-      // Un-crumple faster (0% - 12%)
+      // Fade in during first 12%
       if (percent < 0.12) {
-        const p = percent / 0.12;
-        scale = lerp(0.15, 1, p);
-        rotation = (1 - p) * 220;
+        opacity = percent / 0.12;
       } 
-      // Re-crumple (88% - 100%)
+      // Fade out during last 12%
       else if (percent > 0.88) {
-        const p = (percent - 0.88) / 0.12;
-        scale = lerp(1, 0.15, p);
-        rotation = p * 220;
+        opacity = 1 - ((percent - 0.88) / 0.12);
       }
 
-      // Scale avatar to 0.6 size
-      ctx.scale(scale * 0.6, scale * 0.6);
-      ctx.rotate((rotation * Math.PI) / 180);
+      // Apply opacity
+      ctx.globalAlpha = opacity;
+
+      // Scale avatar to 0.6 size (no rotation, no scale animation)
+      ctx.scale(0.6, 0.6);
       ctx.drawImage(currentImg, -currentImg.naturalWidth / 2, -currentImg.naturalHeight / 2);
+      
+      // Reset opacity for doodles
+      ctx.globalAlpha = 1;
 
       ctx.restore();
 
