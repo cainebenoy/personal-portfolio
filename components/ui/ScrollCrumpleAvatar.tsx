@@ -123,9 +123,8 @@ export default function ScrollCrumpleAvatar() {
       // Reset opacity for doodles
       ctx.globalAlpha = 1;
 
-      ctx.restore();
-
       // --- D. DRAW FUN ELEMENTS (The Doodles) - Around the avatar ---
+      // IMPORTANT: Draw doodles BEFORE ctx.restore() so they use same coordinate space as avatar
       const w = currentImg.naturalWidth / dpr;
       const h = currentImg.naturalHeight / dpr;
       const wiggle = Math.sin(percent * 15) * 5; // Fast jitter
@@ -151,7 +150,7 @@ export default function ScrollCrumpleAvatar() {
       // Arrow pointing to head
       ctx.beginPath();
       ctx.moveTo(160, 25);
-      ctx.quadraticCurveTo(200, 25, 220, 80); // Curved line to image center area
+      ctx.quadraticCurveTo(200, 25, 220, 80);
       ctx.stroke();
       // Arrowhead
       ctx.beginPath();
@@ -167,7 +166,7 @@ export default function ScrollCrumpleAvatar() {
       ctx.translate(w * 0.3, h * 0.25 + wiggle);
       ctx.rotate(0.1);
       ctx.font = "bold 30px sans-serif";
-      ctx.fillText("C₈H₁₀N₄O₂", 0, 0); // Caffeine molecule
+      ctx.fillText("C₈H₁₀N₄O₂", 0, 0);
       ctx.font = "italic 16px serif";
       ctx.fillText("(Fuel Source)", 10, 20);
       // Underline
@@ -181,7 +180,7 @@ export default function ScrollCrumpleAvatar() {
       ctx.save();
       ctx.translate(-w * 0.35, h * 0.2);
       ctx.font = "20px monospace";
-      ctx.fillStyle = "#c0392b"; // Red pen correction
+      ctx.fillStyle = "#c0392b";
       ctx.fillText("while(alive) {", 0, 0);
       ctx.fillText("  build();", 20, 25);
       ctx.fillText("}", 0, 50);
@@ -191,10 +190,9 @@ export default function ScrollCrumpleAvatar() {
       ctx.save();
       ctx.translate(w * 0.3, -h * 0.3 + float);
       ctx.rotate(0.2);
-      // Circle sticker
       ctx.beginPath();
       ctx.arc(0, 0, 40, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 255, 0, 0.3)"; // Highlighter yellow highlight
+      ctx.fillStyle = "rgba(255, 255, 0, 0.3)";
       ctx.fill();
       ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
       ctx.stroke();
@@ -209,7 +207,6 @@ export default function ScrollCrumpleAvatar() {
       ctx.translate(-w * 0.1, h * 0.4);
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      // Draw a messy spring
       for(let i=0; i<10; i++) {
           ctx.quadraticCurveTo(10 + i*5, -20, 20 + i*5, 0);
           ctx.quadraticCurveTo(30 + i*5, 20, 40 + i*5, 0);
@@ -218,7 +215,9 @@ export default function ScrollCrumpleAvatar() {
       ctx.stroke();
       ctx.restore();
 
-      ctx.restore(); // Restore context
+      ctx.restore(); // Restore doodle context
+
+      ctx.restore();
     }
   }, [percent, images, loaded]);
 
