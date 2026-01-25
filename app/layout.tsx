@@ -23,11 +23,11 @@ const marker = Permanent_Marker({ weight: "400", subsets: ["latin"], variable: "
 const reenie = Reenie_Beanie({ weight: "400", subsets: ["latin"], variable: "--font-reenie" });
 
 export const metadata: Metadata = {
-  title: "Caine Benoy | Generalist Portfolio",
+  title: "Caine Benoy | Portfolio",
   description: "A jack of all trades is a master of none, but oftentimes better than a master of one.",
   metadataBase: new URL("https://cainebenoy.com"),
   openGraph: {
-    title: "Caine Benoy | Generalist Portfolio",
+    title: "Caine Benoy | Portfolio",
     description: "Full-stack developer, designer, and creative technologist. Building digital experiences with code, design, and a touch of physics.",
     url: "https://cainebenoy.com",
     siteName: "Caine Benoy Portfolio",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Caine Benoy | Generalist Portfolio",
+    title: "Caine Benoy | Portfolio",
     description: "Full-stack developer, designer, and creative technologist. Building digital experiences with code, design, and a touch of physics.",
   },
   robots: {
