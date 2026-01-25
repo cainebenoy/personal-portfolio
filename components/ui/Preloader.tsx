@@ -67,7 +67,7 @@ export default function Preloader() {
         {/* Main SVG for the name animation */}
         <svg 
           className="relative z-10 w-full max-w-2xl"
-          viewBox="0 0 350 150"
+          viewBox="0 0 600 260"
           preserveAspectRatio="xMidYMid meet"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -90,9 +90,9 @@ export default function Preloader() {
           {/* Glow background circle */}
           <circle
             id="name-glow"
-            cx="175"
-            cy="75"
-            r="120"
+            cx="300"
+            cy="130"
+            r="180"
             fill="none"
             stroke="rgba(255, 71, 87, 0.15)"
             strokeWidth="1"
@@ -100,25 +100,38 @@ export default function Preloader() {
             filter="url(#glow)"
           />
 
-          {/* Sketchbook signature path */}
+          {/* Sketchbook signature path (traced from provided photo) */}
           <path
             id="signature-path"
-            d="M 60 40 
-               C 30 20, 10 50, 30 80 
-               C 40 95, 65 95, 75 80 
-               C 85 65, 95 65, 90 80 
-               C 85 95, 105 95, 110 80 
-               L 110 65 
-               L 110 80 
-               C 115 65, 125 65, 125 80 
-               C 130 65, 140 65, 140 80 
-               C 145 65, 160 55, 165 70 
-               C 170 85, 155 85, 180 85"
+            d="M 90 220
+               C 40 150, 60 60, 170 70
+               C 250 80, 270 200, 190 210
+               C 120 220, 100 160, 150 130
+
+               M 220 170
+               C 230 130, 280 120, 295 165
+               C 300 200, 250 215, 235 185
+
+               M 320 200
+               C 330 150, 360 140, 365 180
+               C 370 210, 330 220, 320 200
+
+               M 400 200
+               C 410 150, 450 145, 455 180
+               C 460 220, 420 220, 410 195
+               M 455 180
+               C 470 140, 520 135, 525 185
+               C 528 220, 485 230, 470 200
+
+               M 550 200
+               C 555 150, 600 140, 610 180
+               C 620 240, 550 240, 545 190
+               C 548 150, 600 150, 610 190"
             fill="none"
             stroke="var(--ink)"
-            strokeWidth="3"
-            strokeDasharray="450"
-            strokeDashoffset="450"
+            strokeWidth="5"
+            strokeDasharray="1400"
+            strokeDashoffset="1400"
             strokeLinecap="round"
             strokeLinejoin="round"
             filter="url(#pencil-texture)"
@@ -127,9 +140,9 @@ export default function Preloader() {
           {/* Dot over the i */}
           <circle
             id="signature-dot"
-            cx="110"
-            cy="50"
-            r="3"
+            cx="340"
+            cy="130"
+            r="6"
             fill="var(--ink)"
             filter="url(#pencil-texture)"
           />
