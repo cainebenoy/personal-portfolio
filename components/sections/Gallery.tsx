@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils";
 // Replace with your actual photos in /public/gallery/
 // Adding more items to make the pile look fuller
 const photos = [
-  { id: 1, src: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=600&auto=format&fit=crop", label: "HackFit '24" },
-  { id: 2, src: "https://images.unsplash.com/photo-1475721027767-p05ed6ce9749?q=80&w=600&auto=format&fit=crop", label: "TinkerHub Keynote" },
-  { id: 3, src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=600&auto=format&fit=crop", label: "Late Nights" },
-  { id: 4, src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=600&auto=format&fit=crop", label: "Community Meetup" },
+  { id: 1, src: "/gallery/Yukthi_2.0.jpg", label: "HackFit '24" },
+  { id: 2, src: "/gallery/Yukthi_2.0.jpg", label: "TinkerHub Keynote" },
+  { id: 3, src: "/gallery/Yukthi_2.0.jpg", label: "Late Nights" },
+  { id: 4, src: "/gallery/Yukthi_2.0.jpg", label: "Community Meetup" },
   { id: 5, src: "https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=600&auto=format&fit=crop", label: "Panel Discussion" },
   { id: 6, src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop", label: "Innovation Award" },
   { id: 7, src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop", label: "Workshop Lead" },
