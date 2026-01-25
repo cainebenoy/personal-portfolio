@@ -6,7 +6,7 @@ A modern, interactive portfolio website showcasing creative work with smooth the
 
 ## 🚀 Live Demo
 
-**Deployed**: [cainebenoy.com](https://cainebenoy.com)  
+**Deployed**: [cainebenoy.com](https://personal-portfolio-amber-eta.vercel.app/)  
 **Local Dev**: `npm run dev` → [http://localhost:3000](http://localhost:3000)
 
 ---
