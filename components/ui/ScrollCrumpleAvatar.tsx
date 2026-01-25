@@ -144,7 +144,25 @@ export default function ScrollCrumpleAvatar() {
       ctx.fillText("SHIP IT", -60, 8);
       ctx.restore();
 
-      // 2. Infinite Loop Code (Bottom Left)
+      // 2. "404" Sticker (Top Right)
+      ctx.save();
+      ctx.translate(w * 0.72, -h * 0.62 + float);
+      ctx.rotate(0.2);
+      ctx.beginPath();
+      ctx.arc(0, 0, 40, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 255, 0, 0.3)";
+      ctx.fill();
+      ctx.strokeStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.fillStyle = "rgba(30, 30, 30, 0.8)";
+      ctx.font = "bold 24px monospace";
+      ctx.fillText("404", -20, 10);
+      ctx.font = "12px monospace";
+      ctx.fillText("SLEEP NOT FOUND", -50, 30);
+      ctx.restore();
+
+      // 3. Infinite Loop Code (Bottom Left)
       ctx.save();
       ctx.translate(-w * 0.72, h * 0.55);
       ctx.font = "20px monospace";
@@ -154,7 +172,7 @@ export default function ScrollCrumpleAvatar() {
       ctx.fillText("}", 0, 50);
       ctx.restore();
 
-      // 3. Scribble Cluster (Right Side)
+      // 4. Scribble Cluster (Right Side)
       ctx.save();
       ctx.translate(w * 0.6, h * 0.42);
       ctx.rotate(0.1);
