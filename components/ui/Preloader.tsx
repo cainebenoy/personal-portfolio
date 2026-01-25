@@ -9,7 +9,7 @@ export default function Preloader() {
   const cursorRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const name = "Caine";
+    const name = "Caine?";
     const tl = gsap.timeline({
       onComplete: () => setComplete(true),
     });
@@ -39,15 +39,16 @@ export default function Preloader() {
     // Phase 3: Stop cursor blink and fade it out
     tl.to(cursorRef.current, {
       opacity: 0,
-      duration: 0.3,
-    }, 1.5);
+      duration: 0.5,
+      ease: "power2.out",
+    }, 1.8);
 
     // Phase 4: Scale up text slightly
     tl.to("#typed-name", {
-      scale: 1.1,
-      duration: 0.4,
-      ease: "back.out(1.5)",
-    }, 1.2);
+      scale: 1.15,
+      duration: 0.6,
+      ease: "power2.out",
+    }, 1.5);
 
     // Phase 5: Position wipe overlay at i-dot location and make visible
     tl.call(() => {
@@ -62,27 +63,27 @@ export default function Preloader() {
         wipeOverlay.style.top = `${centerY}px`;
         wipeOverlay.style.opacity = "1";
       }
-    }, [], 2.0);
+    }, [], 2.2);
 
     // Phase 6: Expand the wipe overlay to fill screen (creates zoom-in effect)
     tl.to("#wipe-overlay", {
-      width: "300vw",
-      height: "300vh",
-      duration: 1.2,
-      ease: "power4.in",
-    }, 2.0);
+      width: "400vw",
+      height: "400vh",
+      duration: 1.6,
+      ease: "power3.inOut",
+    }, 2.2);
 
     // Phase 7: Fade out the entire preloader
     tl.to("#preloader-container", {
       opacity: 0,
-      duration: 0.8,
-      ease: "power2.inOut",
-    }, 2.8);
+      duration: 1.0,
+      ease: "power2.out",
+    }, 3.4);
 
     // Phase 8: Set display none after fade
     tl.set("#preloader-container", {
       display: "none",
-    }, 3.8);
+    }, 4.6);
 
     return () => clearInterval(typingInterval);
   }, []);
