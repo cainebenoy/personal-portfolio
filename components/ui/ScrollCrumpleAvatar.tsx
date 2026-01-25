@@ -225,7 +225,7 @@ export default function ScrollCrumpleAvatar() {
 
       // 6. FPS/Ping HUD
       ctx.save();
-      ctx.translate(w * 0.48 + 50, h * 0.08 + 50 + wiggle * 0.3);
+      ctx.translate(w * 0.48 + 150, h * 0.08 + 150 + wiggle * 0.3);
       ctx.rotate(0.02);
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
