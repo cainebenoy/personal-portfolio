@@ -49,8 +49,8 @@ export default function Preloader() {
       ease: "back.out(1.5)",
     }, 1.2);
 
-    // Phase 5: Expand/Fill to paper (Wipe effect)
-    tl.to("#preloader-overlay", {
+    // Phase 5: Expand the i-dot to fill screen (Wipe effect)
+    tl.to("#i-dot", {
       scale: 60,
       duration: 0.9,
       ease: "power4.in",
@@ -79,16 +79,28 @@ export default function Preloader() {
       className="fixed inset-0 z-[9999] bg-ink flex items-center justify-center overflow-hidden"
     >
       <div className="relative w-full h-full flex items-center justify-center">
-        {/* The expanding dot for the wipe effect */}
-        <div id="preloader-overlay" className="absolute w-6 h-6 bg-paper rounded-full" />
         
         {/* Typing animation */}
         <div className="relative z-10 flex items-center justify-center">
           <h1 
             id="typed-name" 
-            className="font-display text-8xl text-paper tracking-wide"
+            className="font-display text-8xl text-paper tracking-wide relative"
           >
-            {displayText}
+            {displayText.split('').map((char, index) => (
+              <span 
+                key={index} 
+                className="relative inline-block"
+              >
+                {char}
+                {/* Dot over the 'i' that will expand */}
+                {char.toLowerCase() === 'i' && (
+                  <span 
+                    id="i-dot"
+                    className="absolute left-1/2 -translate-x-1/2 -top-4 w-3 h-3 bg-paper rounded-full"
+                  />
+                )}
+              </span>
+            ))}
             <span 
               ref={cursorRef}
               className="inline-block w-1 h-24 bg-highlight ml-2 align-middle"
