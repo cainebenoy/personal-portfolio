@@ -44,27 +44,7 @@ export default function PhysicsCanvas() {
       Matter.Bodies.rectangle(width + 50, height / 2, 100, height, wallOptions), // Right
     ];
 
-    // 3. Create Falling Objects (Sticky Notes)
-    const notes = [];
-    const colors = ["#fffd75", "#ff7eb9", "#7afcff"]; // Yellow, Pink, Blue
-
-    for (let i = 0; i < 5; i++) {
-      const x = Math.random() * width;
-      const y = Math.random() * -500; // Start above screen
-      const angle = Math.random() * Math.PI;
-      
-      const note = Matter.Bodies.rectangle(x, y, 80, 80, {
-        angle: angle,
-        render: {
-          fillStyle: colors[i % colors.length],
-          strokeStyle: "#333",
-          lineWidth: 2,
-        },
-      });
-      notes.push(note);
-    }
-
-    Matter.World.add(engine.world, [...walls, ...notes]);
+    Matter.World.add(engine.world, walls);
 
     // 4. Mouse Interaction
     const mouse = Matter.Mouse.create(render.canvas);

@@ -128,7 +128,7 @@ export default function ContactFooter() {
       </div>
 
       {/* Tear-off Container */}
-      <div className="w-full max-w-5xl mx-auto flex justify-center items-end border-t-4 border-dashed border-gray-300 pt-0 relative bg-white/50 shadow-sm overflow-x-auto pb-4 gap-1 md:gap-2">
+      <div className="w-full max-w-5xl mx-auto flex justify-center items-end border-t-4 border-dashed border-gray-300 pt-0 relative bg-white/50 shadow-sm overflow-x-auto pb-4 gap-1 md:gap-2 pointer-events-auto">
         
         {strips.map((strip, i) => (
           <div
