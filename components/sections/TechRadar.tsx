@@ -157,8 +157,8 @@ export default function TechRadar() {
   };
 
   return (
-    <section id="radar" className="relative z-10 py-12 md:py-24 overflow-hidden">
-      <div className="mx-auto max-w-6xl px-2 sm:px-4 text-center">
+    <section id="radar" className="relative z-10 py-12 md:py-24">
+      <div className="mx-auto max-w-7xl px-2 sm:px-4 text-center">
         <div className="mb-8 md:mb-12">
           <h2 className="font-display text-3xl sm:text-4xl md:text-6xl text-ink">Tech Radar</h2>
           <p className="mt-2 font-hand text-base sm:text-lg md:text-xl text-gray-500">
@@ -169,16 +169,19 @@ export default function TechRadar() {
         {/* The Radar Container with Background */}
         <div 
           ref={containerRef}
-          className="relative aspect-square w-full max-w-[900px] mx-auto bg-paper shadow-lg border-2 sm:border-4 border-ink rounded-lg overflow-hidden"
+          className="relative aspect-square w-full max-w-[900px] mx-auto bg-paper shadow-lg border-2 sm:border-4 border-ink rounded-lg"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
+          style={{
+            overflow: 'visible',
+            paddingLeft: '60px',
+            paddingRight: '60px',
+          }}
         >
           {/* Background texture */}
           <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
             backgroundImage: "url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\"><defs><pattern id=\"dots\" x=\"0\" y=\"0\" width=\"10\" height=\"10\" patternUnits=\"userSpaceOnUse\"><circle cx=\"5\" cy=\"5\" r=\"1\" fill=\"%23000\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23dots)\"/></svg>')"
           }} />
-
-          {/* Hand-Drawn Rings (SVG) */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
             {/* Ring 1 (Adopt) */}
             <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="0.3" className="text-ink opacity-30" strokeDasharray="4 2" />
