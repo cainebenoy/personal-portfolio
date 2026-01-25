@@ -128,7 +128,7 @@ export default function Preloader() {
                C 620 240, 550 240, 545 190
                C 548 150, 600 150, 610 190"
             fill="none"
-            stroke="var(--ink)"
+            stroke="var(--paper)"
             strokeWidth="5"
             strokeDasharray="1400"
             strokeDashoffset="1400"
@@ -143,7 +143,7 @@ export default function Preloader() {
             cx="340"
             cy="130"
             r="6"
-            fill="var(--ink)"
+            fill="var(--paper)"
             filter="url(#pencil-texture)"
           />
         </svg>
