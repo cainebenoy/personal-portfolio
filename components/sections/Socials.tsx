@@ -50,8 +50,8 @@ export default function Socials() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch latest 3 updated repos from GitHub
-    fetch("https://api.github.com/users/cainebenoy/repos?sort=pushed&per_page=3")
+    // Fetch latest 6 pushed repos from GitHub
+    fetch("https://api.github.com/users/cainebenoy/repos?sort=pushed&per_page=6")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setRepos(data);
@@ -139,7 +139,7 @@ export default function Socials() {
 
             <div className="space-y-4 bg-gray-100/50 p-4 rounded-xl border border-gray-200">
                 {loading ? (
-                     [1,2,3].map((i) => (
+                     [1,2,3,4,5,6].map((i) => (
                         <div key={i} className="h-32 bg-white animate-pulse rounded border border-gray-200"></div>
                    ))
                 ) : (
