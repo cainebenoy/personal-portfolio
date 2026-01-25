@@ -1,5 +1,6 @@
 import SketchCanvas from "@/components/canvas/SketchCanvas";
 import InkCanvas from "@/components/canvas/InkCanvas";
+import PhysicsCanvas from "@/components/canvas/PhysicsCanvas";
 import CustomCursor from "@/components/ui/CustomCursor";
 import Navigation from "@/components/ui/Navigation";
 import CommandPalette from "@/components/ui/CommandPalette";
@@ -30,6 +31,7 @@ export default function Home() {
       {/* Background Layers */}
       <SketchCanvas />
       <InkCanvas />
+      <PhysicsCanvas />
 
       {/* UI Elements */}
       <CustomCursor />
