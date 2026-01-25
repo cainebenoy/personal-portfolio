@@ -8,6 +8,7 @@ import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import WorkAndSkills from "@/components/sections/WorkAndSkills";
 import GithubGraph from "@/components/sections/GithubGraph";
+import Socials from "@/components/sections/Socials";
 import Experience from "@/components/sections/Experience";
 import Education from "@/components/sections/Education";
 import Certificates from "@/components/sections/Certificates";
@@ -37,6 +38,8 @@ export default function Home() {
       <WorkAndSkills />
       
       <GithubGraph />
+      
+      <Socials />
       
       <Certificates />
       
