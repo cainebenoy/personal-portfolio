@@ -15,6 +15,13 @@ export default function ScrollCrumpleAvatar() {
   const [percent, setPercent] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
+  // Smooth scroll interpolation
+  const targetPercentRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
+
+  const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
   // 1. PRELOAD IMAGES
   useEffect(() => {
     let loadedCount = 0;
@@ -39,18 +46,25 @@ export default function ScrollCrumpleAvatar() {
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
-      
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
-      // Calculate progress (0 to 1)
-      const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (rect.height + windowHeight)));
-      
-      setPercent(progress);
+      const progress = clamp01((windowHeight - rect.top) / (rect.height + windowHeight));
+      targetPercentRef.current = progress;
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const tick = () => {
+      setPercent((prev) => lerp(prev, targetPercentRef.current, 0.18));
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   // 3. RENDER FRAME WITH CRUMPLE TRANSFORM
@@ -72,8 +86,11 @@ export default function ScrollCrumpleAvatar() {
     const currentImg = images[frameIndex];
 
     if (currentImg && currentImg.complete && currentImg.naturalWidth > 0) {
-      canvas.width = currentImg.naturalWidth;
-      canvas.height = currentImg.naturalHeight;
+      const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+      canvas.width = currentImg.naturalWidth * dpr;
+      canvas.height = currentImg.naturalHeight * dpr;
+      canvas.style.width = `${currentImg.naturalWidth}px`;
+      canvas.style.height = `${currentImg.naturalHeight}px`;
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
@@ -83,26 +100,27 @@ export default function ScrollCrumpleAvatar() {
       const cy = canvas.height / 2;
 
       ctx.translate(cx, cy);
+      ctx.scale(dpr, dpr);
 
       let scale = 1;
       let rotation = 0;
 
-      // Un-crumple faster (0% - 15%)
-      if (percent < 0.15) {
-        const p = percent / 0.15;
-        scale = p; 
-        rotation = (1 - p) * 360; 
+      // Un-crumple faster (0% - 12%)
+      if (percent < 0.12) {
+        const p = percent / 0.12;
+        scale = lerp(0.15, 1, p);
+        rotation = (1 - p) * 220;
       } 
-      // Re-crumple faster (85% - 100%)
-      else if (percent > 0.85) {
-        const p = (percent - 0.85) / 0.15;
-        scale = 1 - p;
-        rotation = p * 360;
+      // Re-crumple (88% - 100%)
+      else if (percent > 0.88) {
+        const p = (percent - 0.88) / 0.12;
+        scale = lerp(1, 0.15, p);
+        rotation = p * 220;
       }
 
       ctx.scale(scale, scale);
       ctx.rotate((rotation * Math.PI) / 180);
-      ctx.drawImage(currentImg, -cx, -cy);
+      ctx.drawImage(currentImg, -currentImg.naturalWidth / 2, -currentImg.naturalHeight / 2);
       ctx.restore();
     }
   }, [percent, images, loaded]);
@@ -116,9 +134,9 @@ export default function ScrollCrumpleAvatar() {
       <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden pointer-events-none">
         
         {!loaded && (
-           <div className="absolute inset-0 flex items-center justify-center font-code text-xs text-gray-400 bg-paper/80 z-20">
-             <div className="animate-spin mr-2">⚙️</div> LOADING AVATAR...
-           </div>
+          <div className="absolute inset-0 flex items-center justify-center font-code text-xs text-gray-400 bg-paper/80 z-20">
+            <div className="animate-spin mr-2">⚙️</div> LOADING AVATAR...
+          </div>
         )}
 
         <canvas
