@@ -1,6 +1,8 @@
 "use client";
 
 import { X, ExternalLink, Code, Layers, Github } from "lucide-react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -19,7 +21,29 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
-  if (!isOpen || !project) return null;
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  // Handle mounting for portal
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  // Handle animation state - trigger animation after isOpen changes
+  useEffect(() => {
+    if (isOpen) {
+      setIsClosing(false);
+      // Small delay to ensure the DOM is ready
+      const timer = requestAnimationFrame(() => {
+        setIsAnimating(true);
+      });
+      return () => cancelAnimationFrame(timer);
+    }
+  }, [isOpen]);
+
+  if (!project || !mounted || !isOpen) return null;
 
   const handleLiveDemo = () => {
     if (project.liveUrl) {
@@ -33,27 +57,65 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-ink/80 backdrop-blur-sm" onClick={onClose} />
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      setIsClosing(true);
+      setIsAnimating(false);
+      // Match the animation duration (600ms)
+      setTimeout(() => onClose(), 600);
+    }
+  };
 
-      {/* Case File Folder */}
-      <div className="relative w-full max-w-4xl theme-surface rounded-lg shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border-t-8 theme-border">
+  const modalContent = (
+    <>
+      {/* Backdrop - Full screen blur */}
+      <div 
+        className={`backdrop-blur-md fixed inset-0 w-screen h-screen transition-opacity duration-600 ease-out ${
+          isAnimating ? 'opacity-100' : 'opacity-0'
+        }`}
+        onClick={handleBackdropClick}
+        style={{ 
+          zIndex: 9998,
+        }}
+      />
+
+      {/* Modal Container - Fixed positioning for viewport centering */}
+      <div 
+        className="fixed inset-0 w-screen h-screen flex items-center justify-center pointer-events-none transition-opacity duration-600 ease-out"
+        style={{
+          zIndex: 9999,
+          opacity: isAnimating ? 1 : 0,
+        }}
+      >
+        {/* Modal Content */}
+        <div 
+          className={`w-full max-w-4xl bg-white rounded-lg shadow-2xl border-t-8 border-gray-800 overflow-hidden cursor-default pointer-events-auto transition-all duration-600 ease-out transform ${
+            isAnimating 
+              ? 'scale-100 opacity-100' 
+              : 'scale-90 opacity-0'
+          }`}
+          style={{
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            margin: '1rem auto',
+          }}
+        >
         
         {/* Tab Label */}
-        <div className="absolute -top-8 left-8 h-8 px-6 theme-surface-alt rounded-t-lg flex items-center font-code text-xs theme-muted border-t border-l border-r theme-border">
-          CASE_ID: {project.title.toUpperCase().replace(/\s/g, "_")}
+        <div className="relative h-6 mb-4 flex items-center">
+          <div className="absolute -top-8 left-8 h-8 px-6 bg-white rounded-t-lg flex items-center font-code text-xs text-gray-600 border-t border-l border-r border-gray-800">
+            CASE_ID: {project.title.toUpperCase().replace(/\s/g, "_")}
+          </div>
         </div>
 
         {/* Header */}
-        <div className="theme-surface-alt p-6 flex justify-between items-start border-b theme-border">
+        <div className="bg-gray-100 p-6 flex justify-between items-start border-b border-gray-300">
           <div>
-            <div className="font-marker text-highlight text-xl rotate-[-1deg] mb-1">CONFIDENTIAL</div>
-            <h2 className="font-display text-4xl text-ink">{project.title}</h2>
+            <div className="font-marker text-red-600 text-xl rotate-[-1deg] mb-1">CONFIDENTIAL</div>
+            <h2 className="font-display text-4xl text-gray-900">{project.title}</h2>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-black/10 rounded-full transition-colors" aria-label="Close modal" title="Close">
-            <X size={24} className="text-ink" />
+            <X size={24} className="text-gray-900" />
           </button>
         </div>
 
@@ -63,21 +125,21 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
           <div className="grid md:grid-cols-2 gap-8">
             {/* Left: The "Problem" & Details */}
             <div className="space-y-6">
-              <div className="theme-surface p-6 shadow-sm rotate-1 border theme-border">
-                <h3 className="font-bold font-sans text-lg mb-3 flex items-center gap-2 text-ink">
+              <div className="bg-white p-6 shadow-sm rotate-1 border border-gray-300">
+                <h3 className="font-bold font-sans text-lg mb-3 flex items-center gap-2 text-gray-900">
                   <Layers size={18} /> The Challenge
                 </h3>
-                <p className="font-hand text-lg text-ink leading-relaxed mb-4">
+                <p className="font-hand text-lg text-gray-800 leading-relaxed mb-4">
                   {project.longDescription || project.description}
                 </p>
               </div>
 
               {/* Stack Tags */}
               <div>
-                <h3 className="font-bold text-sm text-ink mb-3 uppercase font-code">Tech Stack</h3>
+                <h3 className="font-bold text-sm text-gray-900 mb-3 uppercase font-code">Tech Stack</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag: string) => (
-                    <span key={tag} className="bg-ink text-paper px-3 py-1 font-code text-xs rounded-full">
+                    <span key={tag} className="bg-gray-900 text-white px-3 py-1 font-code text-xs rounded-full">
                       {tag}
                     </span>
                   ))}
@@ -120,7 +182,7 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
                   disabled={!project.githubUrl}
                   className={`w-full py-3 font-bold transition-colors shadow-md flex items-center justify-center gap-2 rounded border-2 ${
                     project.githubUrl
-                      ? 'bg-paper border-ink text-ink hover:bg-gray-100 cursor-pointer'
+                      ? 'bg-white border-gray-900 text-gray-900 hover:bg-gray-50 cursor-pointer'
                       : 'bg-gray-100 border-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
@@ -130,16 +192,16 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
 
               {/* URLs for reference */}
               {(project.liveUrl || project.githubUrl) && (
-                <div className="text-xs font-code space-y-1 p-3 bg-gray-100 rounded border theme-border">
+                <div className="text-xs font-code space-y-1 p-3 bg-gray-100 rounded border border-gray-300">
                   {project.liveUrl && (
-                    <div className="text-ink">
+                    <div className="text-gray-900">
                       <span className="font-bold">Live:</span>
                       <br />
                       <span className="break-all text-gray-600">{project.liveUrl}</span>
                     </div>
                   )}
                   {project.githubUrl && (
-                    <div className="text-ink">
+                    <div className="text-gray-900">
                       <span className="font-bold">GitHub:</span>
                       <br />
                       <span className="break-all text-gray-600">{project.githubUrl}</span>
@@ -149,9 +211,11 @@ export default function ProjectModal({ isOpen, onClose, project }: ProjectModalP
               )}
             </div>
           </div>
-
+        </div>
         </div>
       </div>
-    </div>
+    </>
   );
+
+  return createPortal(modalContent, document.body);
 }

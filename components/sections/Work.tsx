@@ -122,14 +122,14 @@ export default function Work() {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className={`${index % 2 === 1 ? "md:mt-32" : ""} cursor-pointer`}
+              className={`${index % 2 === 1 ? "md:mt-32" : ""}`}
               onMouseEnter={() => setHighlightedSkills(project.tags)}
               onMouseLeave={() => setHighlightedSkills([])}
-              onClick={() => handleProjectClick(project)}
             >
               <ProjectCard
                 {...project}
                 className={project.rotate}
+                onClick={() => handleProjectClick(project)}
               />
             </div>
           ))}

@@ -45,15 +45,15 @@ export default function Education() {
                 {edu.period}
               </span>
               <h3 className="mt-2 font-marker text-3xl text-ink">{edu.degree}</h3>
-              <p className="font-hand text-xl text-gray-600">{edu.institution}</p>
-              <p className="mt-2 max-w-md font-sans text-sm text-gray-500">
+              <p className="font-hand text-xl theme-muted">{edu.institution}</p>
+              <p className="mt-2 max-w-md font-sans text-sm theme-muted">
                 {edu.desc}
               </p>
             </div>
           ))}
           
           {/* Fade out line at end */}
-          <div className="relative border-l-4 border-dashed border-gray-300 pl-8 h-12 -left-[4px]" />
+          <div className="relative border-l-4 border-dashed theme-border pl-8 h-12 -left-[4px]" />
         </div>
 
       </div>

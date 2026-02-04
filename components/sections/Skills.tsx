@@ -39,7 +39,7 @@ export default function Skills() {
           <span className="font-hand text-4xl text-ink underline decoration-wavy decoration-highlight decoration-2 underline-offset-8">
             The Arsenal (68+ Skills)
           </span>
-          <p className="mt-4 font-sans text-sm text-gray-500">
+          <p className="mt-4 font-sans text-sm theme-muted">
             Hover over projects to trace the stack
           </p>
 

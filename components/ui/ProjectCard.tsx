@@ -10,6 +10,7 @@ interface ProjectCardProps {
   emoji: string;
   color: string;
   className?: string;
+  onClick?: () => void;
 }
 
 export default function ProjectCard({
@@ -19,11 +20,13 @@ export default function ProjectCard({
   emoji,
   color,
   className,
+  onClick,
 }: ProjectCardProps) {
   return (
     <div
+      onClick={onClick}
       className={cn(
-        "polaroid group relative bg-white p-4 pb-12 shadow-lg transition-all duration-500 ease-out hover:z-20 hover:scale-105 hover:-translate-y-2 hover:rotate-0 hover:shadow-2xl cursor-none animate-fade-in",
+        "polaroid group relative bg-white p-4 pb-12 shadow-lg transition-all duration-500 ease-out hover:z-20 hover:scale-105 hover:-translate-y-2 hover:rotate-0 hover:shadow-2xl cursor-pointer animate-fade-in",
         className
       )}
     >

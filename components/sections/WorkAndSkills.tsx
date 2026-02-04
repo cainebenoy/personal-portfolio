@@ -99,13 +99,13 @@ export default function WorkAndSkills() {
               
               <div className="mb-8">
                 <h2 className="font-display text-5xl md:text-7xl text-ink">The Arsenal</h2>
-                <p className="mt-4 font-hand text-xl text-gray-500">
+                <p className="mt-4 font-hand text-xl theme-muted">
                   Hover over the projects &rarr; <br className="lg:hidden"/>
                   <span className="hidden lg:inline">to trace the stack.</span>
                 </p>
               </div>
 
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6 transition-all duration-500 bg-white/40 p-6 rounded-2xl border-2 border-dashed border-gray-300 backdrop-blur-sm">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6 transition-all duration-500 bg-white/40 p-6 rounded-2xl border-2 border-dashed theme-border backdrop-blur-sm">
                 {skills.map((skill) => {
                   const isHighlighted = highlightedSkills.some(s => 
                     skill.toLowerCase().includes(s.toLowerCase()) || 

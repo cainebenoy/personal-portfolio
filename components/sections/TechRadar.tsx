@@ -162,7 +162,7 @@ export default function TechRadar() {
       <div className="mx-auto max-w-7xl px-2 sm:px-4 text-center">
         <div className="mb-8 md:mb-12">
           <h2 className="font-display text-3xl sm:text-4xl md:text-6xl text-ink">Tech Radar</h2>
-          <p className="mt-2 font-hand text-base sm:text-lg md:text-xl text-gray-500">
+          <p className="mt-2 font-hand text-base sm:text-lg md:text-xl theme-muted">
             What I use, what I&apos;m learning, and what I&apos;m watching.
           </p>
         </div>
@@ -238,7 +238,7 @@ export default function TechRadar() {
         </div>
 
         {/* Legend */}
-        <div className="mt-8 md:mt-12 flex flex-wrap justify-center gap-4 md:gap-8 font-code text-[10px] sm:text-xs text-gray-500">
+        <div className="mt-8 md:mt-12 flex flex-wrap justify-center gap-4 md:gap-8 font-code text-[10px] sm:text-xs theme-muted">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-ink" /> Adopt ({techRadarData.Adopt.length})
           </div>

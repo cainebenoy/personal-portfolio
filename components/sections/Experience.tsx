@@ -81,15 +81,15 @@ export default function Experience() {
                 {exp.period}
               </span>
               <h3 className="mt-2 font-marker text-3xl text-ink">{exp.role}</h3>
-              <p className="font-hand text-xl text-gray-600">{exp.company}</p>
-              <p className="mt-2 max-w-md font-sans text-sm text-gray-500">
+              <p className="font-hand text-xl theme-muted">{exp.company}</p>
+              <p className="mt-2 max-w-md font-sans text-sm theme-muted">
                 {exp.desc}
               </p>
             </div>
           ))}
           
           {/* Fade out line at end */}
-          <div className="relative border-l-4 border-dashed border-gray-300 pl-8 h-12 -left-[4px]" />
+          <div className="relative border-l-4 border-dashed theme-border pl-8 h-12 -left-[4px]" />
         </div>
 
       </div>

@@ -83,7 +83,7 @@ export default function Socials() {
         
         <div className="mb-16 text-center">
           <h2 className="font-display text-5xl md:text-7xl text-ink">Broadcasts</h2>
-          <p className="mt-4 font-hand text-2xl text-gray-500">
+          <p className="mt-4 font-hand text-2xl theme-muted">
             Signals from the network.
           </p>
         </div>
