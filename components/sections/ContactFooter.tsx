@@ -100,7 +100,7 @@ export default function ContactFooter() {
       />
       {/* Toast */}
       {toast && (
-        <div className="fixed top-10 left-1/2 -translate-x-1/2 bg-ink text-paper px-6 py-3 rounded-full shadow-xl z-50 font-code text-sm copy-toast">
+        <div className="fixed top-10 left-1/2 -translate-x-1/2 theme-surface text-ink px-6 py-3 rounded-full shadow-xl z-50 font-code text-sm copy-toast border-2 theme-border">
           {toast}
         </div>
       )}

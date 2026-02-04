@@ -57,7 +57,7 @@ export default function Home() {
       <Certificates />
       
       {/* Scratch Hint */}
-      <div className="flex justify-center py-8 font-hand text-gray-400 animate-bounce">
+      <div className="flex justify-center py-8 font-hand theme-muted animate-bounce">
         Scratch the paper to verify reality &darr;
       </div>
       

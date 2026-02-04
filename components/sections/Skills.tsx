@@ -32,7 +32,7 @@ export default function Skills() {
   }, []);
 
   return (
-    <section id="skills" ref={containerRef} className="relative z-10 min-h-[80vh] flex items-center justify-center py-24">
+    <section id="skills" ref={containerRef} className="relative z-10 min-h-[80vh] flex items-center justify-center py-16 animate-fade-in">
       <div className="mx-auto w-full max-w-6xl px-4 text-center">
         
         <div className="mb-16 relative inline-block reveal">

@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable @next/next/no-css-in-js-in-document */
 import { useMemo, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -128,7 +129,7 @@ export default function Gallery() {
   }, [items.length, isMobile]);
 
   return (
-    <section id="gallery" className="relative z-10 py-16 overflow-visible">
+    <section id="gallery" className="relative z-10 py-16 overflow-visible animate-fade-in">
       <div className="mx-auto max-w-6xl px-6">
         
         {/* Header */}

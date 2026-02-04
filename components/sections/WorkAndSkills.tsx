@@ -88,7 +88,7 @@ export default function WorkAndSkills() {
   }, []);
 
   return (
-    <section id="work" ref={containerRef} className="relative z-10 py-24">
+    <section id="work" ref={containerRef} className="relative z-10 py-16 animate-fade-in">
       <div className="mx-auto max-w-[1400px] px-6">
         
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">

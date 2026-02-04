@@ -62,7 +62,7 @@ export default function Hero() {
             </span>
           </div>
           <div className="overflow-hidden">
-            <span className="inline-block text-gray-800 reveal-text relative">
+            <span className="inline-block text-ink reveal-text relative">
               BENOY
             </span>
           </div>

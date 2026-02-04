@@ -78,7 +78,7 @@ export default function Socials() {
   };
 
   return (
-    <section id="socials" className="relative z-10 py-24">
+    <section id="socials" className="relative z-10 py-16 animate-fade-in">
       <div className="mx-auto max-w-6xl px-4">
         
         <div className="mb-16 text-center">
@@ -104,7 +104,7 @@ export default function Socials() {
                         target="_blank"
                         rel="noreferrer"
                         className={cn(
-                            "block bg-white p-6 shadow-sm border-2 border-gray-100 transition-all duration-300 hover:shadow-[5px_5px_0px_rgba(0,0,0,0.1)] hover:border-blue-300 hover:-translate-y-1 group relative overflow-hidden",
+                            "block theme-surface p-6 shadow-sm border-2 theme-border transition-all duration-300 hover:shadow-[5px_5px_0px_rgba(0,0,0,0.15)] hover:border-blue-400 hover:-translate-y-1 group relative overflow-hidden",
                             i % 2 === 0 ? "rotate-1" : "-rotate-1"
                         )}
                     >  
@@ -112,25 +112,25 @@ export default function Socials() {
                         <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('data:image/svg+xml;charset=utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><filter id=%22noise%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/></svg>')]" ></div>
 
                         <div className="flex items-center gap-3 mb-4 relative z-10">
-                            <div className="bg-blue-100 p-1.5 rounded-md">
+                            <div className="theme-surface-alt p-1.5 rounded-md">
                                 <Linkedin className="text-blue-600 w-4 h-4" />
                             </div>
-                            <span className="font-code text-xs text-gray-400 uppercase tracking-wider">{post.date}</span>
+                            <span className="font-code text-xs theme-muted uppercase tracking-wider">{post.date}</span>
                         </div>
 
-                        <p className="font-sans text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3 group-hover:line-clamp-none transition-all relative z-10">
+                        <p className="font-sans text-ink text-sm leading-relaxed mb-4 line-clamp-3 group-hover:line-clamp-none transition-all relative z-10">
                             {post.content}
                         </p>
 
                         {post.image && (
-                            <div className="relative h-32 w-full mb-4 overflow-hidden rounded border border-gray-100 grayscale group-hover:grayscale-0 transition-all duration-500 z-10">
+                            <div className="relative h-32 w-full mb-4 overflow-hidden rounded border theme-border grayscale group-hover:grayscale-0 transition-all duration-500 z-10">
                                 <img src={post.image} alt="Post" className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700" />
                             </div>
                         )}
 
-                        <div className="pt-4 border-t border-dashed border-gray-200 flex justify-between items-center relative z-10">
-                            <span className="font-hand text-gray-500 text-sm">{post.stats}</span>
-                            <ExternalLink className="w-4 h-4 text-gray-300 group-hover:text-blue-600 transition-colors" />
+                        <div className="pt-4 border-t border-dashed theme-border flex justify-between items-center relative z-10">
+                            <span className="font-hand theme-muted text-sm">{post.stats}</span>
+                            <ExternalLink className="w-4 h-4 theme-muted group-hover:text-blue-600 transition-colors" />
                         </div>
                     </a>
                 ))}
@@ -143,7 +143,7 @@ export default function Socials() {
               LATEST PUSHES
             </div>
 
-            <div className="space-y-4 bg-gray-100/50 p-4 rounded-xl border border-gray-200">
+            <div className="space-y-4 theme-surface-alt p-4 rounded-xl border theme-border">
                 {loading ? (
                      [1,2,3,4,5,6].map((i) => (
                         <div key={i} className="h-32 bg-white animate-pulse rounded border border-gray-200"></div>

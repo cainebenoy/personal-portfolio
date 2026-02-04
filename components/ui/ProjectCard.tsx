@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint-disable no-inline-styles */
+/* eslint-disable @next/next/no-css-in-js-in-document, react/no-unknown-property */
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
@@ -23,7 +23,7 @@ export default function ProjectCard({
   return (
     <div
       className={cn(
-        "polaroid group relative bg-white p-4 pb-12 shadow-lg transition-all duration-500 ease-out hover:z-20 hover:scale-105 hover:-translate-y-2 hover:rotate-0 hover:shadow-2xl cursor-none",
+        "polaroid group relative bg-white p-4 pb-12 shadow-lg transition-all duration-500 ease-out hover:z-20 hover:scale-105 hover:-translate-y-2 hover:rotate-0 hover:shadow-2xl cursor-none animate-fade-in",
         className
       )}
     >

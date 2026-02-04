@@ -17,7 +17,7 @@ const education = [
 
 export default function Education() {
   return (
-    <section id="education" className="relative z-10 min-h-screen py-24">
+    <section id="education" className="relative z-10 min-h-screen py-16 animate-fade-in">
       <div className="mx-auto max-w-4xl px-4">
         
         <h2 className="mb-16 font-display text-5xl text-ink md:text-7xl reveal">

@@ -139,8 +139,23 @@ input, textarea, select {
   }
 }
 
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .animate-confetti-fall {
   animation: confetti-fall 3s linear forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Grunge Mask for Credentials Bin */

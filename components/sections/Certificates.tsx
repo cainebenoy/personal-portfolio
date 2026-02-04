@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint-disable no-inline-styles */
+/* eslint-disable no-inline-styles, @next/next/no-css-in-js-in-document */
 /* eslint-disable @next/next/no-img-element */
 import { useState, useMemo } from "react";
 import Image from "next/image";
@@ -276,7 +276,7 @@ export default function Certificates() {
   return (
     <section 
       id="certificates" 
-      className="relative z-10 py-12 md:py-32"
+      className="relative z-10 py-12 md:py-16 animate-fade-in"
       onKeyDown={handleKeyDown}
     >
       <div className="mx-auto max-w-[1400px] px-2 sm:px-4 md:px-8">

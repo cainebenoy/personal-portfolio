@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint-disable no-inline-styles */
+/* eslint-disable no-inline-styles, @next/next/no-css-in-js-in-document */
 import { useState, useRef, useLayoutEffect } from "react";
 import { cn } from "@/lib/utils";
 
@@ -158,7 +158,7 @@ export default function TechRadar() {
   };
 
   return (
-    <section id="radar" className="relative z-10 py-12 md:py-24">
+    <section id="radar" className="relative z-10 py-12 md:py-16 animate-fade-in">
       <div className="mx-auto max-w-7xl px-2 sm:px-4 text-center">
         <div className="mb-8 md:mb-12">
           <h2 className="font-display text-3xl sm:text-4xl md:text-6xl text-ink">Tech Radar</h2>

@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint-disable no-inline-styles */
+/* eslint-disable no-inline-styles, @next/next/no-css-in-js-in-document */
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 

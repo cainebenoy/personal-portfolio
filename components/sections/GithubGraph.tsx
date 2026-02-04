@@ -70,14 +70,14 @@ export default function GithubGraph() {
   };
 
   return (
-    <section className="relative z-10 py-12 flex justify-center">
+    <section className="relative z-10 py-12 md:py-16 flex justify-center animate-fade-in">
       <div className="w-full max-w-4xl px-8">
         
         <div className="relative border-b-2 border-ink pb-8">
             <div className="flex justify-between items-end mb-4">
                 <h3 className="font-display text-3xl text-ink">Code Frequency</h3>
                 <div className="text-right">
-                    <div className="font-code text-xs text-gray-400">SOURCE: GITHUB API</div>
+                    <div className="font-code text-xs theme-muted">SOURCE: GITHUB API</div>
                     <div className="font-marker text-xl text-highlight">
                         {loading ? "SCANNING..." : "LIVE FEED"}
                     </div>
@@ -94,7 +94,7 @@ export default function GithubGraph() {
                 </div>
 
                 {loading ? (
-                    <div className="h-full flex items-center justify-center font-hand text-gray-400 animate-pulse">
+                    <div className="h-full flex items-center justify-center font-hand theme-muted animate-pulse">
                         Connecting to Satellite...
                     </div>
                 ) : (
