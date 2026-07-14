@@ -108,9 +108,20 @@ export default function SectionProgress() {
                   : "upcoming";
             return (
               <li key={section.id} className="relative">
-                <button
-                  type="button"
-                  onClick={() => goTo(section.id)}
+                {/* A real anchor — without JS this still jumps via the
+                    browser's native fragment navigation; onClick upgrades it
+                    to a smooth scroll when JS is running. */}
+                <a
+                  href={`#${section.id}`}
+                  onClick={(e) => {
+                    // Let modifier-clicks (new tab/window) and middle-click
+                    // through to native anchor behavior instead of hijacking.
+                    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                      return;
+                    }
+                    e.preventDefault();
+                    goTo(section.id);
+                  }}
                   aria-label={`Jump to ${section.label}`}
                   aria-current={state === "active" ? "true" : undefined}
                   className="group relative flex h-4 w-4 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
@@ -140,7 +151,7 @@ export default function SectionProgress() {
                       }
                     />
                   )}
-                </button>
+                </a>
               </li>
             );
           })}

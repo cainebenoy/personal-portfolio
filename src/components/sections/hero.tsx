@@ -65,8 +65,11 @@ export default function Hero() {
               pathLength={1}
               style={{
                 strokeDasharray: 1,
-                strokeDashoffset: reducedMotion ? 0 : "calc(1 - var(--p))",
-                opacity: reducedMotion ? 0.65 : "calc(var(--p) * 0.65)",
+                // Falls back to a fully-drawn, fully-opaque line when --p is
+                // never set (no JS) — the CSS var(--p, 1) default, not a
+                // scroll-driven value, is what makes the no-JS case work.
+                strokeDashoffset: reducedMotion ? 0 : "calc(1 - var(--p, 1))",
+                opacity: reducedMotion ? 0.65 : "calc(var(--p, 1) * 0.65)",
               }}
             />
           ))}
@@ -82,7 +85,7 @@ export default function Hero() {
             style={{
               left: `${dot.x}%`,
               top: `${dot.y}%`,
-              opacity: reducedMotion ? 0.35 : "calc(0.12 + var(--p) * 0.23)",
+              opacity: reducedMotion ? 0.35 : "calc(0.12 + var(--p, 1) * 0.23)",
             }}
           />
         ))}
@@ -95,10 +98,10 @@ export default function Hero() {
           <p
             className="mt-6 font-handwritten text-xl text-accent sm:text-2xl"
             style={{
-              opacity: reducedMotion ? 1 : "var(--p)",
+              opacity: reducedMotion ? 1 : "var(--p, 1)",
               transform: reducedMotion
                 ? "translateY(0)"
-                : "translateY(calc((1 - var(--p)) * 8px))",
+                : "translateY(calc((1 - var(--p, 1)) * 8px))",
             }}
           >
             ...but oftentimes better than a master of one.
@@ -107,10 +110,10 @@ export default function Hero() {
           <p
             className="mt-8 font-handwritten text-base text-ink/70"
             style={{
-              opacity: reducedMotion ? 1 : "var(--p)",
+              opacity: reducedMotion ? 1 : "var(--p, 1)",
               transform: reducedMotion
                 ? "translateY(0)"
-                : "translateY(calc((1 - var(--p)) * 6px))",
+                : "translateY(calc((1 - var(--p, 1)) * 6px))",
             }}
           >
             Caine Benoy.

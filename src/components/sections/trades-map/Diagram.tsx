@@ -25,9 +25,11 @@ const SCROLL_TRACK_VH = 220;
 const BAND_WIDTH = 0.3;
 const BAND_STEP = (1 - BAND_WIDTH) / (TRADE_EDGES.length - 1);
 
+// Falls back to fully-drawn (progress 1) when --p is never set (no JS) —
+// the CSS var(--p, 1) default is what makes the no-JS case render statically.
 function edgeProgressExpr(index: number) {
   const start = index * BAND_STEP;
-  return `clamp(0, calc((var(--p) - ${start}) / ${BAND_WIDTH}), 1)`;
+  return `clamp(0, calc((var(--p, 1) - ${start}) / ${BAND_WIDTH}), 1)`;
 }
 
 export default function Diagram() {
@@ -111,7 +113,33 @@ export default function Diagram() {
             const drawProgress = edgeProgressExpr(i);
 
             return (
-              <g key={edge.slug}>
+              // A real anchor, not just a JS click handler — without JS this
+              // still navigates via the browser's native fragment jump; with
+              // JS, onClick intercepts it for a smooth scroll instead.
+              <a
+                key={edge.slug}
+                href={`#${edge.slug}`}
+                aria-label={label}
+                onMouseEnter={() => setHovered({ type: "edge", index: i })}
+                onMouseLeave={() => setHovered(null)}
+                onFocus={() => setHovered({ type: "edge", index: i })}
+                onBlur={() => setHovered(null)}
+                onClick={(e) => {
+                  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                    return;
+                  }
+                  e.preventDefault();
+                  goToProject(edge.slug);
+                }}
+                onKeyDown={(e) => {
+                  // Enter already triggers onClick natively on an <a>; only
+                  // Space needs to be handled explicitly.
+                  if (e.key === " ") {
+                    e.preventDefault();
+                    goToProject(edge.slug);
+                  }
+                }}
+              >
                 {/* Invisible fat hit-area — makes the thin line easy to hover/click/focus. */}
                 <path
                   d={d}
@@ -120,20 +148,6 @@ export default function Diagram() {
                   strokeWidth={4}
                   className="outline-none"
                   style={{ pointerEvents: "stroke", cursor: "pointer" }}
-                  role="link"
-                  tabIndex={0}
-                  aria-label={label}
-                  onMouseEnter={() => setHovered({ type: "edge", index: i })}
-                  onMouseLeave={() => setHovered(null)}
-                  onFocus={() => setHovered({ type: "edge", index: i })}
-                  onBlur={() => setHovered(null)}
-                  onClick={() => goToProject(edge.slug)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      goToProject(edge.slug);
-                    }
-                  }}
                 />
                 <path
                   aria-hidden="true"
@@ -161,7 +175,7 @@ export default function Diagram() {
                     transition: "stroke 300ms ease, stroke-width 300ms ease",
                   }}
                 />
-              </g>
+              </a>
             );
           })}
         </svg>
