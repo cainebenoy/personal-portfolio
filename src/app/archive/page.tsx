@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import ArchiveBrowser from "@/components/archive/ArchiveBrowser";
 import IndexCard from "@/components/archive/IndexCard";
 import SiteBackLink from "@/components/SiteBackLink";
-import { HIGHLIGHT_CREDENTIALS, TOTAL_CREDENTIALS } from "@/content/archive";
+import {
+  CATALOGUED_COUNT,
+  HIGHLIGHT_CREDENTIALS,
+  TOTAL_CREDENTIALS,
+} from "@/content/archive";
 
 export const metadata: Metadata = {
   title: "The Archive — Jack of All Trades",
@@ -14,7 +18,8 @@ export default function ArchivePage() {
       <header className="flex flex-wrap items-center justify-center gap-4">
         <h1 className="font-structural text-3xl text-ink">The Archive</h1>
         <span className="whitespace-nowrap rounded-sm border border-ink/20 bg-cream px-3 py-1.5 font-handwritten text-sm text-accent shadow-sm [transform:rotate(-3deg)]">
-          {TOTAL_CREDENTIALS} credentials on file
+          {CATALOGUED_COUNT} credentials catalogued — {TOTAL_CREDENTIALS} on
+          file
         </span>
       </header>
 

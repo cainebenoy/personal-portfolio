@@ -3,7 +3,8 @@ export type ArchiveCategory =
   | "cloud-devops"
   | "blockchain"
   | "cybersecurity"
-  | "business";
+  | "business"
+  | "general";
 
 export interface ArchiveCredential {
   name: string;
@@ -17,6 +18,7 @@ export const CATEGORIES: { id: ArchiveCategory; label: string }[] = [
   { id: "blockchain", label: "Blockchain & Web3" },
   { id: "cybersecurity", label: "Cybersecurity" },
   { id: "business", label: "Business & Marketing" },
+  { id: "general", label: "General" },
 ];
 
 export const TOTAL_CREDENTIALS = 166;
@@ -125,8 +127,7 @@ export const ARCHIVE_ENTRIES: ArchiveCredential[] = [
     category: "cybersecurity",
   },
 
-  // Cloud & DevOps — also home for general software-engineering credentials
-  // that don't cleanly fit the other four buckets (flagged for review).
+  // Cloud & DevOps
   {
     name: "Lyft - Back-End Engineering Job Simulation",
     issuer: "Forage",
@@ -135,16 +136,6 @@ export const ARCHIVE_ENTRIES: ArchiveCredential[] = [
   {
     name: "CodersCave Virtual Internship Program in Web Development",
     issuer: "CodersCave",
-    category: "cloud-devops",
-  },
-  {
-    name: "2D Platformer Game Development using Unity",
-    issuer: "Immersive Skills Academy",
-    category: "cloud-devops",
-  },
-  {
-    name: "SOLID Principles Every Developer Must Know",
-    issuer: "Scaler",
     category: "cloud-devops",
   },
 
@@ -170,14 +161,28 @@ export const ARCHIVE_ENTRIES: ArchiveCredential[] = [
     issuer: "Google Digital Garage",
     category: "business",
   },
+
+  // General
+  {
+    name: "2D Platformer Game Development using Unity",
+    issuer: "Immersive Skills Academy",
+    category: "general",
+  },
+  {
+    name: "SOLID Principles Every Developer Must Know",
+    issuer: "Scaler",
+    category: "general",
+  },
 ];
 
 export const HIGHLIGHT_CREDENTIALS: ArchiveCredential[] = ARCHIVE_ENTRIES.filter(
   (entry) => entry.category === "highlight",
 );
 
+export const CATALOGUED_COUNT = ARCHIVE_ENTRIES.length;
+
 // How many of the 166 aren't catalogued here yet.
-export const REMAINING_COUNT = TOTAL_CREDENTIALS - ARCHIVE_ENTRIES.length;
+export const REMAINING_COUNT = TOTAL_CREDENTIALS - CATALOGUED_COUNT;
 
 export interface PlaceholderCredential {
   name: string;
