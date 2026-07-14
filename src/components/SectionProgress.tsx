@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCaseFile } from "@/content/case-files";
 import { CASE_FILE_ORDER } from "@/lib/case-file-order";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
@@ -23,7 +23,7 @@ const SECTIONS: Section[] = [
 
 export default function SectionProgress() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [scrollPct, setScrollPct] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
 
   // Scrollspy: track which section's band currently sits at the vertical
@@ -49,7 +49,10 @@ export default function SectionProgress() {
     return () => observer.disconnect();
   }, []);
 
-  // Overall scroll percentage, for the mobile bar only.
+  // Overall scroll percentage, for the mobile bar only. Written straight to
+  // the DOM via a transform (not React state) so this never triggers a
+  // re-render on every scroll frame — the same rAF-throttled, ref-based
+  // pattern as useScrollProgress, just driving scaleX instead of --p.
   useEffect(() => {
     let rafId = 0;
     const update = () => {
@@ -57,7 +60,10 @@ export default function SectionProgress() {
       const scrollable =
         document.documentElement.scrollHeight - window.innerHeight;
       const pct = scrollable > 0 ? window.scrollY / scrollable : 0;
-      setScrollPct(Math.min(1, Math.max(0, pct)));
+      const clamped = Math.min(1, Math.max(0, pct));
+      if (barRef.current) {
+        barRef.current.style.transform = `scaleX(${clamped})`;
+      }
     };
     const onScroll = () => {
       if (rafId) return;
@@ -146,8 +152,9 @@ export default function SectionProgress() {
         className="fixed inset-x-0 top-0 z-40 h-[3px] bg-ink/10 md:hidden"
       >
         <div
-          className="h-full bg-accent"
-          style={{ width: `${scrollPct * 100}%` }}
+          ref={barRef}
+          className="h-full w-full origin-left bg-accent"
+          style={{ transform: "scaleX(0)" }}
         />
       </div>
     </>
