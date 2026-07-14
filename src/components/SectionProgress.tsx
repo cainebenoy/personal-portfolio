@@ -19,6 +19,7 @@ const SECTIONS: Section[] = [
     label: getCaseFile(slug)?.title ?? slug,
   })),
   { id: "journey", label: "Journey" },
+  { id: "field-notes", label: "Notes" },
   { id: "about", label: "About" },
   { id: "archive", label: "Archive" },
 ];

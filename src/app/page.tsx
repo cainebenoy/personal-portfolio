@@ -1,5 +1,6 @@
 import About from "@/components/sections/about";
 import Archive from "@/components/sections/archive";
+import FieldNotes from "@/components/sections/field-notes";
 import Hero from "@/components/sections/hero";
 import Journey from "@/components/sections/journey";
 import Stats from "@/components/sections/stats";
@@ -22,6 +23,7 @@ export default function Home() {
       })}
 
       <Journey />
+      <FieldNotes />
       <About />
       <Archive />
     </main>
