@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Courier_Prime, Kalam } from "next/font/google";
 import Script from "next/script";
+import SectionProgress from "@/components/SectionProgress";
 import ThemeToggle from "@/components/ThemeToggle";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
@@ -53,6 +54,7 @@ export default function RootLayout({
           {THEME_INIT_SCRIPT}
         </Script>
         <ThemeToggle />
+        <SectionProgress />
         {children}
       </body>
     </html>

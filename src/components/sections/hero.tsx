@@ -39,6 +39,7 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       ref={wrapperRef}
       className="relative"
       style={reducedMotion ? undefined : { height: `${SCROLL_TRACK_VH}vh` }}
