@@ -12,6 +12,7 @@ interface Section {
 
 const SECTIONS: Section[] = [
   { id: "hero", label: "Hero" },
+  { id: "stats", label: "Proof" },
   { id: "trades", label: "Map" },
   ...CASE_FILE_ORDER.map((slug) => ({
     id: slug,
