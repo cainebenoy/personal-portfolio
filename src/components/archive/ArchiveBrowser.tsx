@@ -28,9 +28,7 @@ export default function ArchiveBrowser() {
       ? HIGHLIGHT_CREDENTIALS
       : activeFilter === "all"
         ? ARCHIVE_ENTRIES
-        : ARCHIVE_ENTRIES.filter((entry) =>
-            entry.categories.includes(activeFilter),
-          );
+        : ARCHIVE_ENTRIES.filter((entry) => entry.category === activeFilter);
 
   return (
     <div className="mt-16">
