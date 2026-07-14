@@ -180,19 +180,3 @@ export const HIGHLIGHT_CREDENTIALS: ArchiveCredential[] = ARCHIVE_ENTRIES.filter
 );
 
 export const CATALOGUED_COUNT = ARCHIVE_ENTRIES.length;
-
-// How many of the 166 aren't catalogued here yet.
-export const REMAINING_COUNT = TOTAL_CREDENTIALS - CATALOGUED_COUNT;
-
-export interface PlaceholderCredential {
-  name: string;
-  issuer: string;
-}
-
-// Stand-ins for the un-catalogued rest of the archive, revealed behind the
-// "declassify" toggle. Replace with real entries as they're added.
-export const REMAINING_PLACEHOLDER_CREDENTIALS: PlaceholderCredential[] =
-  Array.from({ length: 24 }, () => ({
-    name: "Credential pending catalog",
-    issuer: "—",
-  }));

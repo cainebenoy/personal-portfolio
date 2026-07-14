@@ -14,10 +14,6 @@ export default function About() {
       id="about"
       className="mx-auto min-h-dvh max-w-2xl scroll-mt-6 px-6 py-24"
     >
-      <RevealOnScroll>
-        <BackToMapLink />
-      </RevealOnScroll>
-
       <RevealOnScroll className="mt-12">
         <TapedPhoto
           alt="a personal photo, taped in"

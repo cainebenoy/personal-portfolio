@@ -6,8 +6,6 @@ import {
   ARCHIVE_ENTRIES,
   CATEGORIES,
   HIGHLIGHT_CREDENTIALS,
-  REMAINING_COUNT,
-  REMAINING_PLACEHOLDER_CREDENTIALS,
   type ArchiveCategory,
 } from "@/content/archive";
 
@@ -21,7 +19,6 @@ const FILTERS: { id: FilterId; label: string }[] = [
 
 export default function ArchiveBrowser() {
   const [activeFilter, setActiveFilter] = useState<FilterId>("highlights");
-  const [expanded, setExpanded] = useState(false);
 
   const filtered =
     activeFilter === "highlights"
@@ -66,36 +63,6 @@ export default function ArchiveBrowser() {
               index={i}
             />
           ))
-        )}
-      </div>
-
-      <div className="mt-16 flex flex-col items-center">
-        <button
-          type="button"
-          onClick={() => setExpanded((v) => !v)}
-          className="font-handwritten text-lg text-accent underline decoration-dashed underline-offset-4 hover:text-ink"
-        >
-          {expanded
-            ? "Collapse the archive ↑"
-            : `Declassify the remaining ${REMAINING_COUNT} ↓`}
-        </button>
-
-        {expanded && (
-          <div className="mt-10 grid w-full grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-            {REMAINING_PLACEHOLDER_CREDENTIALS.map((entry, i) => (
-              <div
-                key={i}
-                className="border border-ink/10 bg-surface/60 px-3 py-2"
-              >
-                <p className="font-structural text-xs text-ink/70">
-                  {entry.name}
-                </p>
-                <p className="mt-1 font-structural text-[11px] text-ink/40">
-                  {entry.issuer}
-                </p>
-              </div>
-            ))}
-          </div>
         )}
       </div>
     </div>

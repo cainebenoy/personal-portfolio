@@ -8,8 +8,6 @@ export default function CaseFile({ entry }: { entry: CaseFileEntry }) {
       id={entry.slug}
       className="mx-auto flex min-h-dvh max-w-4xl flex-col justify-center scroll-mt-6 px-6 py-16"
     >
-      <BackToMapLink />
-
       <header className="mt-10 flex flex-wrap items-start justify-between gap-4">
         <div>
           <h2 className="font-structural text-3xl text-ink">{entry.title}</h2>

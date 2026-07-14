@@ -1,6 +1,5 @@
 import ArchiveBrowser from "@/components/archive/ArchiveBrowser";
 import IndexCard from "@/components/archive/IndexCard";
-import SiteBackLink from "@/components/SiteBackLink";
 import {
   CATALOGUED_COUNT,
   HIGHLIGHT_CREDENTIALS,
@@ -33,10 +32,6 @@ export default function Archive() {
       </div>
 
       <ArchiveBrowser />
-
-      <div className="mt-20 flex justify-center">
-        <SiteBackLink href="/#about" label="back to about" />
-      </div>
     </section>
   );
 }
