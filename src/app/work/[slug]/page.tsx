@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import CaseFile from "@/components/work/CaseFile";
 import { getCaseFile } from "@/content/case-files";
+import { truncate } from "@/lib/text";
 
 export async function generateMetadata({
   params,
@@ -10,7 +11,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const entry = getCaseFile(slug);
-  return { title: entry ? `${entry.title} — Case File` : slug };
+  if (!entry) return { title: slug };
+
+  return {
+    title: `${entry.title} — Caine Benoy`,
+    description: truncate(entry.problem, 155),
+  };
 }
 
 export default async function WorkPage({

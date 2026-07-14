@@ -9,7 +9,8 @@ import {
 } from "@/content/archive";
 
 export const metadata: Metadata = {
-  title: "The Archive — Jack of All Trades",
+  title: "The Archive — Caine Benoy",
+  description: "Certifications and credentials, catalogued and growing.",
 };
 
 export default function ArchivePage() {

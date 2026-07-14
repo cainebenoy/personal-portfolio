@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Courier_Prime, Kalam } from "next/font/google";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 // Structural font: headings, body text, UI chrome — never Kalam here.
@@ -17,9 +18,20 @@ const kalam = Kalam({
 });
 
 export const metadata: Metadata = {
-  title: "Jack of All Trades",
-  description:
-    "A jack of all trades is a master of none, but oftentimes better than a master of one.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    type: "website",
+    siteName: SITE_NAME,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({

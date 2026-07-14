@@ -10,7 +10,9 @@ import {
 } from "@/content/about";
 
 export const metadata: Metadata = {
-  title: "About — Jack of All Trades",
+  title: "About — Caine Benoy",
+  description:
+    "From Sharjah to Kerala to building things that matter — the story behind the trades.",
 };
 
 export default function AboutPage() {
