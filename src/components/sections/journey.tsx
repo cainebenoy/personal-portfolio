@@ -38,40 +38,72 @@ export default function Journey() {
         </svg>
 
         <ol className="flex flex-col gap-14">
-          {JOURNEY.map((entry, i) => (
-            <li
-              key={`${entry.range}-${entry.title}`}
-              className="relative border-l-2 border-ink/15 pl-5 md:border-l-0 md:pl-14"
-            >
-              {/* Branch tick connecting the spine to this entry — desktop only. */}
-              <span
-                aria-hidden="true"
-                className="absolute top-2 left-4 hidden h-px w-10 bg-ink/25 md:block [transform:rotate(-2deg)]"
-              />
-              <RevealOnScroll>
-                <div
-                  className={
-                    i % 2 === 0
-                      ? "[transform:rotate(-0.4deg)]"
-                      : "[transform:rotate(0.4deg)]"
-                  }
-                >
-                  <p className="font-structural text-xs tracking-wide text-ink/50 sm:text-sm">
-                    {entry.range}
-                  </p>
-                  <h3 className="mt-1 font-structural text-lg font-bold text-ink">
-                    {entry.title}
-                  </h3>
-                  <p className="font-structural text-sm text-ink/70">
-                    {entry.org}
-                  </p>
-                  <p className="mt-2 font-structural text-sm leading-6 text-ink/80">
-                    {entry.description}
-                  </p>
-                </div>
-              </RevealOnScroll>
-            </li>
-          ))}
+          {JOURNEY.map((entry, i) => {
+            const key =
+              entry.type === "group" ? entry.org : `${entry.range}-${entry.title}`;
+            const rotate =
+              i % 2 === 0
+                ? "[transform:rotate(-0.4deg)]"
+                : "[transform:rotate(0.4deg)]";
+
+            return (
+              <li
+                key={key}
+                className="relative border-l-2 border-ink/15 pl-5 md:border-l-0 md:pl-14"
+              >
+                {/* Branch tick connecting the spine to this entry — desktop only. */}
+                <span
+                  aria-hidden="true"
+                  className="absolute top-2 left-4 hidden h-px w-10 bg-ink/25 md:block [transform:rotate(-2deg)]"
+                />
+                <RevealOnScroll>
+                  <div className={rotate}>
+                    <p className="font-structural text-xs tracking-wide text-ink/50 sm:text-sm">
+                      {entry.range}
+                    </p>
+
+                    {entry.type === "single" ? (
+                      <>
+                        <h3 className="mt-1 font-structural text-lg font-bold text-ink">
+                          {entry.title}
+                        </h3>
+                        <p className="font-structural text-sm text-ink/70">
+                          {entry.org}
+                        </p>
+                        <p className="mt-2 font-structural text-sm leading-6 text-ink/80">
+                          {entry.description}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        {/* Same company, multiple roles — stacked under one
+                            header, LinkedIn-style, instead of repeating the
+                            org as separate top-level entries. */}
+                        <h3 className="mt-1 font-structural text-lg font-bold text-ink">
+                          {entry.org}
+                        </h3>
+                        <ul className="mt-3 flex flex-col gap-4 border-l border-ink/15 pl-4">
+                          {entry.roles.map((role) => (
+                            <li key={role.title}>
+                              <p className="font-structural text-xs tracking-wide text-ink/50">
+                                {role.range}
+                              </p>
+                              <p className="mt-0.5 font-structural text-base font-bold text-ink">
+                                {role.title}
+                              </p>
+                              <p className="mt-1 font-structural text-sm leading-6 text-ink/80">
+                                {role.description}
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                  </div>
+                </RevealOnScroll>
+              </li>
+            );
+          })}
         </ol>
       </div>
     </section>
