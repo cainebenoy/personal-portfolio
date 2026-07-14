@@ -8,6 +8,32 @@ export interface JourneyEntry {
 // Most recent first — rendered top to bottom in this order.
 export const JOURNEY: JourneyEntry[] = [
   {
+    range: "Jul 2026 – Present",
+    title: "Junior Product Engineer",
+    org: "CRAV",
+    description:
+      "Product development, product management, and cross-functional engineering work.",
+  },
+  {
+    range: "Feb 2026 – Jul 2026",
+    title: "Super20",
+    org: "Kochi",
+    description: "6-month engagement (Kochi, hybrid).",
+  },
+  {
+    range: "Mar 2026 – Apr 2026",
+    title: "AI Training Specialist (Generalist & Software Development)",
+    org: "Outlier",
+    description:
+      "Dual-track work in generalist AI evaluation and software development assessment: crafting challenging prompts, ranking AI-generated code, fact-checking outputs, and applying full-stack knowledge to improve model coding performance.",
+  },
+  {
+    range: "Feb 2026 – Apr 2026",
+    title: "Aspire Leaders Program Fellow",
+    org: "Aspire Institute",
+    description: "Remote fellowship program.",
+  },
+  {
     range: "Jan 2026 – Present",
     title: "SOF Insider",
     org: "The School of Future",
