@@ -1,12 +1,5 @@
-import Link from "next/link";
+import SiteBackLink from "@/components/SiteBackLink";
 
 export default function BackToMapLink() {
-  return (
-    <Link
-      href="/#trades"
-      className="font-structural text-sm text-ink/60 underline underline-offset-4 hover:text-accent"
-    >
-      ← back to the map
-    </Link>
-  );
+  return <SiteBackLink href="/#trades" label="back to the map" />;
 }
