@@ -20,7 +20,7 @@ export default function MobileList() {
                 <Link
                   key={edge.slug}
                   href={`/work/${edge.slug}`}
-                  className="rounded-full border border-ink/25 px-3 py-1 font-structural text-xs text-ink transition-colors hover:border-accent hover:text-accent"
+                  className="rounded-full border border-ink/25 px-3 py-1 font-structural text-xs text-ink transition-colors hover:border-accent hover:text-accent focus-visible:border-accent focus-visible:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   {edge.project}
                 </Link>
