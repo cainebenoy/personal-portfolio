@@ -152,7 +152,9 @@ export default function Diagram() {
                       ? 0
                       : `calc(1 - ${drawProgress})`,
                     strokeOpacity: reducedMotion
-                      ? 0.35
+                      ? isHovered
+                        ? 0.8
+                        : 1
                       : isHovered
                         ? 0.8
                         : drawProgress,
