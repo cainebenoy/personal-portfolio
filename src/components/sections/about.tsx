@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import BackToMapLink from "@/components/BackToMapLink";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import TapedPhoto from "@/components/TapedPhoto";
@@ -9,15 +8,12 @@ import {
   CONTACT_LINKS,
 } from "@/content/about";
 
-export const metadata: Metadata = {
-  title: "About — Caine Benoy",
-  description:
-    "From Sharjah to Kerala to building things that matter — the story behind the trades.",
-};
-
-export default function AboutPage() {
+export default function About() {
   return (
-    <main className="mx-auto max-w-2xl px-6 py-24">
+    <section
+      id="about"
+      className="mx-auto min-h-dvh max-w-2xl scroll-mt-6 px-6 py-24"
+    >
       <RevealOnScroll>
         <BackToMapLink />
       </RevealOnScroll>
@@ -75,6 +71,6 @@ export default function AboutPage() {
       <div className="mt-20">
         <BackToMapLink />
       </div>
-    </main>
+    </section>
   );
 }

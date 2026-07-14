@@ -10,8 +10,8 @@ export interface CaseFileEntry {
   imageAlt?: string;
 }
 
-// Add a new case file by adding an entry here — the /work/[slug] route
-// and template pick it up automatically, no other changes needed.
+// Add a new case file by adding an entry here — the homepage picks it up
+// automatically via CASE_FILE_ORDER in src/app/page.tsx.
 export const CASE_FILES: Record<string, CaseFileEntry> = {
   truthchain: {
     slug: "truthchain",

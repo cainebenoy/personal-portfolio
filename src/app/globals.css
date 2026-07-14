@@ -36,6 +36,12 @@
   --font-handwritten: var(--font-kalam), cursive;
 }
 
+/* Deliberately no global `scroll-behavior: smooth` — it would smooth every
+   scroll event (including ambient wheel/trackpad scrolling), which fights
+   the scroll-scrubbed hero/trades-map animations that need 1:1 tracking
+   with real scroll position. Anchor links animate via scrollIntoView()
+   in JS instead, scoped to the click itself. */
+
 body {
   background-color: var(--color-cream);
   color: var(--color-ink);

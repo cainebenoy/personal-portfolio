@@ -31,5 +31,5 @@ export const CONTACT_LINKS: ContactLink[] = [
     href: "https://github.com/yourname",
   },
   { label: "Resume", value: "resume.pdf", href: "/resume.pdf" },
-  { label: "Archive", value: "166 credentials, catalogued", href: "/archive" },
+  { label: "Archive", value: "166 credentials, catalogued", href: "/#archive" },
 ];

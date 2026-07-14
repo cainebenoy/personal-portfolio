@@ -1,5 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import { edgesForNode, TRADE_NODES } from "./data";
+
+function scrollToSlug(e: React.MouseEvent, slug: string) {
+  const target = document.getElementById(slug);
+  if (!target) return;
+  e.preventDefault();
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  target.scrollIntoView({
+    behavior: reducedMotion ? "auto" : "smooth",
+    block: "start",
+  });
+}
 
 export default function MobileList() {
   return (
@@ -19,7 +34,8 @@ export default function MobileList() {
               {edges.map((edge) => (
                 <Link
                   key={edge.slug}
-                  href={`/work/${edge.slug}`}
+                  href={`/#${edge.slug}`}
+                  onClick={(e) => scrollToSlug(e, edge.slug)}
                   className="rounded-full border border-ink/25 px-3 py-1 font-structural text-xs text-ink transition-colors hover:border-accent hover:text-accent focus-visible:border-accent focus-visible:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   {edge.project}
