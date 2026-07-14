@@ -1,10 +1,11 @@
-import Link from "next/link";
+import BackToMapLink from "@/components/BackToMapLink";
+import TapedPhoto from "@/components/TapedPhoto";
 import type { CaseFileEntry } from "@/content/case-files";
 
 export default function CaseFile({ entry }: { entry: CaseFileEntry }) {
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
-      <BackLink />
+      <BackToMapLink />
 
       <header className="mt-10 flex flex-wrap items-start justify-between gap-4">
         <div>
@@ -25,29 +26,15 @@ export default function CaseFile({ entry }: { entry: CaseFileEntry }) {
           <Block label="Architecture" text={entry.architecture} />
         </div>
 
-        <div className="relative pt-3">
-          <div className="relative border border-ink/15 bg-cream p-2 shadow-sm [transform:rotate(2deg)]">
-            <span
-              aria-hidden="true"
-              className="absolute -left-3 -top-3 h-6 w-12 bg-accent/15 [transform:rotate(-12deg)]"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute -right-3 -top-3 h-6 w-12 bg-accent/15 [transform:rotate(12deg)]"
-            />
-            <div className="flex aspect-[4/3] items-center justify-center border border-dashed border-ink/25">
-              <p className="max-w-[80%] text-center font-structural text-xs text-ink/40">
-                {entry.imageAlt ?? "diagram / screenshot placeholder"}
-              </p>
-            </div>
-          </div>
+        <div className="pt-3">
+          <TapedPhoto alt={entry.imageAlt} />
         </div>
       </div>
 
       {entry.outcome && <Outcome text={entry.outcome} />}
 
       <div className="mt-16">
-        <BackLink />
+        <BackToMapLink />
       </div>
     </main>
   );
@@ -70,16 +57,5 @@ function Outcome({ text }: { text: string }) {
       <p className="font-handwritten text-sm text-ink/50">Outcome</p>
       <p className="mt-1 font-handwritten text-lg text-accent">{text}</p>
     </div>
-  );
-}
-
-function BackLink() {
-  return (
-    <Link
-      href="/#trades"
-      className="font-structural text-sm text-ink/60 underline underline-offset-4 hover:text-accent"
-    >
-      ← back to the map
-    </Link>
   );
 }
