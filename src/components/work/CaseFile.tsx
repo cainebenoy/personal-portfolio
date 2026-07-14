@@ -44,6 +44,8 @@ export default function CaseFile({ entry }: { entry: CaseFileEntry }) {
         </div>
       </div>
 
+      {entry.outcome && <Outcome text={entry.outcome} />}
+
       <div className="mt-16">
         <BackLink />
       </div>
@@ -58,6 +60,15 @@ function Block({ label, text }: { label: string; text: string }) {
         {label}
       </p>
       <p className="mt-2 font-structural leading-7 text-ink">{text}</p>
+    </div>
+  );
+}
+
+function Outcome({ text }: { text: string }) {
+  return (
+    <div className="mt-14 max-w-2xl border-l-2 border-accent/40 pl-5 [transform:rotate(-0.5deg)]">
+      <p className="font-handwritten text-sm text-ink/50">Outcome</p>
+      <p className="mt-1 font-handwritten text-lg text-accent">{text}</p>
     </div>
   );
 }

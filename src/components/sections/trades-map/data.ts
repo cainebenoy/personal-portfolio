@@ -102,7 +102,7 @@ export const TRADE_EDGES: TradeEdge[] = [
     to: "strategist",
     bend: -4,
     project: "The Love Protocol",
-    slug: "love-protocol",
+    slug: "the-love-protocol",
   },
   {
     from: "operator",
