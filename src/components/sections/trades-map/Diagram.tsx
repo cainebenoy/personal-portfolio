@@ -88,7 +88,7 @@ export default function Diagram() {
           >
             <span
               aria-hidden="true"
-              className="block rounded-full border-2 border-ink bg-cream"
+              className="block rounded-full border-2 border-ink bg-surface"
               style={{
                 width: 14,
                 height: 14,
@@ -126,7 +126,7 @@ export default function Diagram() {
 function Callout({ point, text }: { point: Point; text: string }) {
   return (
     <div
-      className="pointer-events-none absolute z-10 whitespace-nowrap rounded-sm border border-ink/15 bg-cream px-3 py-1.5 font-handwritten text-sm text-ink shadow-sm"
+      className="pointer-events-none absolute z-10 whitespace-nowrap rounded-sm border border-ink/15 bg-surface px-3 py-1.5 font-handwritten text-sm text-ink shadow-sm"
       style={{
         left: `${point.x}%`,
         top: `${point.y}%`,

@@ -1,11 +1,28 @@
 @import "tailwindcss";
 
+/* Class-based dark mode — user-controlled via the theme toggle, not prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* Design tokens — cream/grid/ink/accent palette from the project brief */
   --color-cream: #f7f4ec;
   --color-grid: #c9d2db;
   --color-ink: #2b2b2b;
   --color-accent: #2e4a7a;
+  /* Card/sticky-note surfaces. Equals cream in light mode (no visual change);
+     dark mode gives it its own shade so cards read as raised above the page
+     instead of disappearing into a background that's also gone dark. */
+  --color-surface: #f7f4ec;
+}
+
+.dark {
+  --color-cream: #1a1a1d;
+  --color-grid: #3e4652;
+  --color-ink: #f0ede4;
+  /* Brightened from the light-mode #2e4a7a — the original deep blue only
+     hits ~2:1 contrast against this background. This shade is ~5.5:1. */
+  --color-accent: #6e93c9;
+  --color-surface: #242428;
 }
 
 @theme inline {
@@ -13,6 +30,7 @@
   --color-grid: var(--color-grid);
   --color-ink: var(--color-ink);
   --color-accent: var(--color-accent);
+  --color-surface: var(--color-surface);
 
   --font-structural: var(--font-courier-prime), ui-monospace, monospace;
   --font-handwritten: var(--font-kalam), cursive;
@@ -21,12 +39,13 @@
 body {
   background-color: var(--color-cream);
   color: var(--color-ink);
-  /* Graph-paper grid: faint lines at low opacity over the cream base */
+  /* Graph-paper grid: faint lines at low opacity over the base */
   background-image:
     linear-gradient(color-mix(in srgb, var(--color-grid) 45%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--color-grid) 45%, transparent) 1px, transparent 1px);
   background-size: 32px 32px;
   background-position: -1px -1px;
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

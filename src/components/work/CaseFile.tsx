@@ -14,7 +14,7 @@ export default function CaseFile({ entry }: { entry: CaseFileEntry }) {
             {entry.subtitle}
           </p>
         </div>
-        <span className="whitespace-nowrap rounded-sm border border-ink/20 bg-cream px-3 py-1.5 font-handwritten text-sm text-accent shadow-sm [transform:rotate(-3deg)]">
+        <span className="whitespace-nowrap rounded-sm border border-ink/20 bg-surface px-3 py-1.5 font-handwritten text-sm text-accent shadow-sm [transform:rotate(-3deg)]">
           {entry.status}
         </span>
       </header>

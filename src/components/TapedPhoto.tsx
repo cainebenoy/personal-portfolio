@@ -11,7 +11,7 @@ export default function TapedPhoto({
 }) {
   return (
     <div
-      className={`relative border border-ink/15 bg-cream p-2 shadow-sm [transform:rotate(2deg)] ${className}`}
+      className={`relative border border-ink/15 bg-surface p-2 shadow-sm [transform:rotate(2deg)] ${className}`}
     >
       <CornerTabs />
       <div

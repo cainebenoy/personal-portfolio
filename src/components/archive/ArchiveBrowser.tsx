@@ -85,7 +85,7 @@ export default function ArchiveBrowser() {
             {REMAINING_PLACEHOLDER_CREDENTIALS.map((entry, i) => (
               <div
                 key={i}
-                className="border border-ink/10 bg-cream/60 px-3 py-2"
+                className="border border-ink/10 bg-surface/60 px-3 py-2"
               >
                 <p className="font-structural text-xs text-ink/70">
                   {entry.name}

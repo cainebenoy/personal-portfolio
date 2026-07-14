@@ -15,7 +15,7 @@ export default function IndexCard({
 
   return (
     <div
-      className="relative w-full max-w-[220px] border border-ink/15 bg-cream p-4 shadow-sm"
+      className="relative w-full max-w-[220px] border border-ink/15 bg-surface p-4 shadow-sm"
       style={{ transform: `rotate(${rotation}deg)` }}
     >
       <CornerTabs />
