@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { curvePath } from "@/lib/curve-path";
 
 type Dot = { x: number; y: number };
 type Connection = { from: number; to: number; bend: number };
@@ -26,12 +27,6 @@ const CONNECTIONS: Connection[] = [
   { from: 6, to: 7, bend: -4 },
   { from: 4, to: 8, bend: 3 },
 ];
-
-function curvePath(a: Dot, b: Dot, bend: number) {
-  const midX = (a.x + b.x) / 2 + bend;
-  const midY = (a.y + b.y) / 2 - bend;
-  return `M ${a.x} ${a.y} Q ${midX} ${midY} ${b.x} ${b.y}`;
-}
 
 const REVEAL_DELAY_MS = 2500;
 const SCROLL_THRESHOLD_PX = 24;
