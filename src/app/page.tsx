@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Hero from "@/components/sections/hero";
 import TradesMap from "@/components/sections/trades-map";
 
@@ -9,12 +10,13 @@ export default function Home() {
       <Hero />
       <TradesMap />
 
-      {/* Placeholder for the next act — keeps scroll behavior real until built. */}
-      <section
-        id="next"
-        className="flex min-h-dvh items-center justify-center px-6 text-center"
-      >
-        <p className="font-structural text-ink/40">More to come.</p>
+      <section className="flex min-h-dvh items-center justify-center px-6 text-center">
+        <Link
+          href="/about"
+          className="font-structural text-sm text-ink/60 underline underline-offset-4 hover:text-accent"
+        >
+          continue to the epilogue →
+        </Link>
       </section>
     </main>
   );
