@@ -18,6 +18,7 @@ const SECTIONS: Section[] = [
     id: slug,
     label: getCaseFile(slug)?.title ?? slug,
   })),
+  { id: "journey", label: "Journey" },
   { id: "about", label: "About" },
   { id: "archive", label: "Archive" },
 ];

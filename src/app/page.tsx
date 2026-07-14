@@ -1,6 +1,7 @@
 import About from "@/components/sections/about";
 import Archive from "@/components/sections/archive";
 import Hero from "@/components/sections/hero";
+import Journey from "@/components/sections/journey";
 import Stats from "@/components/sections/stats";
 import TradesMap from "@/components/sections/trades-map";
 import CaseFile from "@/components/work/CaseFile";
@@ -20,6 +21,7 @@ export default function Home() {
         return <CaseFile key={slug} entry={entry} />;
       })}
 
+      <Journey />
       <About />
       <Archive />
     </main>
