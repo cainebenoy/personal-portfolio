@@ -62,3 +62,15 @@ body {
     animation-duration: 0.001ms !important;
   }
 }
+
+/* Hides the scrollbar chrome on an overflow-scroll container while leaving
+   the underlying scroll behavior (wheel, trackpad, touch, keyboard) intact —
+   the affordance is discovered by interacting with the strip, not by UI. */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

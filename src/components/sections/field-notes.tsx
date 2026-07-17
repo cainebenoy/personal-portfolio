@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { FIELD_NOTES, type FieldNote } from "@/content/field-notes";
+
+// Roughly one frame's worth of scroll per arrow-key press — the strip has no
+// visible scrollbar, so this is the only way keyboard users can move it.
+const KEYBOARD_SCROLL_PX = 224;
 
 // Fixed frame width shared by the photo row and the sprocket row above/below
 // it — using the same constant for both is what keeps the two rows the same
@@ -102,9 +106,29 @@ function Frame({
 export default function FieldNotes() {
   const reducedMotion = usePrefersReducedMotion();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
 
   const caption =
     activeIndex !== null ? FIELD_NOTES[activeIndex].caption : "Hover a frame to develop it.";
+
+  function handleStripKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    const el = stripRef.current;
+    if (!el) return;
+    const behavior = reducedMotion ? "auto" : "smooth";
+    if (e.key === "ArrowRight") {
+      el.scrollBy({ left: KEYBOARD_SCROLL_PX, behavior });
+      e.preventDefault();
+    } else if (e.key === "ArrowLeft") {
+      el.scrollBy({ left: -KEYBOARD_SCROLL_PX, behavior });
+      e.preventDefault();
+    } else if (e.key === "Home") {
+      el.scrollTo({ left: 0, behavior });
+      e.preventDefault();
+    } else if (e.key === "End") {
+      el.scrollTo({ left: el.scrollWidth, behavior });
+      e.preventDefault();
+    }
+  }
 
   return (
     <section id="field-notes" className="mx-auto max-w-6xl scroll-mt-6 px-6 py-24">
@@ -121,10 +145,14 @@ export default function FieldNotes() {
           continuous reel, edge-to-edge frames, longer than the viewport. */}
       <div className="hidden md:block">
         <RevealOnScroll className="mt-14">
-          <p className="mb-3 pl-1 font-handwritten text-sm text-ink/50 [transform:rotate(-1deg)]">
-            → drag to review the reel
-          </p>
-          <div className="overflow-x-auto pb-2">
+          <div
+            ref={stripRef}
+            className="scrollbar-hide overflow-x-auto pb-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            tabIndex={0}
+            role="region"
+            aria-label="Field notes filmstrip — scroll horizontally to review, or use arrow keys"
+            onKeyDown={handleStripKeyDown}
+          >
             <div className={`w-max ${STRIP_BG} py-1`}>
               <SprocketRow />
               <div className="flex">
