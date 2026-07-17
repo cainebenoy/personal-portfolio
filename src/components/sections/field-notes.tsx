@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
@@ -84,7 +85,7 @@ function Frame({
         {stamp}
       </span>
       <div
-        className="flex aspect-[4/3] w-full items-center justify-center bg-accent/25 transition-[filter] duration-500 ease-out group-focus-visible:ring-2 group-focus-visible:ring-accent group-focus-visible:ring-inset"
+        className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-accent/25 transition-[filter] duration-500 ease-out group-focus-visible:ring-2 group-focus-visible:ring-accent group-focus-visible:ring-inset"
         style={
           reducedMotion
             ? undefined
@@ -95,9 +96,19 @@ function Frame({
               }
         }
       >
-        <p className="max-w-[70%] text-center font-structural text-[10px] text-neutral-100/40">
-          photo — swap in later
-        </p>
+        {note.image ? (
+          <Image
+            src={note.image}
+            alt={note.caption}
+            fill
+            sizes="(max-width: 768px) 90vw, 224px"
+            className="object-cover"
+          />
+        ) : (
+          <p className="max-w-[70%] text-center font-structural text-[10px] text-neutral-100/40">
+            photo — swap in later
+          </p>
+        )}
       </div>
     </button>
   );
