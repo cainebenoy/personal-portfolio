@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { FIELD_NOTES, type FieldNote } from "@/content/field-notes";
@@ -103,13 +103,52 @@ function Frame({
   );
 }
 
+// Fades the strip toward the page background at whichever edge still has
+// content hidden past it — the cue that there's more to scroll, without
+// spelling it out as an instruction. Only ever shown on the side that
+// actually has more to reveal, so it disappears once you reach that end.
+function EdgeFade({ side, visible }: { side: "left" | "right"; visible: boolean }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-y-0 z-10 w-16 transition-opacity duration-300 ${
+        side === "left" ? "left-0" : "right-0"
+      }`}
+      style={{
+        opacity: visible ? 1 : 0,
+        background: `linear-gradient(to ${side === "left" ? "right" : "left"}, var(--color-cream), transparent)`,
+      }}
+    />
+  );
+}
+
 export default function FieldNotes() {
   const reducedMotion = usePrefersReducedMotion();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const stripRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const caption =
     activeIndex !== null ? FIELD_NOTES[activeIndex].caption : "Hover a frame to develop it.";
+
+  useEffect(() => {
+    const el = stripRef.current;
+    if (!el) return;
+
+    const updateFades = () => {
+      setCanScrollLeft(el.scrollLeft > 4);
+      setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+    };
+
+    updateFades();
+    el.addEventListener("scroll", updateFades, { passive: true });
+    window.addEventListener("resize", updateFades);
+    return () => {
+      el.removeEventListener("scroll", updateFades);
+      window.removeEventListener("resize", updateFades);
+    };
+  }, []);
 
   function handleStripKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     const el = stripRef.current;
@@ -145,33 +184,37 @@ export default function FieldNotes() {
           continuous reel, edge-to-edge frames, longer than the viewport. */}
       <div className="hidden md:block">
         <RevealOnScroll className="mt-14">
-          <div
-            ref={stripRef}
-            className="scrollbar-hide overflow-x-auto pb-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-            tabIndex={0}
-            role="region"
-            aria-label="Field notes filmstrip — scroll horizontally to review, or use arrow keys"
-            onKeyDown={handleStripKeyDown}
-          >
-            <div className={`w-max ${STRIP_BG} py-1`}>
-              <SprocketRow />
-              <div className="flex">
-                {FIELD_NOTES.map((note, i) => (
-                  <Frame
-                    key={note.caption}
-                    note={note}
-                    index={i}
-                    active={activeIndex === i}
-                    reducedMotion={reducedMotion}
-                    widthClass={FRAME_WIDTH}
-                    onEnter={() => setActiveIndex(i)}
-                    onLeave={() => setActiveIndex(null)}
-                    onTap={() => setActiveIndex(activeIndex === i ? null : i)}
-                  />
-                ))}
+          <div className="relative">
+            <div
+              ref={stripRef}
+              className="scrollbar-hide overflow-x-auto pb-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              tabIndex={0}
+              role="region"
+              aria-label="Field notes filmstrip — scroll horizontally to review, or use arrow keys"
+              onKeyDown={handleStripKeyDown}
+            >
+              <div className={`w-max ${STRIP_BG} py-1`}>
+                <SprocketRow />
+                <div className="flex">
+                  {FIELD_NOTES.map((note, i) => (
+                    <Frame
+                      key={note.caption}
+                      note={note}
+                      index={i}
+                      active={activeIndex === i}
+                      reducedMotion={reducedMotion}
+                      widthClass={FRAME_WIDTH}
+                      onEnter={() => setActiveIndex(i)}
+                      onLeave={() => setActiveIndex(null)}
+                      onTap={() => setActiveIndex(activeIndex === i ? null : i)}
+                    />
+                  ))}
+                </div>
+                <SprocketRow />
               </div>
-              <SprocketRow />
             </div>
+            <EdgeFade side="left" visible={canScrollLeft} />
+            <EdgeFade side="right" visible={canScrollRight} />
           </div>
           <p className="mt-3 min-h-[1.75rem] pl-1 font-handwritten text-base text-accent">
             {caption}
