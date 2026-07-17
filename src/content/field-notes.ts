@@ -10,8 +10,14 @@ export interface FieldNote {
 // into public/images/field-notes/ using the names below, then set each
 // entry's `image` to "/images/field-notes/<filename>".
 export const FIELD_NOTES: FieldNote[] = [
-  { caption: "BlockHash LIVE 2025 — Kerala Blockchain Academy" }, // 01-blockhash-live-2025.jpg
-  { caption: "The Big Hack '25 — Acharya Institutes, Bangalore" }, // 02-the-big-hack-25.jpg
+  {
+    caption: "BlockHash LIVE 2025 — Kerala Blockchain Academy",
+    image: "/images/field-notes/01-blockhash-live-2025.jpg",
+  },
+  {
+    caption: "The Big Hack '25 — Acharya Institutes, Bangalore",
+    image: "/images/field-notes/02-the-big-hack-25.jpg",
+  },
   { caption: "India FOSS 2025 — Bangalore" }, // 03-india-foss-2025.jpg
   { caption: "TinkerHub SCAS — Chaya & Pupzz" }, // 04-tinkerhub-scas.jpg
   { caption: "Best Useless Project — Vibe Coding Hackathon win" }, // 05-best-useless-project.jpg
