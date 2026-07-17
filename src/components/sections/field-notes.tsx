@@ -122,12 +122,52 @@ function EdgeFade({ side, visible }: { side: "left" | "right"; visible: boolean 
   );
 }
 
+// A small hand-sketched chevron (same Q-curve wobble and non-scaling-stroke
+// convention as the Pin/spine SVGs elsewhere) layered over the edge fade —
+// a drawn mark rather than a literal instruction, and only shown on the
+// side that actually has more to reveal.
+const ARROW_PATHS: Record<"left" | "right" | "down", string> = {
+  left: "M13 3 Q6 10 13 17",
+  right: "M7 3 Q14 10 7 17",
+  down: "M3 7 Q10 14 17 7",
+};
+
+function ArrowMark({
+  direction,
+  visible,
+  className = "",
+}: {
+  direction: "left" | "right" | "down";
+  visible: boolean;
+  className?: string;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 20 20"
+      className={`h-5 w-5 transition-opacity duration-300 ${className}`}
+      style={{ opacity: visible ? 0.55 : 0 }}
+    >
+      <path
+        d={ARROW_PATHS[direction]}
+        fill="none"
+        stroke="var(--color-ink)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
+
 export default function FieldNotes() {
   const reducedMotion = usePrefersReducedMotion();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const lastFrameRef = useRef<HTMLDivElement>(null);
+  const [mobileHasMore, setMobileHasMore] = useState(true);
 
   const caption =
     activeIndex !== null ? FIELD_NOTES[activeIndex].caption : "Hover a frame to develop it.";
@@ -148,6 +188,20 @@ export default function FieldNotes() {
       el.removeEventListener("scroll", updateFades);
       window.removeEventListener("resize", updateFades);
     };
+  }, []);
+
+  // Mobile has no scroll container of its own — the reel is just part of
+  // the page's normal vertical flow — so "more below" is tracked by whether
+  // the last frame has scrolled into view yet, same idea as canScrollRight.
+  useEffect(() => {
+    const el = lastFrameRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setMobileHasMore(!entry.isIntersecting),
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   function handleStripKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
@@ -215,6 +269,16 @@ export default function FieldNotes() {
             </div>
             <EdgeFade side="left" visible={canScrollLeft} />
             <EdgeFade side="right" visible={canScrollRight} />
+            <ArrowMark
+              direction="left"
+              visible={canScrollLeft}
+              className="absolute top-1/2 left-1 z-20 -translate-y-1/2"
+            />
+            <ArrowMark
+              direction="right"
+              visible={canScrollRight}
+              className="absolute top-1/2 right-1 z-20 -translate-y-1/2"
+            />
           </div>
           <p className="mt-3 min-h-[1.75rem] pl-1 font-handwritten text-base text-accent">
             {caption}
@@ -232,7 +296,11 @@ export default function FieldNotes() {
           </p>
           <div className={`mx-auto flex max-w-xs flex-col ${STRIP_BG} px-1`}>
             {FIELD_NOTES.map((note, i) => (
-              <div key={note.caption} className={`flex items-stretch border-b ${STRIP_BORDER} last:border-b-0`}>
+              <div
+                key={note.caption}
+                ref={i === FIELD_NOTES.length - 1 ? lastFrameRef : undefined}
+                className={`flex items-stretch border-b ${STRIP_BORDER} last:border-b-0`}
+              >
                 <SprocketCol />
                 <Frame
                   note={note}
@@ -248,6 +316,7 @@ export default function FieldNotes() {
               </div>
             ))}
           </div>
+          <ArrowMark direction="down" visible={mobileHasMore} className="mx-auto mt-2" />
           <p className="mt-3 min-h-[1.75rem] text-center font-handwritten text-base text-accent">
             {caption}
           </p>
