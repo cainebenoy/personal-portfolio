@@ -1,4 +1,4 @@
-import Glyph from "@/components/Glyph";
+import TradeBadge from "@/components/TradeBadge";
 import RoughRule from "@/components/RoughRule";
 import { CONTACT_EMAIL, CONTACT_LINKS } from "@/content/about";
 import { TRADES } from "@/content/trades";
@@ -20,13 +20,13 @@ export default function Contact() {
           <span className="kicker text-ink/65">Last page</span>
         </div>
 
-        <div data-draw className="mt-14 flex items-center gap-5 text-accent sm:gap-7">
+        <div data-draw className="mt-14 flex items-center gap-5 sm:gap-7">
           {TRADES.map((trade) => (
-            <Glyph
+            <TradeBadge
               key={trade.id}
               id={trade.id}
-              title={trade.name}
-              className="h-6 w-6 sm:h-8 sm:w-8"
+              showLabel={false}
+              glyphClassName="h-6 w-6 sm:h-8 sm:w-8"
             />
           ))}
         </div>

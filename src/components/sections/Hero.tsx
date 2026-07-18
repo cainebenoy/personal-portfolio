@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
+import AvatarSequence from "@/components/AvatarSequence";
 import Glyph from "@/components/Glyph";
 import { TRADES } from "@/content/trades";
 import { gsap, useGSAP } from "@/lib/motion";
@@ -30,7 +31,14 @@ const FIELD = [
 
 const STRIKE_PATH = "M2 7.5 Q 26 4.5 52 6.5 T 98 5";
 
-export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
+export default function Hero({
+  portraitSrc,
+  sequenceFrames = 0,
+}: {
+  portraitSrc?: string;
+  /** Frame count of public/avatar-sequence — 0 falls back to the still. */
+  sequenceFrames?: number;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -166,9 +174,10 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
               </blockquote>
             </div>
 
-            {/* The portrait, mounted like a print on the sheet. Swap
-                public/images/portrait.jpg to change it. */}
-            {portraitSrc && (
+            {/* The print taped to the sheet: a scroll-scrubbed frame
+                sequence when public/avatar-sequence has frames, otherwise
+                the still from public/images/portrait.jpg. */}
+            {(sequenceFrames > 0 || portraitSrc) && (
               <figure className="hero-fade w-full max-w-sm -rotate-[0.9deg] lg:col-span-4 lg:col-start-9 lg:max-w-none lg:self-center [--fade-delay:550ms]">
                 <div className="relative border border-line bg-raised p-3">
                   {/* Taped to the sheet. */}
@@ -180,27 +189,36 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
                     aria-hidden="true"
                     className="tape -right-7 -bottom-3 -rotate-[40deg]"
                   />
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <div
-                      data-parallax="-5"
-                      className="absolute inset-x-0 -inset-y-[6%]"
-                    >
-                      <Image
-                        src={portraitSrc}
-                        alt="Caine Benoy"
-                        fill
-                        priority
-                        sizes="(max-width: 1024px) 84vw, 30vw"
-                        className="object-cover grayscale transition-[filter] duration-700 ease-out hover:grayscale-0"
-                        style={{ objectPosition: "center 32%" }}
+                  <div className="relative aspect-[4/5] overflow-hidden grayscale transition-[filter] duration-700 ease-out hover:grayscale-0">
+                    {sequenceFrames > 0 ? (
+                      <AvatarSequence
+                        frameCount={sequenceFrames}
+                        className="absolute inset-0"
                       />
-                    </div>
+                    ) : (
+                      <div
+                        data-parallax="-5"
+                        className="absolute inset-x-0 -inset-y-[6%]"
+                      >
+                        <Image
+                          src={portraitSrc!}
+                          alt="Caine Benoy"
+                          fill
+                          priority
+                          sizes="(max-width: 1024px) 84vw, 30vw"
+                          className="object-cover"
+                          style={{ objectPosition: "center 32%" }}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <figcaption className="mt-3 flex items-baseline gap-4">
                   <span className="mono-tag text-red">Fig. 01</span>
                   <span className="mono-tag text-ink/70">
-                    The operator, on record
+                    {sequenceFrames > 0
+                      ? "LUFTETAR 2026, on stage · scroll to roll the tape"
+                      : "The operator, on record"}
                   </span>
                 </figcaption>
               </figure>
