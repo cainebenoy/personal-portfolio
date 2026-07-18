@@ -1,71 +1,184 @@
 @import "tailwindcss";
 
-/* Class-based dark mode — user-controlled via the theme toggle, not prefers-color-scheme */
-@custom-variant dark (&:where(.dark, .dark *));
+/* ---------------------------------------------------------------------------
+   Design tokens — "monsoon night" material palette.
 
-:root {
-  /* Design tokens — cream/grid/ink/accent palette from the project brief */
-  --color-cream: #f7f4ec;
-  --color-grid: #c9d2db;
-  --color-ink: #2b2b2b;
-  --color-accent: #2e4a7a;
-  /* Card/sticky-note surfaces. Equals cream in light mode (no visual change);
-     dark mode gives it its own shade so cards read as raised above the page
-     instead of disappearing into a background that's also gone dark. */
-  --color-surface: #f7f4ec;
-}
+   One theme, done properly: a deep green-black canvas (Kerala night, not
+   neutral tech-black), warm ivory type, and a single brass accent that is
+   budgeted like a metal — rules, numerals, active states, and the glyph
+   linework. No gradients, no glow. Depth comes from three surface steps and
+   1px hairlines, not shadows.
+--------------------------------------------------------------------------- */
 
-.dark {
-  --color-cream: #1a1a1d;
-  --color-grid: #3e4652;
-  --color-ink: #f0ede4;
-  /* Brightened from the light-mode #2e4a7a — the original deep blue only
-     hits ~2:1 contrast against this background. This shade is ~5.5:1. */
-  --color-accent: #6e93c9;
-  --color-surface: #242428;
+@theme {
+  --color-night: #0a0d0b;
+  --color-raised: #101512;
+  --color-lifted: #161c17;
+  --color-ivory: #ebe6d8;
+  --color-brass: #c7a44f;
+  --color-brass-bright: #ddbe74;
+  --color-line: color-mix(in oklab, #ebe6d8 14%, transparent);
+  --color-line-faint: color-mix(in oklab, #ebe6d8 7%, transparent);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout-soft: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @theme inline {
-  --color-cream: var(--color-cream);
-  --color-grid: var(--color-grid);
-  --color-ink: var(--color-ink);
-  --color-accent: var(--color-accent);
-  --color-surface: var(--color-surface);
-
-  --font-structural: var(--font-courier-prime), ui-monospace, monospace;
-  --font-handwritten: var(--font-kalam), cursive;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-fragment-mono), ui-monospace, monospace;
 }
 
-/* Deliberately no global `scroll-behavior: smooth` — it would smooth every
-   scroll event (including ambient wheel/trackpad scrolling), which fights
-   the scroll-scrubbed hero/trades-map animations that need 1:1 tracking
-   with real scroll position. Anchor links animate via scrollIntoView()
-   in JS instead, scoped to the click itself. */
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+html {
+  color-scheme: dark;
+  /* No global smooth scroll — Lenis owns easing when it's running, and
+     scroll-driven scenes need 1:1 tracking with real scroll position. */
+  scroll-behavior: auto;
+}
 
 body {
-  background-color: var(--color-cream);
-  color: var(--color-ink);
-  /* Graph-paper grid: faint lines at low opacity over the base */
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--color-grid) 45%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-grid) 45%, transparent) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: -1px -1px;
-  transition: background-color 300ms ease, color 300ms ease;
+  background-color: var(--color-night);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  overflow-x: clip;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.001ms !important;
-    animation-duration: 0.001ms !important;
+/* Film grain over everything — one static feTurbulence tile, no network
+   request. Faint enough to read as texture on the dark field, never dirt. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-brass);
+  color: var(--color-night);
+}
+
+/* One visible, consistent focus treatment everywhere. */
+:where(a, button, [tabindex], input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+/* ---------------------------------------------------------------------------
+   Voice utilities — the three registers of the system.
+   Display (Fraunces) is used via font-display classes inline; these two are
+   the recurring smaller voices.
+--------------------------------------------------------------------------- */
+
+/* Expanded-caps kicker — Archivo stretched to 125%: the "section label"
+   voice. Width is the differentiator, so it never competes with the serif. */
+@utility kicker {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-stretch: 125%;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Mono tag — the instrument-panel voice: indices, coordinates, metadata. */
+@utility mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Page gutter shared by every section. */
+@utility px-page {
+  padding-inline: clamp(1.5rem, 5vw, 5rem);
+}
+
+/* Outline-only ghost numerals printed behind project spreads. */
+@utility numeral-ghost {
+  font-family: var(--font-display);
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--color-ivory) 22%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
+   Motion primitives
+   - .mask-line wraps each display line; the inner span is what animates.
+     Both are static (visible) by default so SSR / no-JS / reduced motion get
+     the finished layout — GSAP sets hidden states only when it runs.
+--------------------------------------------------------------------------- */
+
+.mask-line {
+  display: block;
+  overflow: hidden;
+}
+
+.mask-line > span {
+  display: block;
+}
+
+/* Hero load-in runs as pure CSS so the opening plays even before (or
+   without) JS — scroll choreography is layered on top by GSAP afterwards. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise .mask-line > span {
+    animation: hero-line-rise 1.1s var(--ease-out-expo) both;
+    animation-delay: calc(var(--line-i, 0) * 130ms + 150ms);
+  }
+
+  .hero-fade {
+    animation: hero-fade-in 0.9s var(--ease-out-expo) both;
+    animation-delay: var(--fade-delay, 900ms);
   }
 }
 
-/* Hides the scrollbar chrome on an overflow-scroll container while leaving
-   the underlying scroll behavior (wheel, trackpad, touch, keyboard) intact —
-   the affordance is discovered by interacting with the strip, not by UI. */
+@keyframes hero-line-rise {
+  from {
+    transform: translateY(112%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Archive drawer re-deals — plain CSS so the filter interaction stays light. */
+@media (prefers-reduced-motion: no-preference) {
+  .deal-in {
+    animation: deal-in 0.5s var(--ease-out-expo) both;
+    animation-delay: calc(var(--deal-i, 0) * 40ms);
+  }
+}
+
+@keyframes deal-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hide scrollbar chrome without touching scroll behavior. */
 .scrollbar-hide {
   scrollbar-width: none;
   -ms-overflow-style: none;

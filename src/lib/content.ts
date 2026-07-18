@@ -1,2 +1,0 @@
-export const SITE_QUOTE =
-  "A jack of all trades is a master of none, but oftentimes better than a master of one.";
