@@ -3,7 +3,7 @@ import { CONTACT_EMAIL, CONTACT_LINKS } from "@/content/about";
 import { TRADES } from "@/content/trades";
 
 // Chapter 09 — the last page. The six glyphs assemble one final time in
-// brass, the invitation sets at full display scale, and the email is the
+// accent, the invitation sets at full display scale, and the email is the
 // single loudest link on the site.
 export default function Contact() {
   return (
@@ -14,12 +14,12 @@ export default function Contact() {
     >
       <div className="mx-auto w-full max-w-7xl">
         <div className="flex items-center gap-5">
-          <span className="mono-tag text-brass">09</span>
+          <span className="mono-tag text-red">09</span>
           <span aria-hidden="true" data-rule className="h-px min-w-0 flex-1 bg-line" />
           <span className="kicker text-ink/50">Last page</span>
         </div>
 
-        <div data-draw className="mt-14 flex items-center gap-5 text-brass sm:gap-7">
+        <div data-draw className="mt-14 flex items-center gap-5 text-accent sm:gap-7">
           {TRADES.map((trade) => (
             <Glyph
               key={trade.id}
@@ -50,7 +50,7 @@ export default function Contact() {
             <a
               data-reveal
               href={`mailto:${CONTACT_EMAIL}`}
-              className="mt-4 inline-block cursor-pointer font-display text-[clamp(1.5rem,3.6vw,2.7rem)] text-brass-bright underline decoration-brass/40 decoration-1 underline-offset-8 transition-colors duration-300 hover:text-ink hover:decoration-ink/50"
+              className="mt-4 inline-block cursor-pointer font-display text-[clamp(1.5rem,3.6vw,2.7rem)] text-accent-bright underline decoration-accent/40 decoration-1 underline-offset-8 transition-colors duration-300 hover:text-ink hover:decoration-ink/50"
             >
               {CONTACT_EMAIL}
             </a>
@@ -73,10 +73,10 @@ export default function Contact() {
                   rel="noopener noreferrer"
                   className="group flex cursor-pointer items-baseline justify-between gap-6 py-2.5"
                 >
-                  <span className="mono-tag text-ink/45 transition-colors duration-300 group-hover:text-brass">
+                  <span className="mono-tag text-ink/45 transition-colors duration-300 group-hover:text-accent">
                     {link.label}
                   </span>
-                  <span className="mono-tag text-ink/70 underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-300 group-hover:decoration-brass">
+                  <span className="mono-tag text-ink/70 underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-300 group-hover:decoration-accent">
                     {link.value} ↗
                   </span>
                 </a>

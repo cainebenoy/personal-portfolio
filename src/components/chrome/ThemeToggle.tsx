@@ -20,9 +20,9 @@ function isDark() {
   return document.documentElement.classList.contains("dark");
 }
 
-// Dark is the server-rendered default.
+// Light is the server-rendered default.
 function serverIsDark() {
-  return true;
+  return false;
 }
 
 export default function ThemeToggle({ className = "" }: { className?: string }) {
@@ -43,7 +43,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
       type="button"
       onClick={toggle}
       aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-      className={`flex h-11 w-11 cursor-pointer items-center justify-center text-ink/60 transition-colors duration-300 hover:text-brass ${className}`}
+      className={`flex h-11 w-11 cursor-pointer items-center justify-center text-ink/60 transition-colors duration-300 hover:text-accent ${className}`}
     >
       {dark ? (
         // Sun — a cousin of the operator's crosshair.

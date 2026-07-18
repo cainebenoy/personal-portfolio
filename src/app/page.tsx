@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import About from "@/components/sections/About";
 import Archive from "@/components/sections/Archive";
 import Contact from "@/components/sections/Contact";
@@ -12,9 +14,17 @@ import Work from "@/components/sections/Work";
 // the six trades as a legend, the work, the record, the photographs, the
 // archive, the person — and the invitation.
 export default function Home() {
+  // The hero portrait lights up when the print exists — swap the file to
+  // change it, delete it to fall back to the type-only composition.
+  const portraitSrc = existsSync(
+    join(process.cwd(), "public/images/portrait.jpg"),
+  )
+    ? "/images/portrait.jpg"
+    : undefined;
+
   return (
     <main id="main">
-      <Hero />
+      <Hero portraitSrc={portraitSrc} />
       <Proof />
       <Range />
       <Work />

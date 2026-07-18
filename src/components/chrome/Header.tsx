@@ -72,7 +72,7 @@ export default function Header() {
           <a
             href="#thesis"
             onClick={(e) => go(e, "thesis")}
-            className="cursor-pointer font-display text-xl text-ink italic transition-colors duration-300 hover:text-brass"
+            className="cursor-pointer font-display text-xl text-ink italic transition-colors duration-300 hover:text-accent"
             style={{ fontVariationSettings: '"SOFT" 60, "WONK" 1' }}
           >
             Caine Benoy
@@ -88,7 +88,7 @@ export default function Header() {
                   onClick={(e) => go(e, id)}
                   className="group mono-tag cursor-pointer text-ink/60 transition-colors duration-300 hover:text-ink"
                 >
-                  <span className="mr-1.5 text-brass/70 transition-colors duration-300 group-hover:text-brass">
+                  <span className="mr-1.5 text-accent/70 transition-colors duration-300 group-hover:text-accent">
                     {ch.num}
                   </span>
                   {navLabel(id)}
@@ -98,7 +98,7 @@ export default function Header() {
             <a
               href="#contact"
               onClick={(e) => go(e, "contact")}
-              className="mono-tag cursor-pointer border border-brass/50 px-4 py-2.5 text-brass transition-colors duration-300 hover:border-brass hover:bg-brass hover:text-ground"
+              className="mono-tag cursor-pointer border border-accent/50 px-4 py-2.5 text-accent transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-ground"
             >
               Contact
             </a>
@@ -145,8 +145,8 @@ export default function Header() {
                 }`}
                 style={{ transitionDelay: open ? `${120 + i * 60}ms` : "0ms" }}
               >
-                <span className="mono-tag text-brass">{ch.num}</span>
-                <span className="font-display text-4xl text-ink transition-colors group-hover:text-brass">
+                <span className="mono-tag text-accent">{ch.num}</span>
+                <span className="font-display text-4xl text-ink transition-colors group-hover:text-accent">
                   {navLabel(id)}
                 </span>
               </a>

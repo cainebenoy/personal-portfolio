@@ -20,10 +20,10 @@ export default function WorkIndex() {
             }}
             className="group flex cursor-pointer items-baseline gap-5 border-t border-line-faint py-4 transition-colors duration-300 last:border-b hover:bg-raised/60 sm:gap-8"
           >
-            <span className="mono-tag text-brass">
+            <span className="mono-tag text-red">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <span className="min-w-0 truncate font-display text-xl text-ink transition-colors duration-300 group-hover:text-brass-bright sm:text-2xl">
+            <span className="min-w-0 truncate font-display text-xl text-ink transition-colors duration-300 group-hover:text-accent-bright sm:text-2xl">
               {project.title}
             </span>
             <span
@@ -35,7 +35,7 @@ export default function WorkIndex() {
             </span>
             <span
               aria-hidden="true"
-              className="mono-tag shrink-0 text-ink/40 transition-[color,translate] duration-300 group-hover:translate-y-0.5 group-hover:text-brass"
+              className="mono-tag shrink-0 text-ink/40 transition-[color,translate] duration-300 group-hover:translate-y-0.5 group-hover:text-accent"
             >
               ↓
             </span>

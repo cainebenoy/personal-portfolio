@@ -31,7 +31,7 @@ export default function SectionHeader({
     return (
       <header className={className}>
         <div className="flex items-baseline gap-5">
-          <span className="mono-tag text-brass">{ch.num}</span>
+          <span className="mono-tag text-red">{ch.num}</span>
           <h2
             data-reveal
             className="font-display text-[clamp(1.9rem,3.4vw,2.7rem)] leading-none tracking-[-0.01em] text-ink"
@@ -57,7 +57,7 @@ export default function SectionHeader({
   return (
     <header className={className}>
       <div className="flex items-center gap-5">
-        <span className="mono-tag text-brass">{ch.num}</span>
+        <span className="mono-tag text-red">{ch.num}</span>
         <span
           aria-hidden="true"
           data-rule

@@ -1,14 +1,13 @@
 export const THEME_STORAGE_KEY = "theme";
 
-// Runs before hydration (see app/layout.tsx) so returning light-mode
-// visitors never see a dark flash. Dark is the default — the <html> element
-// ships with .dark — so this only ever does something for users who've
-// switched to light before.
+// Runs before hydration (see app/layout.tsx) so returning dark-mode
+// visitors never see a paper flash. Light is the default — this only ever
+// does something for users who've switched to dark before.
 export const THEME_INIT_SCRIPT = `
 (function () {
   try {
-    if (localStorage.getItem("${THEME_STORAGE_KEY}") === "light") {
-      document.documentElement.classList.remove("dark");
+    if (localStorage.getItem("${THEME_STORAGE_KEY}") === "dark") {
+      document.documentElement.classList.add("dark");
     }
   } catch (e) {}
 })();

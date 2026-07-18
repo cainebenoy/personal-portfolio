@@ -21,7 +21,7 @@ export default function Footer() {
             e.preventDefault();
             scrollToId("thesis");
           }}
-          className="mono-tag group cursor-pointer text-ink/60 transition-colors duration-300 hover:text-brass"
+          className="mono-tag group cursor-pointer text-ink/60 transition-colors duration-300 hover:text-accent"
         >
           Back to the top{" "}
           <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5">

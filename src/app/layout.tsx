@@ -51,8 +51,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0d0b",
-  colorScheme: "dark light",
+  themeColor: "#f4f1e8",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
@@ -63,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${archivo.variable} ${fragmentMono.variable} dark antialiased`}
+      className={`${fraunces.variable} ${archivo.variable} ${fragmentMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-svh">
@@ -72,7 +72,7 @@ export default function RootLayout({
         </Script>
         <a
           href="#main"
-          className="mono-tag fixed top-3 left-3 z-[100] -translate-y-20 bg-brass px-4 py-3 text-ground transition-transform focus-visible:translate-y-0"
+          className="mono-tag fixed top-3 left-3 z-[100] -translate-y-20 bg-accent px-4 py-3 text-ground transition-transform focus-visible:translate-y-0"
         >
           Skip to content
         </a>

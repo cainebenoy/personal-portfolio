@@ -45,13 +45,13 @@ export default function ArchiveBrowser() {
               onClick={() => setActive(filter.id)}
               aria-pressed={isActive}
               className={`mono-tag relative cursor-pointer py-1.5 transition-colors duration-300 ${
-                isActive ? "text-brass" : "text-ink/50 hover:text-ink"
+                isActive ? "text-accent" : "text-ink/50 hover:text-ink"
               }`}
             >
               {filter.label}
               <span
                 aria-hidden="true"
-                className={`absolute right-0 -bottom-[calc(1rem+1px)] left-0 h-px bg-brass transition-transform duration-300 ease-out-expo ${
+                className={`absolute right-0 -bottom-[calc(1rem+1px)] left-0 h-px bg-accent transition-transform duration-300 ease-out-expo ${
                   isActive ? "scale-x-100" : "scale-x-0"
                 }`}
                 style={{ transformOrigin: "left" }}
