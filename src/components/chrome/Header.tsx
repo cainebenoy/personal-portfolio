@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "@/components/chrome/ThemeToggle";
 import { chapter, NAV_CHAPTER_IDS, navLabel } from "@/lib/chapters";
@@ -49,9 +50,16 @@ export default function Header() {
     };
   }, [open]);
 
+  // Chapter links carry real "/#id" hrefs so they navigate from subpages
+  // (and without JS); the click is only intercepted for the eased scroll
+  // when the target actually exists on the current page.
   const go = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
       return;
+    if (!document.getElementById(id)) {
+      setOpen(false);
+      return;
+    }
     e.preventDefault();
     setOpen(false);
     scrollToId(id);
@@ -60,7 +68,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 print:hidden ${
           scrolled && !open
             ? "border-b border-line-faint bg-ground/85 backdrop-blur-md"
             : "border-b border-transparent"
@@ -69,22 +77,22 @@ export default function Header() {
         <div className="px-page flex h-16 items-center justify-between">
           {/* The wordmark is a signature, not a label — Fraunces italic with
               the wonk axis on. */}
-          <a
-            href="#thesis"
+          <Link
+            href="/#thesis"
             onClick={(e) => go(e, "thesis")}
             className="cursor-pointer font-display text-xl text-ink italic transition-colors duration-300 hover:text-accent"
             style={{ fontVariationSettings: '"SOFT" 60, "WONK" 1' }}
           >
             Caine Benoy
-          </a>
+          </Link>
 
           <nav aria-label="Chapters" className="hidden items-center gap-7 md:flex">
             {NAV_CHAPTER_IDS.map((id) => {
               const ch = chapter(id);
               return (
-                <a
+                <Link
                   key={id}
-                  href={`#${id}`}
+                  href={`/#${id}`}
                   onClick={(e) => go(e, id)}
                   className="group mono-tag cursor-pointer text-ink/60 transition-colors duration-300 hover:text-ink"
                 >
@@ -92,16 +100,24 @@ export default function Header() {
                     {ch.num}
                   </span>
                   {navLabel(id)}
-                </a>
+                </Link>
               );
             })}
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               onClick={(e) => go(e, "contact")}
               className="mono-tag cursor-pointer border border-accent/50 px-4 py-2.5 text-accent transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-ground"
             >
               Contact
-            </a>
+            </Link>
+            <button
+              type="button"
+              aria-label="Open command palette"
+              onClick={() => window.dispatchEvent(new Event("open-palette"))}
+              className="mono-tag hidden h-11 cursor-pointer items-center px-2 text-ink/40 transition-colors duration-300 hover:text-accent lg:flex"
+            >
+              ⌘K
+            </button>
             <ThemeToggle className="-mr-2" />
           </nav>
 
@@ -134,10 +150,10 @@ export default function Header() {
           {[...NAV_CHAPTER_IDS, "contact"].map((id, i) => {
             const ch = chapter(id);
             return (
-              <a
+              <Link
                 key={id}
                 ref={i === 0 ? firstLinkRef : undefined}
-                href={`#${id}`}
+                href={`/#${id}`}
                 onClick={(e) => go(e, id)}
                 tabIndex={open ? 0 : -1}
                 className={`group flex cursor-pointer items-baseline gap-4 py-3 transition-[opacity,translate] duration-500 ease-out-expo ${
@@ -149,7 +165,7 @@ export default function Header() {
                 <span className="font-display text-4xl text-ink transition-colors group-hover:text-accent">
                   {navLabel(id)}
                 </span>
-              </a>
+              </Link>
             );
           })}
         </nav>

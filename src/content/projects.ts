@@ -18,6 +18,12 @@ export interface Project {
   build: string;
   outcome?: string;
   stack: string[];
+  // Doors out of the spread — the row renders only for links that exist.
+  // Fill these in as URLs are confirmed; never point at placeholders.
+  links?: {
+    live?: string;
+    repo?: string;
+  };
 }
 
 // Reading order of the case index — the sequence the page tells them in.

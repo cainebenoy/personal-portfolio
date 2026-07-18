@@ -1,24 +1,11 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { THEME_STORAGE_KEY } from "@/lib/theme";
+import { isDarkTheme, subscribeTheme, toggleTheme } from "@/lib/theme";
 
 // Sun/moon in the same stroke language as the trade glyphs. The <html>
 // class list is the single source of truth (the init script sets it before
 // hydration); this component just observes and flips it.
-
-function subscribe(onChange: () => void) {
-  const observer = new MutationObserver(onChange);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-  return () => observer.disconnect();
-}
-
-function isDark() {
-  return document.documentElement.classList.contains("dark");
-}
 
 // Light is the server-rendered default.
 function serverIsDark() {
@@ -26,22 +13,12 @@ function serverIsDark() {
 }
 
 export default function ThemeToggle({ className = "" }: { className?: string }) {
-  const dark = useSyncExternalStore(subscribe, isDark, serverIsDark);
-
-  const toggle = () => {
-    const next = !dark;
-    document.documentElement.classList.toggle("dark", next);
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, next ? "dark" : "light");
-    } catch {
-      // Private mode — the choice just won't persist.
-    }
-  };
+  const dark = useSyncExternalStore(subscribeTheme, isDarkTheme, serverIsDark);
 
   return (
     <button
       type="button"
-      onClick={toggle}
+      onClick={toggleTheme}
       aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
       className={`flex h-11 w-11 cursor-pointer items-center justify-center text-ink/60 transition-colors duration-300 hover:text-accent ${className}`}
     >

@@ -4,6 +4,7 @@ import {
   ABOUT_BLOCK_2,
   ABOUT_PULL_QUOTE,
 } from "@/content/about";
+import { LETTERS } from "@/content/letters";
 
 // Chapter 08 — off the record. The memoir runs in the serif at reading
 // size, deliberately quiet: one pull quote is the only raised voice, and
@@ -72,6 +73,30 @@ export default function About() {
             </dl>
           </aside>
         </div>
+
+        {/* Letters of record — other people's words. Renders only once real
+            quotes exist in src/content/letters.ts. */}
+        {LETTERS.length > 0 && (
+          <div data-reveal-group className="mt-20 grid gap-10 lg:grid-cols-2">
+            {LETTERS.map((letter) => (
+              <blockquote
+                key={letter.name}
+                data-reveal-item
+                className="border-l-2 border-accent pl-6"
+              >
+                <p
+                  className="font-display text-lg leading-[1.6] text-ink/80 italic"
+                  style={{ fontVariationSettings: '"SOFT" 45, "WONK" 1' }}
+                >
+                  &ldquo;{letter.quote}&rdquo;
+                </p>
+                <footer className="mono-tag mt-4 text-ink/50">
+                  {letter.name} · {letter.role}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

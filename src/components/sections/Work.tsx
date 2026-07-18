@@ -143,6 +143,31 @@ function Spread({ project, index }: { project: Project; index: number }) {
                 </p>
               </div>
             )}
+
+            {(project.links?.live || project.links?.repo) && (
+              <div data-reveal className="mt-10 flex flex-wrap items-center gap-3">
+                {project.links.live && (
+                  <a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mono-tag cursor-pointer border border-accent/60 px-4 py-2.5 text-accent transition-colors duration-300 hover:border-accent hover:bg-accent hover:text-ground"
+                  >
+                    Visit live ↗
+                  </a>
+                )}
+                {project.links.repo && (
+                  <a
+                    href={project.links.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mono-tag cursor-pointer border border-line px-4 py-2.5 text-ink/70 transition-colors duration-300 hover:border-ink/40 hover:text-ink"
+                  >
+                    Source ↗
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

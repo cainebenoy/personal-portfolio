@@ -1,23 +1,45 @@
 "use client";
 
+import Link from "next/link";
 import { SITE_COORDS } from "@/lib/site";
 import { scrollToId } from "@/lib/motion";
 
+const PAGES = [
+  { href: "/colophon", label: "Colophon" },
+  { href: "/now", label: "Now" },
+  { href: "/resume", label: "Resume" },
+];
+
 export default function Footer() {
   return (
-    <footer className="border-t border-line-faint">
+    <footer className="border-t border-line-faint print:hidden">
       <div className="px-page mx-auto flex max-w-7xl flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
         <p className="mono-tag text-ink/50">
           © 2026 Caine Benoy · jack of all trades
         </p>
-        <p className="mono-tag text-ink/35">
+
+        <nav aria-label="Pages" className="flex items-center gap-6">
+          {PAGES.map((page) => (
+            <Link
+              key={page.href}
+              href={page.href}
+              className="mono-tag cursor-pointer text-ink/50 transition-colors duration-300 hover:text-accent"
+            >
+              {page.label}
+            </Link>
+          ))}
+        </nav>
+
+        <p className="mono-tag hidden text-ink/35 xl:block">
           Built by hand · Next.js / GSAP / Lenis · {SITE_COORDS}
         </p>
-        <a
-          href="#thesis"
+
+        <Link
+          href="/#thesis"
           onClick={(e) => {
             if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
               return;
+            if (!document.getElementById("thesis")) return;
             e.preventDefault();
             scrollToId("thesis");
           }}
@@ -27,7 +49,7 @@ export default function Footer() {
           <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5">
             ↑
           </span>
-        </a>
+        </Link>
       </div>
     </footer>
   );

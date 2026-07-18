@@ -1,4 +1,5 @@
 import SectionHeader from "@/components/SectionHeader";
+import { EDUCATION } from "@/content/education";
 import { JOURNEY } from "@/content/journey";
 
 // Chapter 05 — the record. Roles and receipts as a ruled ledger: a accent
@@ -69,6 +70,32 @@ export default function Record() {
               );
             })}
           </ol>
+
+          {/* The degree itself, stated plainly — recruiters look for it. */}
+          <div data-reveal className="mt-16 md:pl-12">
+            <p className="mono-tag text-red">Education</p>
+            <ol className="mt-4 flex flex-col">
+              {EDUCATION.map((entry) => (
+                <li
+                  key={entry.institution}
+                  className="grid gap-x-10 gap-y-1.5 border-t border-line-faint py-6 last:border-b md:grid-cols-[11rem_1fr]"
+                >
+                  <p className="mono-tag pt-1 text-ink/45">{entry.range}</p>
+                  <div>
+                    <h3 className="font-display text-xl leading-snug text-ink sm:text-2xl">
+                      {entry.institution}
+                    </h3>
+                    <p className="mt-1.5 text-[0.925rem] text-ink/70">
+                      {entry.degree}
+                    </p>
+                    {entry.note && (
+                      <p className="mono-tag mt-2 text-ink/45">{entry.note}</p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { CITATIONS, WINS_TOTAL } from "@/content/citations";
 import { STATS } from "@/content/stats";
 
 // Chapter 02 — the running totals. A tally band, not a full chapter scene:
@@ -34,6 +35,32 @@ export default function Proof() {
             </div>
           ))}
         </dl>
+
+        {/* The wins, named — a count is a claim, a list is a record. */}
+        <div data-reveal className="mt-16">
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <p className="mono-tag text-red">Citations</p>
+            <p className="mono-tag text-ink/40">
+              {CITATIONS.length} of {WINS_TOTAL} on file
+            </p>
+          </div>
+          <ol className="mt-5 max-w-3xl">
+            {CITATIONS.map((citation) => (
+              <li
+                key={citation.title}
+                className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-line-faint py-3.5 last:border-b"
+              >
+                <span className="text-[0.95rem] text-ink/85">
+                  {citation.title}
+                </span>
+                <span className="mono-tag text-ink/45">
+                  {citation.context}
+                  {citation.year ? ` · ${citation.year}` : ""}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );

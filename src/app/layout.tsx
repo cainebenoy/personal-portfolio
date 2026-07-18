@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Fragment_Mono, Fraunces } from "next/font/google";
 import Script from "next/script";
+import CommandPalette from "@/components/chrome/CommandPalette";
 import Footer from "@/components/chrome/Footer";
 import Header from "@/components/chrome/Header";
 import Readout from "@/components/chrome/Readout";
@@ -79,6 +80,7 @@ export default function RootLayout({
         <MotionProvider>
           <Header />
           <Readout />
+          <CommandPalette />
           {children}
           <Footer />
         </MotionProvider>
