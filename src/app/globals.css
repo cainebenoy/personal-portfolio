@@ -56,7 +56,8 @@
   --color-line: color-mix(in oklab, var(--color-ink) 15%, transparent);
   --color-line-faint: color-mix(in oklab, var(--color-ink) 8%, transparent);
 
-  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-caveat), "Segoe Script", cursive;
+  --font-hand: var(--font-architects), "Comic Sans MS", cursive;
   --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono: var(--font-fragment-mono), ui-monospace, monospace;
 }
@@ -79,7 +80,9 @@ html {
 body {
   background-color: var(--color-ground);
   color: var(--color-ink);
-  font-family: var(--font-sans);
+  /* The printing hand writes the whole notebook; the resume document opts
+     back into typeset faces via .resume-doc below. */
+  font-family: var(--font-hand);
   overflow-x: clip;
   /* The working sheet: a red notebook margin down the left (fixed, so it
      reads as part of the desk), over a faint 32px drafting grid that
@@ -126,6 +129,12 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* Headings write in the heavier pen. Zero-specificity so any utility (and
+   the resume document's own weights) can override. */
+:where(h1, h2, h3):where(:not(.resume-doc *)) {
+  font-weight: 600;
+}
+
 ::selection {
   background: var(--color-accent);
   color: var(--color-ground);
@@ -142,23 +151,60 @@ body::after {
    Voice utilities — the recurring smaller registers.
 --------------------------------------------------------------------------- */
 
-/* Expanded-caps kicker — Archivo stretched to 125%: the "section label"
-   voice. Width is the differentiator, so it never competes with the serif. */
+/* Section-label voice — printed caps in the notebook hand. */
 @utility kicker {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-stretch: 125%;
-  font-size: 0.6875rem;
-  letter-spacing: 0.22em;
+  font-family: var(--font-hand);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-/* Mono tag — the instrument voice: indices, coordinates, metadata. */
+/* Label voice (name kept from the typeset era so components don't churn):
+   printed caps for indices, coordinates, and metadata. */
 @utility mono-tag {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  font-family: var(--font-hand);
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
+}
+
+/* Highlighter swipe — for the two or three phrases that earn it. */
+@utility highlight {
+  background-image: linear-gradient(
+    100deg,
+    transparent 1.5%,
+    color-mix(in srgb, #f0d54d 52%, transparent) 4%,
+    color-mix(in srgb, #f0d54d 52%, transparent) 93%,
+    transparent 96%
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-inline: 0.15em;
+}
+
+.dark .highlight {
+  background-image: linear-gradient(
+    100deg,
+    transparent 1.5%,
+    color-mix(in srgb, var(--color-accent) 30%, transparent) 4%,
+    color-mix(in srgb, var(--color-accent) 30%, transparent) 93%,
+    transparent 96%
+  );
+}
+
+/* A strip of tape — position and rotate it inline where something is
+   stuck onto the sheet. */
+@utility tape {
+  position: absolute;
+  height: 1.5rem;
+  width: 6.5rem;
+  background: color-mix(in srgb, #d9cf9e 40%, transparent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  border-inline: 1px dashed color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+.dark .tape {
+  background: color-mix(in srgb, #aab6cf 22%, transparent);
 }
 
 /* Page gutter shared by every section. */
@@ -251,6 +297,27 @@ body::after {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Resume document — the one surface that stays typeset. A handwritten CV
+   reads as a prop; recruiters get print faces.
+--------------------------------------------------------------------------- */
+
+.resume-doc {
+  font-family: var(--font-sans);
+}
+
+.resume-doc .mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+}
+
+.resume-doc .font-display {
+  font-family: var(--font-sans);
+  font-weight: 650;
+  letter-spacing: -0.01em;
 }
 
 /* ---------------------------------------------------------------------------

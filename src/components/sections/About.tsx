@@ -21,7 +21,7 @@ export default function About() {
               <p
                 key={i}
                 data-reveal
-                className="font-display text-[1.125rem] leading-[1.85] font-light text-ink/85"
+                className="text-[1.02rem] leading-8 text-ink/80"
               >
                 {paragraph}
               </p>
@@ -30,7 +30,6 @@ export default function About() {
             <blockquote
               data-mask
               className="my-6 border-l-2 border-accent pl-7 font-display text-[clamp(1.7rem,3.4vw,2.5rem)] leading-[1.2] text-accent-bright italic"
-              style={{ fontVariationSettings: '"SOFT" 55, "WONK" 1' }}
             >
               <span className="mask-line">
                 <span>{ABOUT_PULL_QUOTE}</span>
@@ -41,7 +40,7 @@ export default function About() {
               <p
                 key={i}
                 data-reveal
-                className="font-display text-[1.125rem] leading-[1.85] font-light text-ink/85"
+                className="text-[1.02rem] leading-8 text-ink/80"
               >
                 {paragraph}
               </p>
@@ -50,7 +49,6 @@ export default function About() {
             <p
               data-reveal
               className="mt-2 font-display text-2xl text-accent italic"
-              style={{ fontVariationSettings: '"SOFT" 60, "WONK" 1' }}
             >
               — C.B.
             </p>
@@ -86,7 +84,6 @@ export default function About() {
               >
                 <p
                   className="font-display text-lg leading-[1.6] text-ink/80 italic"
-                  style={{ fontVariationSettings: '"SOFT" 45, "WONK" 1' }}
                 >
                   &ldquo;{letter.quote}&rdquo;
                 </p>

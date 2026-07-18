@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BackLink from "@/components/BackLink";
 import Glyph from "@/components/Glyph";
+import RoughRule from "@/components/RoughRule";
 import { TRADES } from "@/content/trades";
 
 export const metadata: Metadata = {
@@ -11,19 +12,19 @@ export const metadata: Metadata = {
 
 const TYPE = [
   {
-    face: "Fraunces",
-    role: "Display & reading serif",
-    note: "Optical sizing does the switching: cinematic at headline sizes, warm at text sizes. The italics run with the SOFT and WONK axes on — that's where the signature and the corrections come from.",
+    face: "Caveat",
+    role: "The writing hand",
+    note: "Quick pen cursive for headings, the name, numerals, and every raised voice. The heavier weight is the pen pressed harder.",
   },
   {
-    face: "Archivo",
-    role: "Structure",
-    note: "Body and interface. Its width axis, stretched to 125%, is the expanded-caps kicker voice on the section rules.",
+    face: "Architects Daughter",
+    role: "The printing hand",
+    note: "Schoolbook print for body text and every label. One weight — hierarchy comes from size, case, and how much ink the line gets.",
   },
   {
-    face: "Fragment Mono",
-    role: "Instruments",
-    note: "Indices, coordinates, metadata, and every small label. One weight on purpose — hierarchy comes from size, case, and tracking.",
+    face: "Archivo + Fragment Mono",
+    role: "The typeset exception",
+    note: "The resume document only. A handwritten CV reads as a prop, so that one page stays in print faces.",
   },
 ];
 
@@ -40,9 +41,9 @@ export default function Colophon() {
     <main className="px-page mx-auto w-full max-w-3xl pt-36 pb-28">
       <BackLink />
 
-      <div className="mt-10 flex items-center gap-5">
+      <div data-draw className="mt-10 flex items-center gap-5">
         <span className="mono-tag text-red">App. A</span>
-        <span aria-hidden="true" data-rule className="h-px min-w-0 flex-1 bg-line" />
+        <RoughRule />
         <span className="kicker text-ink/50">Colophon</span>
       </div>
 
@@ -56,9 +57,9 @@ export default function Colophon() {
       </h1>
 
       <p data-reveal className="mt-6 max-w-xl text-[0.95rem] leading-7 text-ink/60">
-        The site is designed as an engineer&apos;s working sheet: graph paper,
-        two pens, one typeface doing the talking. Everything on it is built by
-        hand and shipped as a static page.
+        The site is designed as an engineer&apos;s rough notebook: graph paper,
+        two pens, two hands of writing, and things taped in where they belong.
+        Everything on it is built by hand and shipped as a static page.
       </p>
 
       <section data-reveal className="mt-16">

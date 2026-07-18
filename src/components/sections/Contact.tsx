@@ -1,4 +1,5 @@
 import Glyph from "@/components/Glyph";
+import RoughRule from "@/components/RoughRule";
 import { CONTACT_EMAIL, CONTACT_LINKS } from "@/content/about";
 import { TRADES } from "@/content/trades";
 
@@ -13,9 +14,9 @@ export default function Contact() {
       className="px-page flex min-h-svh flex-col justify-center py-28"
     >
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex items-center gap-5">
+        <div data-draw className="flex items-center gap-5">
           <span className="mono-tag text-red">09</span>
-          <span aria-hidden="true" data-rule className="h-px min-w-0 flex-1 bg-line" />
+          <RoughRule />
           <span className="kicker text-ink/50">Last page</span>
         </div>
 
@@ -50,7 +51,7 @@ export default function Contact() {
             <a
               data-reveal
               href={`mailto:${CONTACT_EMAIL}`}
-              className="mt-4 inline-block cursor-pointer font-display text-[clamp(1.5rem,3.6vw,2.7rem)] text-accent-bright underline decoration-accent/40 decoration-1 underline-offset-8 transition-colors duration-300 hover:text-ink hover:decoration-ink/50"
+              className="mt-4 inline-block cursor-pointer font-display text-[clamp(1.7rem,4vw,3rem)] text-accent-bright underline decoration-accent/50 decoration-wavy decoration-1 underline-offset-8 transition-colors duration-300 hover:text-ink hover:decoration-ink/50"
             >
               {CONTACT_EMAIL}
             </a>

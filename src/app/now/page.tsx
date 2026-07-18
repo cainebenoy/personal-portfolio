@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BackLink from "@/components/BackLink";
+import RoughRule from "@/components/RoughRule";
 
 export const metadata: Metadata = {
   title: "Now — Caine Benoy",
@@ -39,9 +40,9 @@ export default function Now() {
     <main className="px-page mx-auto w-full max-w-3xl pt-36 pb-28">
       <BackLink />
 
-      <div className="mt-10 flex items-center gap-5">
+      <div data-draw className="mt-10 flex items-center gap-5">
         <span className="mono-tag text-red">App. B</span>
-        <span aria-hidden="true" data-rule className="h-px min-w-0 flex-1 bg-line" />
+        <RoughRule />
         <span className="kicker text-ink/50">Now</span>
       </div>
 

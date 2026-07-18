@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Fragment_Mono, Fraunces } from "next/font/google";
+import {
+  Architects_Daughter,
+  Archivo,
+  Caveat,
+  Fragment_Mono,
+} from "next/font/google";
 import Script from "next/script";
 import CommandPalette from "@/components/chrome/CommandPalette";
 import Footer from "@/components/chrome/Footer";
@@ -10,24 +15,28 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
-// Display voice — cinematic at headline sizes, warm at text sizes (optical
-// sizing does the switching). SOFT/WONK stay available for italic moments.
-const fraunces = Fraunces({
+// The writing hand — quick pen cursive for headings, names, and numerals.
+const caveat = Caveat({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  axes: ["opsz", "SOFT", "WONK"],
+  variable: "--font-caveat",
 });
 
-// Structural voice — body and UI. The width axis powers the expanded-caps
-// kicker treatment (see the `kicker` utility in globals.css).
+// The printing hand — schoolbook print for body text and every label. One
+// weight; hierarchy comes from size, case, and ink.
+const architectsDaughter = Architects_Daughter({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-architects",
+});
+
+// Kept for the resume document, which deliberately stays typeset — a
+// handwritten CV reads as a prop, not a credential.
 const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo",
   axes: ["wdth"],
 });
 
-// Instrument voice — indices, coordinates, metadata. Single weight on
-// purpose: hierarchy comes from size, case, and tracking.
 const fragmentMono = Fragment_Mono({
   subsets: ["latin"],
   weight: "400",
@@ -64,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${archivo.variable} ${fragmentMono.variable} antialiased`}
+      className={`${caveat.variable} ${architectsDaughter.variable} ${archivo.variable} ${fragmentMono.variable} antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-svh">

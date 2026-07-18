@@ -2,9 +2,9 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-// Social card on the working sheet: paper, drafting grid, ink serif name
-// with the red-pen strike and correction, mono sign-off. Fonts are the
-// committed static instances in assets/fonts.
+// Social card as a page of the rough notebook: graph paper, the name in
+// the writing hand, the motto in the printing hand with the red-pen strike.
+// Fonts are the committed static instances in assets/fonts.
 
 const PAPER = "#f4f1e8";
 const GRID = "#c8d0da";
@@ -17,10 +17,9 @@ export const ogImageContentType = "image/png";
 export const ogImageAlt = "Caine Benoy — Jack of All Trades";
 
 export async function renderOgImage() {
-  const [fraunces, frauncesItalic, fragmentMono] = await Promise.all([
-    readFile(join(process.cwd(), "assets/fonts/fraunces-display-500.ttf")),
-    readFile(join(process.cwd(), "assets/fonts/fraunces-display-italic.ttf")),
-    readFile(join(process.cwd(), "assets/fonts/fragment-mono-400.ttf")),
+  const [caveat, architects] = await Promise.all([
+    readFile(join(process.cwd(), "assets/fonts/caveat-600.ttf")),
+    readFile(join(process.cwd(), "assets/fonts/architects-daughter-400.ttf")),
   ]);
 
   return new ImageResponse(
@@ -44,10 +43,10 @@ export async function renderOgImage() {
             alignItems: "center",
             gap: 24,
             color: INK,
-            opacity: 0.6,
-            fontFamily: "Fragment Mono",
-            fontSize: 20,
-            letterSpacing: 4,
+            opacity: 0.65,
+            fontFamily: "Architects Daughter",
+            fontSize: 21,
+            letterSpacing: 2,
           }}
         >
           <span style={{ color: RED, opacity: 1 }}>01</span>
@@ -58,12 +57,11 @@ export async function renderOgImage() {
         <div
           style={{
             display: "flex",
-            marginTop: 52,
-            fontFamily: "Fraunces",
-            fontSize: 92,
-            lineHeight: 1.0,
+            marginTop: 44,
+            fontFamily: "Caveat",
+            fontSize: 132,
+            lineHeight: 0.9,
             color: INK,
-            letterSpacing: -2,
           }}
         >
           Caine Benoy.
@@ -73,12 +71,12 @@ export async function renderOgImage() {
           style={{
             display: "flex",
             alignItems: "center",
-            marginTop: 44,
-            fontFamily: "Fraunces Italic",
-            fontStyle: "italic",
-            fontSize: 34,
+            flexWrap: "wrap",
+            marginTop: 46,
+            fontFamily: "Architects Daughter",
+            fontSize: 30,
             color: INK,
-            opacity: 0.85,
+            opacity: 0.9,
           }}
         >
           &ldquo;A jack of all trades is a&nbsp;
@@ -98,7 +96,7 @@ export async function renderOgImage() {
                 width: "102%",
                 height: 4,
                 backgroundColor: RED,
-                transform: "rotate(-1.4deg)",
+                transform: "rotate(-1.6deg)",
                 borderRadius: 2,
               }}
             />
@@ -112,10 +110,10 @@ export async function renderOgImage() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            marginTop: 72,
-            fontFamily: "Fragment Mono",
-            fontSize: 20,
-            letterSpacing: 4,
+            marginTop: 64,
+            fontFamily: "Architects Daughter",
+            fontSize: 21,
+            letterSpacing: 2,
             color: ACCENT,
           }}
         >
@@ -127,14 +125,13 @@ export async function renderOgImage() {
     {
       ...ogImageSize,
       fonts: [
-        { name: "Fraunces", data: fraunces, style: "normal", weight: 500 },
+        { name: "Caveat", data: caveat, style: "normal", weight: 600 },
         {
-          name: "Fraunces Italic",
-          data: frauncesItalic,
-          style: "italic",
+          name: "Architects Daughter",
+          data: architects,
+          style: "normal",
           weight: 400,
         },
-        { name: "Fragment Mono", data: fragmentMono, style: "normal", weight: 400 },
       ],
     },
   );

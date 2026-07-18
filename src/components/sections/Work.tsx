@@ -137,7 +137,6 @@ function Spread({ project, index }: { project: Project; index: number }) {
                 <p className="mono-tag text-ink/50">Outcome</p>
                 <p
                   className="mt-3 font-display text-[1.35rem] leading-[1.45] text-accent-bright italic"
-                  style={{ fontVariationSettings: '"SOFT" 45, "WONK" 1' }}
                 >
                   {project.outcome}
                 </p>

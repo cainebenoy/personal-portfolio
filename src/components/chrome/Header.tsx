@@ -75,13 +75,11 @@ export default function Header() {
         }`}
       >
         <div className="px-page flex h-16 items-center justify-between">
-          {/* The wordmark is a signature, not a label — Fraunces italic with
-              the wonk axis on. */}
+          {/* The wordmark is the signature, in the writing hand. */}
           <Link
             href="/#thesis"
             onClick={(e) => go(e, "thesis")}
-            className="cursor-pointer font-display text-xl text-ink italic transition-colors duration-300 hover:text-accent"
-            style={{ fontVariationSettings: '"SOFT" 60, "WONK" 1' }}
+            className="cursor-pointer font-display text-[1.55rem] font-semibold text-ink transition-colors duration-300 hover:text-accent"
           >
             Caine Benoy
           </Link>

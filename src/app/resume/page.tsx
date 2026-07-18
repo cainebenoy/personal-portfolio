@@ -50,7 +50,7 @@ export default function Resume() {
   ).filter((p): p is (typeof PROJECTS)[number] => Boolean(p));
 
   return (
-    <main className="px-page mx-auto w-full max-w-3xl pt-36 pb-28 print:max-w-none print:p-0 print:pt-2">
+    <main className="resume-doc px-page mx-auto w-full max-w-3xl pt-36 pb-28 print:max-w-none print:p-0 print:pt-2">
       <div className="flex flex-wrap items-center justify-between gap-4 print:hidden">
         <BackLink />
         <div className="flex items-center gap-3">
