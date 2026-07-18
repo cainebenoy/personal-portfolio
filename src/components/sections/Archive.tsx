@@ -10,8 +10,9 @@ export default function Archive() {
       <div className="mx-auto max-w-5xl">
         <SectionHeader
           id="archive"
+          variant="side"
           lines={["The archive."]}
-          note={`${CATALOGUED_COUNT} catalogued here of ${TOTAL_CREDENTIALS} on file — certifications, programs, and completions across six drawers.`}
+          note={`${CATALOGUED_COUNT} catalogued here of ${TOTAL_CREDENTIALS} on file: certifications, programs, and completions across six drawers.`}
         />
         <ArchiveBrowser />
       </div>
