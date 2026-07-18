@@ -1,18 +1,18 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import Glyph from "@/components/Glyph";
 import { TRADES } from "@/content/trades";
 import { gsap, useGSAP } from "@/lib/motion";
 
-// Chapter 01 — the person first, the thesis second.
+// Chapter 01 — the person, on the working sheet.
 //
-// The name sets at full display scale as the page opens (pure CSS, so the
-// entrance plays even before JS). The family quote sits lower-right as a
-// supporting line: a breath after the entrance, a brass stroke strikes
-// through "master of none" and the correction warms into brass — the same
-// edit as always, now performed on load instead of holding the scroll
-// hostage. No pin here anymore; the page gets to the work sooner.
+// The name sets at display scale as the page opens (pure CSS, so the
+// entrance plays even before JS), with the portrait mounted beside it like
+// a print clipped to the sheet. The family quote sits under the name as a
+// typed line: a breath after the entrance, the red pen strikes "master of
+// none" and writes the correction — on load, not holding the scroll.
 //
 // Without JS (or with reduced motion) the finished state renders statically:
 // struck through, corrected, complete.
@@ -20,17 +20,17 @@ import { gsap, useGSAP } from "@/lib/motion";
 // Deterministic placement for the six background glyphs — a loose orbit
 // around the lockup. Parallax speeds are handled by the generic manager.
 const FIELD = [
-  { left: "38%", top: "12%", size: 64, speed: -14 },
-  { left: "84%", top: "13%", size: 44, speed: -22 },
-  { left: "91%", top: "55%", size: 78, speed: -10 },
-  { left: "72%", top: "84%", size: 40, speed: -18 },
-  { left: "14%", top: "82%", size: 56, speed: -12 },
-  { left: "4%", top: "46%", size: 36, speed: -24 },
+  { left: "38%", top: "11%", size: 64, speed: -14 },
+  { left: "88%", top: "9%", size: 44, speed: -22 },
+  { left: "93%", top: "60%", size: 78, speed: -10 },
+  { left: "66%", top: "86%", size: 40, speed: -18 },
+  { left: "12%", top: "86%", size: 56, speed: -12 },
+  { left: "3%", top: "42%", size: 36, speed: -24 },
 ] as const;
 
 const STRIKE_PATH = "M2 7.5 Q 26 4.5 52 6.5 T 98 5";
 
-export default function Hero() {
+export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -59,7 +59,7 @@ export default function Hero() {
           .to(
             correction,
             { autoAlpha: 1, duration: 0.9, ease: "power2.out" },
-            ">-0.15",
+            ">-0.1",
           );
       });
     },
@@ -68,7 +68,7 @@ export default function Hero() {
 
   return (
     <section id="thesis" ref={sectionRef} aria-label="Introduction">
-      <div className="relative flex min-h-svh flex-col justify-center overflow-hidden pt-24 pb-24">
+      <div className="relative flex min-h-svh flex-col justify-center overflow-hidden pt-28 pb-24">
         {/* Background glyph field — the six trades, present from the first
             frame, faint until their chapter. */}
         <div aria-hidden="true" className="absolute inset-0">
@@ -94,78 +94,136 @@ export default function Hero() {
         </div>
 
         <div className="px-page relative mx-auto w-full max-w-7xl">
-          <p
-            className="mono-tag hero-fade text-ink/50 [--fade-delay:150ms]"
-          >
+          <p className="mono-tag hero-fade text-ink/50 [--fade-delay:150ms]">
             Portfolio · Index of range · 2023–2026
           </p>
 
-          <h1
-            className="hero-rise mt-7 font-display text-[clamp(4.5rem,14.5vw,12.5rem)] leading-[0.88] tracking-[-0.03em] text-ink"
-          >
-            <span className="mask-line" style={{ "--line-i": 0 } as React.CSSProperties}>
-              <span>Caine</span>
-            </span>
-            <span className="mask-line" style={{ "--line-i": 1 } as React.CSSProperties}>
-              <span>
-                Benoy<span className="text-brass">.</span>
-              </span>
-            </span>
-          </h1>
-
-          <div className="mt-12 grid gap-x-16 gap-y-10 lg:grid-cols-12">
-            <div className="hero-fade lg:col-span-5 [--fade-delay:750ms]">
-              <p className="max-w-md text-lg leading-8 text-ink/75">
-                Product engineer and generalist in Kerala, India. I pick up
-                whichever trade the problem needs: AI, blockchain, hardware,
-                web, community ops.
-              </p>
-              <p className="mono-tag mt-6 flex items-center gap-3 text-ink/55">
+          <div className="mt-7 grid gap-x-16 gap-y-14 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <h1 className="hero-rise font-display text-[clamp(3.5rem,10.5vw,9.5rem)] leading-[0.9] tracking-[-0.03em] text-ink">
                 <span
-                  aria-hidden="true"
-                  className="h-1.5 w-1.5 rounded-full bg-brass"
-                />
-                Open to work · graduating 2026
-              </p>
-              <p className="mono-tag mt-2.5 text-ink/45">
-                Currently · Junior Product Engineer, CRAV
-              </p>
+                  className="mask-line"
+                  style={{ "--line-i": 0 } as React.CSSProperties}
+                >
+                  <span>Caine</span>
+                </span>
+                <span
+                  className="mask-line"
+                  style={{ "--line-i": 1 } as React.CSSProperties}
+                >
+                  <span>
+                    Benoy<span className="text-red">.</span>
+                  </span>
+                </span>
+              </h1>
+
+              <div className="hero-fade [--fade-delay:750ms]">
+                <p className="mt-8 max-w-md text-lg leading-8 text-ink/75">
+                  Product engineer and generalist in Kerala, India. I pick up
+                  whichever trade the problem needs: AI, blockchain, hardware,
+                  web, community ops.
+                </p>
+                <p className="mono-tag mt-6 flex items-center gap-3 text-ink/55">
+                  <span
+                    aria-hidden="true"
+                    className="h-1.5 w-1.5 rounded-full bg-red"
+                  />
+                  Open to work · graduating 2026
+                </p>
+                <p className="mono-tag mt-2.5 text-ink/45">
+                  Currently · Junior Product Engineer, CRAV
+                </p>
+              </div>
+
+              {/* The family motto, and the edit the red pen owes it. */}
+              <blockquote className="hero-fade mt-12 [--fade-delay:1050ms]">
+                <p
+                  className="max-w-lg font-display text-[clamp(1.25rem,2vw,1.6rem)] leading-[1.5] text-ink/80 italic"
+                  style={{ fontVariationSettings: '"SOFT" 55, "WONK" 1' }}
+                >
+                  &ldquo;A jack of all trades is a{" "}
+                  <span className="relative inline-block whitespace-nowrap">
+                    <span className="hero-struck">master of none</span>
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 100 12"
+                      preserveAspectRatio="none"
+                      className="absolute top-1/2 -left-[2%] h-[0.4em] w-[104%] -translate-y-1/2"
+                    >
+                      {/* Stroke width is in viewBox units — the non-uniform
+                          stretch renders it as a marker-weight line. */}
+                      <path
+                        d={STRIKE_PATH}
+                        className="hero-strike"
+                        fill="none"
+                        stroke="var(--color-red)"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span className="hero-correction text-red">
+                    , but oftentimes better than a master of one.&rdquo;
+                  </span>
+                </p>
+              </blockquote>
             </div>
 
-            {/* The family motto, and the edit it deserves. */}
-            <blockquote
-              className="hero-fade self-end lg:col-span-6 lg:col-start-7 [--fade-delay:1050ms]"
-            >
-              <p
-                className="max-w-md font-display text-[clamp(1.3rem,2.1vw,1.65rem)] leading-[1.5] text-ink/80 italic"
-                style={{ fontVariationSettings: '"SOFT" 55, "WONK" 1' }}
-              >
-                &ldquo;A jack of all trades is a{" "}
-                <span className="relative inline-block whitespace-nowrap">
-                  <span className="hero-struck">master of none</span>
+            {/* The portrait, mounted like a print on the sheet. Swap
+                public/images/portrait.jpg to change it. */}
+            {portraitSrc && (
+              <figure className="hero-fade w-full max-w-sm lg:col-span-4 lg:col-start-9 lg:max-w-none lg:self-center [--fade-delay:550ms]">
+                <div className="relative border border-line bg-raised p-3">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <div
+                      data-parallax="-5"
+                      className="absolute inset-x-0 -inset-y-[6%]"
+                    >
+                      <Image
+                        src={portraitSrc}
+                        alt="Caine Benoy"
+                        fill
+                        priority
+                        sizes="(max-width: 1024px) 84vw, 30vw"
+                        className="object-cover grayscale transition-[filter] duration-700 ease-out hover:grayscale-0"
+                        style={{ objectPosition: "center 32%" }}
+                      />
+                    </div>
+                  </div>
+                  {/* Registration marks, same pen as the plates. */}
                   <svg
                     aria-hidden="true"
-                    viewBox="0 0 100 12"
-                    preserveAspectRatio="none"
-                    className="absolute top-1/2 -left-[2%] h-[0.4em] w-[104%] -translate-y-1/2"
+                    viewBox="0 0 24 24"
+                    className="absolute -top-2 -left-2 h-4 w-4 text-accent"
                   >
-                    {/* Stroke width is in viewBox units — the non-uniform
-                        stretch renders it as a marker-weight line. */}
                     <path
-                      d={STRIKE_PATH}
-                      className="hero-strike"
+                      d="M12 4 V20 M4 12 H20"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
                       fill="none"
-                      stroke="var(--color-brass)"
-                      strokeWidth="1.4"
-                      strokeLinecap="round"
                     />
                   </svg>
-                </span>
-                <span className="hero-correction text-brass-bright">
-                  , but oftentimes better than a master of one.&rdquo;
-                </span>
-              </p>
-            </blockquote>
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="absolute -right-2 -bottom-2 h-4 w-4 text-accent"
+                  >
+                    <path
+                      d="M12 4 V20 M4 12 H20"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      fill="none"
+                    />
+                  </svg>
+                </div>
+                <figcaption className="mt-3 flex items-baseline gap-4">
+                  <span className="mono-tag text-red">Fig. 01</span>
+                  <span className="mono-tag text-ink/55">
+                    The operator, on record
+                  </span>
+                </figcaption>
+              </figure>
+            )}
           </div>
         </div>
 
@@ -174,7 +232,7 @@ export default function Hero() {
             <span className="mono-tag text-ink/40">Scroll</span>
             <span
               aria-hidden="true"
-              className="block h-10 w-px bg-gradient-to-b from-brass to-transparent"
+              className="block h-10 w-px bg-gradient-to-b from-red to-transparent"
             />
           </div>
         </div>

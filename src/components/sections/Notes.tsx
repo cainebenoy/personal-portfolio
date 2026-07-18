@@ -49,7 +49,7 @@ export default function Notes() {
                   </div>
                 </div>
                 <figcaption className="mt-4 flex items-baseline gap-4">
-                  <span className="mono-tag text-brass">
+                  <span className="mono-tag text-red">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="mono-tag text-ink/55">{note.caption}</span>

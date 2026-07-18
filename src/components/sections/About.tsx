@@ -28,7 +28,7 @@ export default function About() {
 
             <blockquote
               data-mask
-              className="my-6 border-l-2 border-brass pl-7 font-display text-[clamp(1.7rem,3.4vw,2.5rem)] leading-[1.2] text-brass-bright italic"
+              className="my-6 border-l-2 border-accent pl-7 font-display text-[clamp(1.7rem,3.4vw,2.5rem)] leading-[1.2] text-accent-bright italic"
               style={{ fontVariationSettings: '"SOFT" 55, "WONK" 1' }}
             >
               <span className="mask-line">
@@ -48,7 +48,7 @@ export default function About() {
 
             <p
               data-reveal
-              className="mt-2 font-display text-2xl text-brass italic"
+              className="mt-2 font-display text-2xl text-accent italic"
               style={{ fontVariationSettings: '"SOFT" 60, "WONK" 1' }}
             >
               — C.B.

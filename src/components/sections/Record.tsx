@@ -1,7 +1,7 @@
 import SectionHeader from "@/components/SectionHeader";
 import { JOURNEY } from "@/content/journey";
 
-// Chapter 05 — the record. Roles and receipts as a ruled ledger: a brass
+// Chapter 05 — the record. Roles and receipts as a ruled ledger: a accent
 // spine draws down the margin while each entry files itself in.
 export default function Record() {
   return (
@@ -18,7 +18,7 @@ export default function Record() {
             aria-hidden="true"
             data-rule
             data-axis="y"
-            className="absolute top-0 bottom-0 left-0 hidden w-px bg-brass/40 md:block"
+            className="absolute top-0 bottom-0 left-0 hidden w-px bg-accent/40 md:block"
           />
 
           <ol data-reveal-group className="flex flex-col md:pl-12">
@@ -39,7 +39,7 @@ export default function Record() {
                     <div>
                       <h3 className="font-display text-xl leading-snug text-ink sm:text-2xl">
                         {entry.title}
-                        <span className="text-brass"> · {entry.org}</span>
+                        <span className="text-accent"> · {entry.org}</span>
                       </h3>
                       <p className="mt-2 max-w-2xl text-[0.925rem] leading-6 text-ink/60">
                         {entry.description}

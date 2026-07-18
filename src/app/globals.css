@@ -1,40 +1,46 @@
 @import "tailwindcss";
 
-/* Class-based theming — user-controlled via the header toggle. Dark is the
-   default (the <html> element ships with .dark); a beforeInteractive script
-   removes it for returning light-mode visitors before first paint. */
+/* Class-based theming — user-controlled via the header toggle. Light is the
+   default; a beforeInteractive script adds .dark before first paint for
+   returning dark-mode visitors. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ---------------------------------------------------------------------------
-   Design tokens — one brand, two lights.
+   Design tokens — the engineer's working sheet.
 
-   Dark ("monsoon night"): green-black canvas, warm ivory ink, brass accent.
-   Light ("morning paper"): warm bone canvas, green-black ink, bronze accent.
+   Light ("graph paper"): warm paper under a faint drafting grid, warm ink,
+   drafting-pen blue, and a red pen that only ever annotates.
+   Dark ("blueprint at night"): deep blue-slate sheet, chalk ink, both pens
+   brightened to hold contrast.
 
-   The accent is budgeted like a metal either way: rules, numerals, active
-   states, glyph linework. No gradients, no glow. Depth comes from three
-   surface steps and 1px hairlines, not shadows.
+   Blue is structure: links, glyphs, plates, drawn rules, progress.
+   Red is annotation: chapter numbers, the strike, status marks, the margin
+   rule. Ink does the talking. Nothing else gets a color.
 --------------------------------------------------------------------------- */
 
 :root {
   color-scheme: light;
-  --color-ground: #f1ede2;
-  --color-raised: #f7f4eb;
-  --color-lifted: #fbf9f2;
-  --color-ink: #1c211d;
-  --color-brass: #7a5f22;
-  --color-brass-bright: #8f7129;
-  --grain-opacity: 0.04;
+  --color-ground: #f4f1e8;
+  --color-raised: #faf8f1;
+  --color-lifted: #fffdf7;
+  --color-ink: #211f1a;
+  --color-accent: #2e4a7a;
+  --color-accent-bright: #3d5f99;
+  --color-red: #b23b2e;
+  --color-grid: #c8d0da;
+  --grain-opacity: 0.035;
 }
 
 .dark {
   color-scheme: dark;
-  --color-ground: #0a0d0b;
-  --color-raised: #101512;
-  --color-lifted: #161c17;
-  --color-ink: #ebe6d8;
-  --color-brass: #c7a44f;
-  --color-brass-bright: #ddbe74;
+  --color-ground: #14171d;
+  --color-raised: #1a1e26;
+  --color-lifted: #222732;
+  --color-ink: #e9e5d8;
+  --color-accent: #7d9fd4;
+  --color-accent-bright: #97b4e2;
+  --color-red: #e2604c;
+  --color-grid: #3a424f;
   --grain-opacity: 0.05;
 }
 
@@ -43,10 +49,12 @@
   --color-raised: var(--color-raised);
   --color-lifted: var(--color-lifted);
   --color-ink: var(--color-ink);
-  --color-brass: var(--color-brass);
-  --color-brass-bright: var(--color-brass-bright);
-  --color-line: color-mix(in oklab, var(--color-ink) 14%, transparent);
-  --color-line-faint: color-mix(in oklab, var(--color-ink) 7%, transparent);
+  --color-accent: var(--color-accent);
+  --color-accent-bright: var(--color-accent-bright);
+  --color-red: var(--color-red);
+  --color-grid: var(--color-grid);
+  --color-line: color-mix(in oklab, var(--color-ink) 15%, transparent);
+  --color-line-faint: color-mix(in oklab, var(--color-ink) 8%, transparent);
 
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-archivo), system-ui, sans-serif;
@@ -73,10 +81,40 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   overflow-x: clip;
+  /* The working sheet: a red notebook margin down the left (fixed, so it
+     reads as part of the desk), over a faint 32px drafting grid that
+     scrolls with the page. */
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 44px,
+      color-mix(in srgb, var(--color-red) 24%, transparent) 44px,
+      color-mix(in srgb, var(--color-red) 24%, transparent) 45px,
+      transparent 45px
+    ),
+    linear-gradient(
+      color-mix(in srgb, var(--color-grid) 38%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-grid) 38%, transparent) 1px,
+      transparent 1px
+    );
+  background-size:
+    100% 100%,
+    32px 32px,
+    32px 32px;
+  background-position:
+    0 0,
+    -1px -1px,
+    -1px -1px;
+  background-attachment: fixed, scroll, scroll;
   transition: background-color 350ms ease, color 350ms ease;
 }
 
-/* Film grain over everything — one static feTurbulence tile, no network
+/* Paper grain over everything — one static feTurbulence tile, no network
    request. Faint enough to read as texture, never dirt. */
 body::after {
   content: "";
@@ -89,13 +127,13 @@ body::after {
 }
 
 ::selection {
-  background: var(--color-brass);
+  background: var(--color-accent);
   color: var(--color-ground);
 }
 
 /* One visible, consistent focus treatment everywhere. */
 :where(a, button, [tabindex], input, select, textarea):focus-visible {
-  outline: 2px solid var(--color-brass);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 1px;
 }

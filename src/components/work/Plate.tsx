@@ -36,7 +36,7 @@ export default function Plate({
         </g>
 
         {/* Corner registration marks */}
-        <g stroke="var(--color-brass)" strokeWidth="1" opacity="0.55">
+        <g stroke="var(--color-accent)" strokeWidth="1" opacity="0.55">
           <path d="M16 10 V22 M10 16 H22" />
           <path d="M384 10 V22 M378 16 H390" />
           <path d="M16 278 V290 M10 284 H22" />
@@ -54,7 +54,7 @@ export default function Plate({
         </g>
         <g
           transform="translate(172, 108) scale(7.2)"
-          style={{ color: "var(--color-brass)" }}
+          style={{ color: "var(--color-accent)" }}
           opacity="0.85"
         >
           <GlyphShapes id={b} strokeWidth={0.28} />

@@ -66,7 +66,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
               <span
                 className={`mono-tag border px-3 py-1.5 ${
                   live
-                    ? "border-brass/60 text-brass"
+                    ? "border-red/60 text-red"
                     : "border-line text-ink/60"
                 }`}
               >
@@ -82,7 +82,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
                 const trade = tradeById(id);
                 return (
                   <li key={id} className="flex items-center gap-3">
-                    <Glyph id={id} className="h-5 w-5 text-brass" />
+                    <Glyph id={id} className="h-5 w-5 text-accent" />
                     <span className="mono-tag text-ink/60">
                       {trade.numeral} — {trade.name}
                     </span>
@@ -132,11 +132,11 @@ function Spread({ project, index }: { project: Project; index: number }) {
             {project.outcome && (
               <div
                 data-reveal
-                className="mt-12 max-w-xl border-l-2 border-brass py-1 pl-6"
+                className="mt-12 max-w-xl border-l-2 border-accent py-1 pl-6"
               >
                 <p className="mono-tag text-ink/50">Outcome</p>
                 <p
-                  className="mt-3 font-display text-[1.35rem] leading-[1.45] text-brass-bright italic"
+                  className="mt-3 font-display text-[1.35rem] leading-[1.45] text-accent-bright italic"
                   style={{ fontVariationSettings: '"SOFT" 45, "WONK" 1' }}
                 >
                   {project.outcome}
@@ -153,7 +153,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
 function Block({ label, text }: { label: string; text: string }) {
   return (
     <div data-reveal-item>
-      <p className="mono-tag text-brass">{label}</p>
+      <p className="mono-tag text-accent">{label}</p>
       <p className="mt-2.5 text-[0.95rem] leading-7 text-ink/75">{text}</p>
     </div>
   );

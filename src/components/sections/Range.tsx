@@ -24,7 +24,7 @@ export default function Range() {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-        gsap.set(rows, { autoAlpha: 0.24 });
+        gsap.set(rows, { autoAlpha: 0.32 });
         gsap.set(romans[0], { autoAlpha: 1 });
         rows.forEach((row) =>
           gsap.set(row.querySelectorAll(".draw"), { drawSVG: "0%" }),
@@ -51,7 +51,7 @@ export default function Range() {
             at + 0.05,
           );
           if (i > 0) {
-            tl.to(rows[i - 1], { autoAlpha: 0.24, duration: 0.35 }, at);
+            tl.to(rows[i - 1], { autoAlpha: 0.32, duration: 0.35 }, at);
             tl.to(romans[i - 1], { autoAlpha: 0, duration: 0.2 }, at);
             tl.to(romans[i], { autoAlpha: 1, duration: 0.2 }, at + 0.1);
           }
@@ -112,7 +112,7 @@ export default function Range() {
               {TRADES.map((trade) => (
                 <span
                   key={trade.id}
-                  className="range-roman absolute top-0 left-0 font-display text-[7rem] leading-none text-brass/85 opacity-0"
+                  className="range-roman absolute top-0 left-0 font-display text-[7rem] leading-none text-accent/85 opacity-0"
                 >
                   {trade.numeral}
                 </span>
@@ -130,7 +130,7 @@ export default function Range() {
                   key={trade.id}
                   className="range-row flex items-start gap-6 border-t border-line-faint py-5 last:border-b sm:gap-8 lg:py-4"
                 >
-                  <div className="mt-1 h-10 w-10 shrink-0 text-brass sm:h-12 sm:w-12">
+                  <div className="mt-1 h-10 w-10 shrink-0 text-accent sm:h-12 sm:w-12">
                     <Glyph id={trade.id} className="h-full w-full" />
                   </div>
                   <div className="min-w-0 flex-1">

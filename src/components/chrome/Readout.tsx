@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CHAPTERS } from "@/lib/chapters";
 
-// The instrument panel: a 1px brass progress line along the top edge, and a
+// The instrument panel: a 1px accent progress line along the top edge, and a
 // bottom-left coordinate readout naming the chapter under the viewport
 // center. Both write straight to the DOM — no re-render per scroll frame.
 export default function Readout() {
@@ -78,7 +78,7 @@ export default function Readout() {
       >
         <div
           ref={barRef}
-          className="h-full w-full origin-left bg-brass"
+          className="h-full w-full origin-left bg-accent"
           style={{ transform: "scaleX(0)" }}
         />
       </div>
@@ -89,7 +89,7 @@ export default function Readout() {
           nearEnd ? "opacity-0" : "opacity-100"
         }`}
       >
-        <span className="text-brass">{current.num}</span>
+        <span className="text-red">{current.num}</span>
         <span className="tracking-[0.2em]">{current.label}</span>
         <span className="text-ink/25">/ 09</span>
       </div>
