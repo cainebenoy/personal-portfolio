@@ -9,7 +9,9 @@ export const ABOUT_BLOCK_2 = [
   "I'm graduating this year. I'm still doing the thing: showing up for whatever the problem actually needs, not just the part I'm already good at.",
 ];
 
-export const ABOUT_CLOSING_LINE = "Let's build something.";
+// The line big enough to pull out of the text — the thesis of the memoir.
+export const ABOUT_PULL_QUOTE =
+  "You don't get to specialize in a crisis.";
 
 export interface ContactLink {
   label: string;
@@ -17,19 +19,24 @@ export interface ContactLink {
   href: string;
 }
 
-// Placeholders — swap in the real handles/URLs when ready.
+// GitHub and LinkedIn are placeholders — swap in the real handles/URLs when
+// ready. The email address is live.
 export const CONTACT_LINKS: ContactLink[] = [
-  { label: "Email", value: "hello@example.com", href: "mailto:hello@example.com" },
   {
-    label: "LinkedIn",
-    value: "linkedin.com/in/yourname",
-    href: "https://linkedin.com/in/yourname",
+    label: "Email",
+    value: "projects@crav.world",
+    href: "mailto:projects@crav.world",
   },
   {
     label: "GitHub",
     value: "github.com/yourname",
     href: "https://github.com/yourname",
   },
-  { label: "Resume", value: "resume.pdf", href: "/resume.pdf" },
-  { label: "Archive", value: "166 credentials, catalogued", href: "/#archive" },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/yourname",
+    href: "https://linkedin.com/in/yourname",
+  },
 ];
+
+export const CONTACT_EMAIL = "projects@crav.world";

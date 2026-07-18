@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import BackToMapLink from "@/components/BackToMapLink";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Page Not Found — Caine Benoy",
+  title: "404 — Caine Benoy",
 };
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-6 px-6 text-center">
-      <p className="font-structural text-xl text-ink sm:text-2xl">
-        This page isn&apos;t in the archive.
-      </p>
-      <p className="font-handwritten text-base text-accent">
-        ...maybe it&apos;s still being written.
-      </p>
-      <div className="mt-4">
-        <BackToMapLink />
-      </div>
+    <main className="px-page flex min-h-svh flex-col items-center justify-center gap-8 text-center">
+      <p className="mono-tag text-brass">404 — Not in the index</p>
+      <h1 className="font-display text-[clamp(2.5rem,7vw,5rem)] leading-none text-ivory">
+        This page isn&apos;t on file.
+      </h1>
+      <Link
+        href="/"
+        className="mono-tag cursor-pointer border border-brass/50 px-5 py-3 text-brass transition-colors duration-300 hover:bg-brass hover:text-night"
+      >
+        Back to the index
+      </Link>
     </main>
   );
 }

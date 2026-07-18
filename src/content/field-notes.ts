@@ -1,8 +1,8 @@
 export interface FieldNote {
   caption: string;
   // Path under /public — e.g. "/images/field-notes/01-blockhash-live.jpg".
-  // Left undefined until the matching file is dropped in, at which point
-  // the Frame component swaps the placeholder text for the real photo.
+  // Entries without an image render in the "also on the roll" index list
+  // instead of as photographs; set `image` when the file is dropped in.
   image?: string;
 }
 
@@ -25,3 +25,9 @@ export const FIELD_NOTES: FieldNote[] = [
   { caption: "Yukthi 2.0 — St. Mary's College" }, // 07-yukthi-2.jpg
   { caption: "Aroha '25 — SCMS" }, // 08-aroha-25.jpg
 ];
+
+export const FIELD_NOTES_WITH_IMAGES = FIELD_NOTES.filter(
+  (note): note is FieldNote & { image: string } => Boolean(note.image),
+);
+
+export const FIELD_NOTES_PENDING = FIELD_NOTES.filter((note) => !note.image);

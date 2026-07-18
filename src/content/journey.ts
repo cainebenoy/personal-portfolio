@@ -21,8 +21,7 @@ export type JourneyEntry =
 
 // Most recent first — rendered top to bottom in this order. Multiple roles
 // at the same company (e.g. a promotion) are grouped under one "group"
-// entry instead of listed as separate entries — same idea as LinkedIn's
-// stacked-roles-under-one-company treatment.
+// entry instead of listed as separate entries.
 export const JOURNEY: JourneyEntry[] = [
   {
     type: "group",
@@ -45,10 +44,10 @@ export const JOURNEY: JourneyEntry[] = [
   {
     type: "single",
     range: "Mar 2026 – Apr 2026",
-    title: "AI Training Specialist (Generalist & Software Development)",
+    title: "AI Training Specialist",
     org: "Outlier",
     description:
-      "Dual-track work in generalist AI evaluation and software development assessment: crafting challenging prompts, ranking AI-generated code, fact-checking outputs, and applying full-stack knowledge to improve model coding performance.",
+      "Dual-track work in generalist AI evaluation and software development assessment: crafting challenging prompts, ranking AI-generated code, and applying full-stack knowledge to improve model coding performance.",
   },
   {
     type: "single",
@@ -63,7 +62,7 @@ export const JOURNEY: JourneyEntry[] = [
     title: "SOF Insider",
     org: "The School of Future",
     description:
-      "Networking & community development, building the future of ed-tech.",
+      "Networking and community development, building the future of ed-tech.",
   },
   {
     type: "single",
@@ -118,6 +117,6 @@ export const JOURNEY: JourneyEntry[] = [
     title: "Web Development Intern",
     org: "CodersCave",
     description:
-      "Built static/dynamic sites with HTML, CSS, JavaScript, and Flask, with authentication and form validation.",
+      "Built static and dynamic sites with HTML, CSS, JavaScript, and Flask — authentication and form validation included.",
   },
 ];

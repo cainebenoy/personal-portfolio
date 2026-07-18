@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import IndexCard from "@/components/archive/IndexCard";
 import {
   ARCHIVE_ENTRIES,
   CATEGORIES,
@@ -17,54 +16,68 @@ const FILTERS: { id: FilterId; label: string }[] = [
   { id: "all", label: "All" },
 ];
 
+// The drawers: a filter row over a ruled ledger of credentials. Switching
+// drawers re-deals the rows (plain CSS animation — this interaction should
+// feel instant, not choreographed).
 export default function ArchiveBrowser() {
-  const [activeFilter, setActiveFilter] = useState<FilterId>("highlights");
+  const [active, setActive] = useState<FilterId>("highlights");
 
   const filtered =
-    activeFilter === "highlights"
+    active === "highlights"
       ? HIGHLIGHT_CREDENTIALS
-      : activeFilter === "all"
+      : active === "all"
         ? ARCHIVE_ENTRIES
-        : ARCHIVE_ENTRIES.filter((entry) => entry.category === activeFilter);
+        : ARCHIVE_ENTRIES.filter((entry) => entry.category === active);
 
   return (
-    <div className="mt-16">
-      <div className="flex flex-wrap justify-center gap-2">
+    <div data-reveal className="mt-14">
+      <div
+        role="group"
+        aria-label="Filter credentials"
+        className="flex flex-wrap gap-x-6 gap-y-3 border-b border-line pb-4"
+      >
         {FILTERS.map((filter) => {
-          const isActive = filter.id === activeFilter;
+          const isActive = filter.id === active;
           return (
             <button
               key={filter.id}
               type="button"
-              onClick={() => setActiveFilter(filter.id)}
-              className={`rounded-full border px-3 py-1 font-handwritten text-sm transition-colors ${
-                isActive
-                  ? "border-accent text-accent"
-                  : "border-ink/20 text-ink/60 hover:border-ink/40 hover:text-ink"
+              onClick={() => setActive(filter.id)}
+              aria-pressed={isActive}
+              className={`mono-tag relative cursor-pointer py-1.5 transition-colors duration-300 ${
+                isActive ? "text-brass" : "text-ivory/50 hover:text-ivory"
               }`}
             >
               {filter.label}
+              <span
+                aria-hidden="true"
+                className={`absolute right-0 -bottom-[calc(1rem+1px)] left-0 h-px bg-brass transition-transform duration-300 ease-out-expo ${
+                  isActive ? "scale-x-100" : "scale-x-0"
+                }`}
+                style={{ transformOrigin: "left" }}
+              />
             </button>
           );
         })}
       </div>
 
-      <div className="mt-10 flex flex-wrap justify-center gap-5">
-        {filtered.length === 0 ? (
-          <p className="font-structural text-sm text-ink/40">
-            Nothing catalogued here yet.
-          </p>
-        ) : (
-          filtered.map((entry, i) => (
-            <IndexCard
-              key={entry.name}
-              name={entry.name}
-              issuer={entry.issuer}
-              index={i}
-            />
-          ))
-        )}
-      </div>
+      {/* Keyed by filter so a drawer switch re-deals the rows. */}
+      <ol key={active} className="flex flex-col">
+        {filtered.map((entry, i) => (
+          <li
+            key={entry.name}
+            className="deal-in flex items-baseline justify-between gap-6 border-b border-line-faint py-3.5"
+            style={{ "--deal-i": Math.min(i, 14) } as React.CSSProperties}
+          >
+            <span className="min-w-0 text-[0.925rem] leading-6 text-ivory/85">
+              {entry.name}
+            </span>
+            <span className="mono-tag shrink-0 text-ivory/40">
+              {entry.issuer}
+            </span>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
