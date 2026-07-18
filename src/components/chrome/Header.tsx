@@ -112,7 +112,7 @@ export default function Header() {
               type="button"
               aria-label="Open command palette"
               onClick={() => window.dispatchEvent(new Event("open-palette"))}
-              className="mono-tag hidden h-11 cursor-pointer items-center px-2 text-ink/40 transition-colors duration-300 hover:text-accent lg:flex"
+              className="mono-tag hidden h-11 cursor-pointer items-center px-2 text-ink/55 transition-colors duration-300 hover:text-accent lg:flex"
             >
               ⌘K
             </button>
@@ -168,7 +168,7 @@ export default function Header() {
           })}
         </nav>
         <p
-          className={`px-page mono-tag mt-12 text-ink/40 transition-opacity delay-500 duration-500 ${
+          className={`px-page mono-tag mt-12 text-ink/55 transition-opacity delay-500 duration-500 ${
             open ? "opacity-100" : "opacity-0"
           }`}
         >

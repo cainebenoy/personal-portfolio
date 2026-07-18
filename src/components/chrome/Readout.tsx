@@ -90,13 +90,13 @@ export default function Readout() {
       {onHome && (
         <div
           aria-hidden="true"
-          className={`mono-tag fixed bottom-6 left-6 z-40 hidden items-baseline gap-3 text-ink/50 transition-opacity duration-500 lg:flex print:hidden ${
+          className={`mono-tag fixed bottom-6 left-6 z-40 hidden items-baseline gap-3 text-ink/65 transition-opacity duration-500 lg:flex print:hidden ${
             nearEnd ? "opacity-0" : "opacity-100"
           }`}
         >
           <span className="text-red">{current.num}</span>
           <span className="tracking-[0.2em]">{current.label}</span>
-          <span className="text-ink/25">/ 09</span>
+          <span className="text-ink/40">/ 09</span>
         </div>
       )}
     </>

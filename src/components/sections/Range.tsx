@@ -137,14 +137,14 @@ export default function Range() {
                     <h3 className="font-display text-[clamp(1.75rem,2.6vw,2.25rem)] leading-tight text-ink">
                       {trade.name}
                     </h3>
-                    <p className="mt-1 text-sm leading-6 text-ink/60">
+                    <p className="mt-1 text-[0.95rem] leading-6 text-ink/70">
                       {trade.line}
                     </p>
-                    <p className="mono-tag mt-2 truncate text-ink/40">
+                    <p className="mono-tag mt-2 truncate text-ink/55">
                       {applied.map((p) => p.title).join("  ·  ")}
                     </p>
                   </div>
-                  <span className="mono-tag mt-2 shrink-0 text-ink/35">
+                  <span className="mono-tag mt-2 shrink-0 text-ink/50">
                     {trade.numeral}
                   </span>
                 </li>

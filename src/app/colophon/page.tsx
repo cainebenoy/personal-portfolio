@@ -44,12 +44,12 @@ export default function Colophon() {
       <div data-draw className="mt-10 flex items-center gap-5">
         <span className="mono-tag text-red">App. A</span>
         <RoughRule />
-        <span className="kicker text-ink/50">Colophon</span>
+        <span className="kicker text-ink/65">Colophon</span>
       </div>
 
       <h1
         data-mask
-        className="mt-8 font-display text-[clamp(2.4rem,6vw,4rem)] leading-[1.02] tracking-[-0.015em] text-ink"
+        className="mt-8 font-display text-[clamp(2.4rem,6vw,4rem)] leading-[1.08] text-ink"
       >
         <span className="mask-line">
           <span>How this file is made.</span>
@@ -72,8 +72,8 @@ export default function Colophon() {
             >
               <p className="font-display text-xl text-ink">{entry.face}</p>
               <div>
-                <p className="mono-tag text-ink/45">{entry.role}</p>
-                <p className="mt-2 text-[0.925rem] leading-6 text-ink/70">
+                <p className="mono-tag text-ink/60">{entry.role}</p>
+                <p className="mt-2 text-[0.95rem] leading-6 text-ink/70">
                   {entry.note}
                 </p>
               </div>
@@ -84,7 +84,7 @@ export default function Colophon() {
 
       <section data-reveal className="mt-14">
         <p className="mono-tag text-red">The two pens</p>
-        <p className="mt-4 max-w-xl text-[0.925rem] leading-7 text-ink/70">
+        <p className="mt-4 max-w-xl text-[0.95rem] leading-7 text-ink/70">
           Color has grammar here. Drafting blue draws structure: links, rules,
           plates, the glyph linework, the progress line. The red pen only ever
           annotates: chapter numbers, status marks, the margin rule, and the
@@ -95,7 +95,7 @@ export default function Colophon() {
 
       <section data-reveal className="mt-14">
         <p className="mono-tag text-red">The six glyphs</p>
-        <p className="mt-4 max-w-xl text-[0.925rem] leading-7 text-ink/70">
+        <p className="mt-4 max-w-xl text-[0.95rem] leading-7 text-ink/70">
           The trades are drawn as stroke-only marks on a shared 24px grid —
           they assemble in the hero, get defined in the legend, tag every
           project, and reassemble at the end. Each one is a single SVG that
@@ -121,14 +121,14 @@ export default function Colophon() {
               key={label}
               className="grid gap-x-10 gap-y-1 border-t border-line-faint py-4 last:border-b sm:grid-cols-[11rem_1fr]"
             >
-              <dt className="mono-tag pt-0.5 text-ink/45">{label}</dt>
-              <dd className="text-[0.925rem] leading-6 text-ink/75">{value}</dd>
+              <dt className="mono-tag pt-0.5 text-ink/60">{label}</dt>
+              <dd className="text-[0.95rem] leading-6 text-ink/75">{value}</dd>
             </div>
           ))}
         </dl>
       </section>
 
-      <p data-reveal className="mono-tag mt-16 text-ink/40">
+      <p data-reveal className="mono-tag mt-16 text-ink/55">
         No template, no builder — every line of it is in the repository.
       </p>
     </main>

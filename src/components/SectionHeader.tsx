@@ -35,12 +35,12 @@ export default function SectionHeader({
           <span className="mono-tag text-red">{ch.num}</span>
           <h2
             data-reveal
-            className="font-display text-[clamp(2.1rem,3.8vw,3rem)] leading-none text-ink"
+            className="font-display text-[clamp(2.1rem,3.8vw,3rem)] leading-[1.06] text-ink"
           >
             {lines.join(" ")}
           </h2>
           <RoughRule className="self-center" />
-          <span className="kicker hidden text-ink/50 sm:block">{ch.label}</span>
+          <span className="kicker hidden text-ink/65 sm:block">{ch.label}</span>
         </div>
         {note && (
           <p data-reveal className="mt-5 max-w-xl text-[0.95rem] leading-7 text-ink/60">
@@ -56,11 +56,11 @@ export default function SectionHeader({
       <div data-draw className="flex items-center gap-5">
         <span className="mono-tag text-red">{ch.num}</span>
         <RoughRule />
-        <span className="kicker text-ink/50">{ch.label}</span>
+        <span className="kicker text-ink/65">{ch.label}</span>
       </div>
       <h2
         data-mask
-        className={`mt-8 font-display leading-[0.95] text-ink ${titleClassName}`}
+        className={`mt-8 font-display leading-[1.04] text-ink ${titleClassName}`}
       >
         {lines.map((line) => (
           <span key={line} className="mask-line">

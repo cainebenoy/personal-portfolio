@@ -62,14 +62,14 @@ export default function Notes() {
                   <span className="mono-tag text-red">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="mono-tag text-ink/55">{note.caption}</span>
+                  <span className="mono-tag text-ink/70">{note.caption}</span>
                 </figcaption>
               </figure>
             );
           })}
 
           <div className="lg:col-span-7 lg:col-start-6">
-            <p data-reveal className="mono-tag text-ink/45">
+            <p data-reveal className="mono-tag text-ink/60">
               Also on the roll — scans pending
             </p>
             <ol data-reveal-group className="mt-5 flex flex-col">
@@ -79,10 +79,10 @@ export default function Notes() {
                   data-reveal-item
                   className="flex items-baseline gap-4 border-t border-line-faint py-3 last:border-b"
                 >
-                  <span className="mono-tag text-ink/35">
+                  <span className="mono-tag text-ink/50">
                     {String(FIELD_NOTES_WITH_IMAGES.length + i + 1).padStart(2, "0")}
                   </span>
-                  <span className="text-[0.925rem] text-ink/60">
+                  <span className="text-[0.95rem] text-ink/60">
                     {note.caption}
                   </span>
                 </li>

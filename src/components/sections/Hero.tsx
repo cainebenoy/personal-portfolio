@@ -94,13 +94,13 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
         </div>
 
         <div className="px-page relative mx-auto w-full max-w-7xl">
-          <p className="mono-tag hero-fade text-ink/50 [--fade-delay:150ms]">
+          <p className="mono-tag hero-fade text-ink/65 [--fade-delay:150ms]">
             Portfolio · Index of range · 2023–2026
           </p>
 
           <div className="mt-7 grid gap-x-16 gap-y-14 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <h1 className="hero-rise font-display text-[clamp(3.9rem,11.5vw,10.5rem)] leading-[0.85] text-ink">
+              <h1 className="hero-rise font-display text-[clamp(3.9rem,11.5vw,10.5rem)] leading-[0.95] text-ink">
                 <span
                   className="mask-line"
                   style={{ "--line-i": 0 } as React.CSSProperties}
@@ -130,7 +130,7 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
                   />
                   <span className="highlight">Open to work · graduating 2026</span>
                 </p>
-                <p className="mono-tag mt-2.5 text-ink/45">
+                <p className="mono-tag mt-2.5 text-ink/60">
                   Currently · Junior Product Engineer, CRAV
                 </p>
               </div>
@@ -199,7 +199,7 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
                 </div>
                 <figcaption className="mt-3 flex items-baseline gap-4">
                   <span className="mono-tag text-red">Fig. 01</span>
-                  <span className="mono-tag text-ink/55">
+                  <span className="mono-tag text-ink/70">
                     The operator, on record
                   </span>
                 </figcaption>
@@ -210,7 +210,7 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
 
         <div className="hero-fade px-page absolute inset-x-0 bottom-8 flex items-end justify-end [--fade-delay:1300ms]">
           <div className="flex items-center gap-3">
-            <span className="mono-tag text-ink/40">Scroll</span>
+            <span className="mono-tag text-ink/55">Scroll</span>
             <span
               aria-hidden="true"
               className="block h-10 w-px bg-gradient-to-b from-red to-transparent"

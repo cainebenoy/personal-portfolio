@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-line-faint print:hidden">
       <div className="px-page mx-auto flex max-w-7xl flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
-        <p className="mono-tag text-ink/50">
+        <p className="mono-tag text-ink/65">
           © 2026 Caine Benoy · jack of all trades
         </p>
 
@@ -23,14 +23,14 @@ export default function Footer() {
             <Link
               key={page.href}
               href={page.href}
-              className="mono-tag cursor-pointer text-ink/50 transition-colors duration-300 hover:text-accent"
+              className="mono-tag cursor-pointer text-ink/65 transition-colors duration-300 hover:text-accent"
             >
               {page.label}
             </Link>
           ))}
         </nav>
 
-        <p className="mono-tag hidden text-ink/35 xl:block">
+        <p className="mono-tag hidden text-ink/50 xl:block">
           Built by hand · Next.js / GSAP / Lenis · {SITE_COORDS}
         </p>
 

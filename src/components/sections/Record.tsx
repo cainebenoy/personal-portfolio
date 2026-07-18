@@ -34,7 +34,7 @@ export default function Record() {
                   data-reveal-item
                   className="grid gap-x-10 gap-y-1.5 border-t border-line-faint py-7 last:border-b md:grid-cols-[11rem_1fr]"
                 >
-                  <p className="mono-tag pt-1 text-ink/45">{entry.range}</p>
+                  <p className="mono-tag pt-1 text-ink/60">{entry.range}</p>
 
                   {entry.type === "single" ? (
                     <div>
@@ -42,7 +42,7 @@ export default function Record() {
                         {entry.title}
                         <span className="text-accent"> · {entry.org}</span>
                       </h3>
-                      <p className="mt-2 max-w-2xl text-[0.925rem] leading-6 text-ink/60">
+                      <p className="mt-2 max-w-2xl text-[0.95rem] leading-6 text-ink/60">
                         {entry.description}
                       </p>
                     </div>
@@ -54,11 +54,11 @@ export default function Record() {
                       <ul className="mt-4 flex flex-col gap-5 border-l border-line pl-5">
                         {entry.roles.map((role) => (
                           <li key={role.title}>
-                            <p className="mono-tag text-ink/45">{role.range}</p>
+                            <p className="mono-tag text-ink/60">{role.range}</p>
                             <p className="mt-1 font-medium text-ink">
                               {role.title}
                             </p>
-                            <p className="mt-1 max-w-2xl text-[0.925rem] leading-6 text-ink/60">
+                            <p className="mt-1 max-w-2xl text-[0.95rem] leading-6 text-ink/60">
                               {role.description}
                             </p>
                           </li>
@@ -80,16 +80,16 @@ export default function Record() {
                   key={entry.institution}
                   className="grid gap-x-10 gap-y-1.5 border-t border-line-faint py-6 last:border-b md:grid-cols-[11rem_1fr]"
                 >
-                  <p className="mono-tag pt-1 text-ink/45">{entry.range}</p>
+                  <p className="mono-tag pt-1 text-ink/60">{entry.range}</p>
                   <div>
                     <h3 className="font-display text-xl leading-snug text-ink sm:text-2xl">
                       {entry.institution}
                     </h3>
-                    <p className="mt-1.5 text-[0.925rem] text-ink/70">
+                    <p className="mt-1.5 text-[0.95rem] text-ink/70">
                       {entry.degree}
                     </p>
                     {entry.note && (
-                      <p className="mono-tag mt-2 text-ink/45">{entry.note}</p>
+                      <p className="mono-tag mt-2 text-ink/60">{entry.note}</p>
                     )}
                   </div>
                 </li>
