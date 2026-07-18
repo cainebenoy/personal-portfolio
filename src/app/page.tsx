@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import About from "@/components/sections/About";
 import Archive from "@/components/sections/Archive";
@@ -14,8 +14,12 @@ import Work from "@/components/sections/Work";
 // the six trades as a legend, the work, the record, the photographs, the
 // archive, the person — and the invitation.
 export default function Home() {
-  // The hero portrait lights up when the print exists — swap the file to
-  // change it, delete it to fall back to the type-only composition.
+  // The hero print: prefer the scroll-scrubbed frame sequence when frames
+  // exist, fall back to the still portrait, then to type-only.
+  const sequenceDir = join(process.cwd(), "public/avatar-sequence");
+  const sequenceFrames = existsSync(sequenceDir)
+    ? readdirSync(sequenceDir).filter((f) => f.endsWith(".jpg")).length
+    : 0;
   const portraitSrc = existsSync(
     join(process.cwd(), "public/images/portrait.jpg"),
   )
@@ -24,7 +28,7 @@ export default function Home() {
 
   return (
     <main id="main">
-      <Hero portraitSrc={portraitSrc} />
+      <Hero portraitSrc={portraitSrc} sequenceFrames={sequenceFrames} />
       <Proof />
       <Range />
       <Work />

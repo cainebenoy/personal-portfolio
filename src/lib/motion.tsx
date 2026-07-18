@@ -6,6 +6,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { useEffect } from "react";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, useGSAP);
 
@@ -234,5 +235,9 @@ export default function MotionProvider({
     return () => mm.revert();
   });
 
-  return children;
+  return (
+    <TooltipProvider delayDuration={200} skipDelayDuration={400}>
+      {children}
+    </TooltipProvider>
+  );
 }

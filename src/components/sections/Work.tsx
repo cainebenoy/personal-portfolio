@@ -1,9 +1,8 @@
 import SectionHeader from "@/components/SectionHeader";
-import Glyph from "@/components/Glyph";
+import TradeBadge from "@/components/TradeBadge";
 import Plate from "@/components/work/Plate";
 import WorkIndex from "@/components/work/WorkIndex";
 import { PROJECTS, type Project } from "@/content/projects";
-import { tradeById } from "@/content/trades";
 
 // Chapter 04 — the work. A case index up top, then one editorial spread per
 // build. Spreads alternate their axis (meta left / meta right), each anchored
@@ -78,17 +77,11 @@ function Spread({ project, index }: { project: Project; index: number }) {
             </div>
 
             <ul data-reveal className="flex flex-col gap-2.5">
-              {project.trades.map((id) => {
-                const trade = tradeById(id);
-                return (
-                  <li key={id} className="flex items-center gap-3">
-                    <Glyph id={id} className="h-5 w-5 text-accent" />
-                    <span className="mono-tag text-ink/60">
-                      {trade.numeral} — {trade.name}
-                    </span>
-                  </li>
-                );
-              })}
+              {project.trades.map((id) => (
+                <li key={id}>
+                  <TradeBadge id={id} />
+                </li>
+              ))}
             </ul>
 
             <Plate project={project} index={index} />
