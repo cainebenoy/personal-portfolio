@@ -75,7 +75,7 @@ export default function Resume() {
           Product engineer &amp; generalist — AI, blockchain, hardware, web,
           and community operations.
         </p>
-        <p className="mono-tag mt-3 text-ink/55">
+        <p className="mono-tag mt-3 text-ink/70">
           {CONTACT_EMAIL} · Kerala, India · Open to work, graduating 2026
         </p>
       </header>
@@ -88,7 +88,7 @@ export default function Resume() {
               key={entry.org}
               className="grid gap-x-8 border-t border-line-faint py-4 first:border-t-0 sm:grid-cols-[10rem_1fr] print:py-3"
             >
-              <p className="mono-tag pt-0.5 text-ink/45">{entry.range}</p>
+              <p className="mono-tag pt-0.5 text-ink/60">{entry.range}</p>
               {entry.type === "single" ? (
                 <div>
                   <h3 className="text-[1.02rem] font-medium text-ink">
@@ -110,7 +110,7 @@ export default function Resume() {
                       className="mt-1 text-[0.875rem] leading-6 text-ink/65"
                     >
                       <span className="text-ink/90">{role.title}</span>{" "}
-                      <span className="mono-tag text-ink/40">{role.range}</span>{" "}
+                      <span className="mono-tag text-ink/55">{role.range}</span>{" "}
                       — {role.description}
                     </p>
                   ))}
@@ -131,7 +131,7 @@ export default function Resume() {
             >
               <h3 className="text-[1.02rem] font-medium text-ink">
                 {project.title}
-                <span className="mono-tag ml-3 text-ink/40">
+                <span className="mono-tag ml-3 text-ink/55">
                   {project.status}
                 </span>
               </h3>
@@ -153,7 +153,7 @@ export default function Resume() {
             key={entry.institution}
             className="mt-3 grid gap-x-8 sm:grid-cols-[10rem_1fr]"
           >
-            <p className="mono-tag pt-0.5 text-ink/45">{entry.range}</p>
+            <p className="mono-tag pt-0.5 text-ink/60">{entry.range}</p>
             <div>
               <h3 className="text-[1.02rem] font-medium text-ink">
                 {entry.institution}
@@ -172,7 +172,7 @@ export default function Resume() {
         <dl className="mt-3 flex flex-col gap-2">
           {SKILLS.map(([label, value]) => (
             <div key={label} className="grid gap-x-8 sm:grid-cols-[10rem_1fr]">
-              <dt className="mono-tag pt-0.5 text-ink/45">{label}</dt>
+              <dt className="mono-tag pt-0.5 text-ink/60">{label}</dt>
               <dd className="text-[0.875rem] leading-6 text-ink/70">{value}</dd>
             </div>
           ))}
@@ -188,7 +188,7 @@ export default function Resume() {
         </p>
       </section>
 
-      <p className="mono-tag mt-10 border-t border-line-faint pt-4 text-ink/35">
+      <p className="mono-tag mt-10 border-t border-line-faint pt-4 text-ink/50">
         Full record at the index · cainebenoy.dev
       </p>
     </main>

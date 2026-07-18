@@ -43,19 +43,19 @@ export default function Now() {
       <div data-draw className="mt-10 flex items-center gap-5">
         <span className="mono-tag text-red">App. B</span>
         <RoughRule />
-        <span className="kicker text-ink/50">Now</span>
+        <span className="kicker text-ink/65">Now</span>
       </div>
 
       <h1
         data-mask
-        className="mt-8 font-display text-[clamp(2.4rem,6vw,4rem)] leading-[1.02] tracking-[-0.015em] text-ink"
+        className="mt-8 font-display text-[clamp(2.4rem,6vw,4rem)] leading-[1.08] text-ink"
       >
         <span className="mask-line">
           <span>What&apos;s on the desk.</span>
         </span>
       </h1>
 
-      <p data-reveal className="mono-tag mt-6 text-ink/45">
+      <p data-reveal className="mono-tag mt-6 text-ink/60">
         Last updated · {UPDATED}
       </p>
 
@@ -72,7 +72,7 @@ export default function Now() {
         ))}
       </ol>
 
-      <p data-reveal className="mono-tag mt-16 text-ink/40">
+      <p data-reveal className="mono-tag mt-16 text-ink/55">
         The idea comes from nownownow.com — a page for the present tense.
       </p>
     </main>

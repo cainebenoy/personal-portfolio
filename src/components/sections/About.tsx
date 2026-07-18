@@ -29,7 +29,7 @@ export default function About() {
 
             <blockquote
               data-mask
-              className="my-6 border-l-2 border-accent pl-7 font-display text-[clamp(1.7rem,3.4vw,2.5rem)] leading-[1.2] text-accent-bright italic"
+              className="my-6 border-l-2 border-accent pl-7 font-display text-[clamp(1.7rem,3.4vw,2.5rem)] leading-[1.3] text-accent-bright italic"
             >
               <span className="mask-line">
                 <span>{ABOUT_PULL_QUOTE}</span>
@@ -64,7 +64,7 @@ export default function About() {
                 ["Range", "AI · chain · hardware · web · ops"],
               ].map(([label, value]) => (
                 <div key={label} data-reveal-item className="py-3">
-                  <dt className="mono-tag text-ink/40">{label}</dt>
+                  <dt className="mono-tag text-ink/55">{label}</dt>
                   <dd className="mt-1.5 text-[0.95rem] text-ink/80">{value}</dd>
                 </div>
               ))}
@@ -87,7 +87,7 @@ export default function About() {
                 >
                   &ldquo;{letter.quote}&rdquo;
                 </p>
-                <footer className="mono-tag mt-4 text-ink/50">
+                <footer className="mono-tag mt-4 text-ink/65">
                   {letter.name} · {letter.role}
                 </footer>
               </blockquote>

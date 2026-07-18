@@ -45,7 +45,7 @@ export default function ArchiveBrowser() {
               onClick={() => setActive(filter.id)}
               aria-pressed={isActive}
               className={`mono-tag relative cursor-pointer py-1.5 transition-colors duration-300 ${
-                isActive ? "text-accent" : "text-ink/50 hover:text-ink"
+                isActive ? "text-accent" : "text-ink/65 hover:text-ink"
               }`}
             >
               {filter.label}
@@ -69,10 +69,10 @@ export default function ArchiveBrowser() {
             className="deal-in flex items-baseline justify-between gap-6 border-b border-line-faint py-3.5"
             style={{ "--deal-i": Math.min(i, 14) } as React.CSSProperties}
           >
-            <span className="min-w-0 text-[0.925rem] leading-6 text-ink/85">
+            <span className="min-w-0 text-[0.95rem] leading-6 text-ink/85">
               {entry.name}
             </span>
-            <span className="mono-tag shrink-0 text-ink/40">
+            <span className="mono-tag shrink-0 text-ink/55">
               {entry.issuer}
             </span>
           </li>

@@ -48,7 +48,7 @@ export default function Plate({
         <g
           transform="translate(64, 52) scale(7.2)"
           style={{ color: "var(--color-ink)" }}
-          opacity="0.4"
+          opacity="0.55"
         >
           <GlyphShapes id={a} strokeWidth={0.28} />
         </g>
@@ -64,8 +64,8 @@ export default function Plate({
           x="16"
           y="42"
           fill="var(--color-ink)"
-          opacity="0.4"
-          fontSize="10"
+          opacity="0.55"
+          fontSize="12"
           letterSpacing="2.5"
           style={{ fontFamily: "var(--font-hand)" }}
         >
@@ -76,8 +76,8 @@ export default function Plate({
           y="266"
           textAnchor="end"
           fill="var(--color-ink)"
-          opacity="0.3"
-          fontSize="10"
+          opacity="0.45"
+          fontSize="12"
           letterSpacing="2.5"
           style={{ fontFamily: "var(--font-hand)" }}
         >

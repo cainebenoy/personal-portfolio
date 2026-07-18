@@ -154,17 +154,18 @@ body::after {
 /* Section-label voice — printed caps in the notebook hand. */
 @utility kicker {
   font-family: var(--font-hand);
-  font-size: 0.8125rem;
-  letter-spacing: 0.16em;
+  font-size: 0.875rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 /* Label voice (name kept from the typeset era so components don't churn):
-   printed caps for indices, coordinates, and metadata. */
+   printed caps for indices, coordinates, and metadata. Sized for the
+   printing hand's thin strokes — smaller than this stops being readable. */
 @utility mono-tag {
   font-family: var(--font-hand);
-  font-size: 0.78rem;
-  letter-spacing: 0.07em;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -226,9 +227,14 @@ body::after {
      the finished layout — GSAP sets hidden states only when it runs.
 --------------------------------------------------------------------------- */
 
+/* The handwriting overshoots its em box (swashes, long descenders), so the
+   clip window gets padding that negative margins cancel out of the layout —
+   glyphs paint fully while the mask still does its job. */
 .mask-line {
   display: block;
   overflow: hidden;
+  padding: 0.14em 0.1em;
+  margin: -0.14em -0.1em;
 }
 
 .mask-line > span {

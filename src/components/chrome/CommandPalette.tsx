@@ -205,12 +205,12 @@ export default function CommandPalette() {
             onKeyDown={onInputKeyDown}
             placeholder="Where to?"
             aria-label="Search commands"
-            className="w-full bg-transparent py-3.5 text-[0.95rem] text-ink outline-none placeholder:text-ink/35"
+            className="w-full bg-transparent py-3.5 text-[0.95rem] text-ink outline-none placeholder:text-ink/50"
           />
         </div>
         <ol role="listbox" aria-label="Commands" className="max-h-[46vh] overflow-y-auto py-2">
           {filtered.length === 0 && (
-            <li className="mono-tag px-4 py-3 text-ink/40">
+            <li className="mono-tag px-4 py-3 text-ink/55">
               Nothing filed under that.
             </li>
           )}
@@ -226,7 +226,7 @@ export default function CommandPalette() {
               >
                 <span className="text-[0.95rem]">{cmd.label}</span>
                 <span
-                  className={`mono-tag ${i === active ? "text-red" : "text-ink/35"}`}
+                  className={`mono-tag ${i === active ? "text-red" : "text-ink/50"}`}
                 >
                   {cmd.hint}
                 </span>
@@ -234,7 +234,7 @@ export default function CommandPalette() {
             </li>
           ))}
         </ol>
-        <p className="mono-tag border-t border-line-faint px-4 py-2.5 text-ink/35">
+        <p className="mono-tag border-t border-line-faint px-4 py-2.5 text-ink/50">
           ↑↓ navigate · Enter select · Esc close
         </p>
       </div>

@@ -73,7 +73,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
                 {project.status}
               </span>
               {project.context && (
-                <span className="mono-tag text-ink/40">{project.context}</span>
+                <span className="mono-tag text-ink/55">{project.context}</span>
               )}
             </div>
 
@@ -97,7 +97,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
               {project.stack.map((item) => (
                 <li
                   key={item}
-                  className="mono-tag border border-line-faint px-2.5 py-1.5 text-ink/55"
+                  className="mono-tag border border-line-faint px-2.5 py-1.5 text-ink/70"
                 >
                   {item}
                 </li>
@@ -113,7 +113,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
           >
             <h3
               data-mask
-              className="font-display text-[clamp(2.5rem,5vw,4.3rem)] leading-[1.02] tracking-[-0.015em] text-ink"
+              className="font-display text-[clamp(2.5rem,5vw,4.3rem)] leading-[1.08] text-ink"
             >
               <span className="mask-line">
                 <span>{project.title}</span>
@@ -134,7 +134,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
                 data-reveal
                 className="mt-12 max-w-xl border-l-2 border-accent py-1 pl-6"
               >
-                <p className="mono-tag text-ink/50">Outcome</p>
+                <p className="mono-tag text-ink/65">Outcome</p>
                 <p
                   className="mt-3 font-display text-[1.35rem] leading-[1.45] text-accent-bright italic"
                 >

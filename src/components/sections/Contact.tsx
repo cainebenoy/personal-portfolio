@@ -17,7 +17,7 @@ export default function Contact() {
         <div data-draw className="flex items-center gap-5">
           <span className="mono-tag text-red">09</span>
           <RoughRule />
-          <span className="kicker text-ink/50">Last page</span>
+          <span className="kicker text-ink/65">Last page</span>
         </div>
 
         <div data-draw className="mt-14 flex items-center gap-5 text-accent sm:gap-7">
@@ -33,7 +33,7 @@ export default function Contact() {
 
         <h2
           data-mask
-          className="mt-10 font-display text-[clamp(3rem,10vw,8.5rem)] leading-[0.97] tracking-[-0.02em] text-ink"
+          className="mt-10 font-display text-[clamp(3rem,10vw,8.5rem)] leading-[1.04] text-ink"
         >
           <span className="mask-line">
             <span>Let&apos;s build</span>
@@ -45,7 +45,7 @@ export default function Contact() {
 
         <div className="mt-14 grid gap-x-20 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <p data-reveal className="mono-tag text-ink/45">
+            <p data-reveal className="mono-tag text-ink/60">
               One email starts it
             </p>
             <a
@@ -55,7 +55,7 @@ export default function Contact() {
             >
               {CONTACT_EMAIL}
             </a>
-            <p data-reveal className="mt-8 max-w-md text-[0.95rem] leading-7 text-ink/55">
+            <p data-reveal className="mt-8 max-w-md text-[0.95rem] leading-7 text-ink/70">
               Graduating in 2026 and open to work: product engineering,
               generalist problems, or something that doesn&apos;t have a job
               title yet. If it needs figuring out, that counts.
@@ -78,7 +78,7 @@ export default function Contact() {
                   }
                   className="group flex cursor-pointer items-baseline justify-between gap-6 py-2.5"
                 >
-                  <span className="mono-tag text-ink/45 transition-colors duration-300 group-hover:text-accent">
+                  <span className="mono-tag text-ink/60 transition-colors duration-300 group-hover:text-accent">
                     {link.label}
                   </span>
                   <span className="mono-tag text-ink/70 underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-300 group-hover:decoration-accent">

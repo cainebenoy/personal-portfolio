@@ -11,7 +11,7 @@ export default function Proof() {
         <div data-draw className="flex items-center gap-5">
           <span className="mono-tag text-red">02</span>
           <RoughRule />
-          <span className="kicker text-ink/50">Proof</span>
+          <span className="kicker text-ink/65">Proof</span>
         </div>
 
         <dl
@@ -30,7 +30,7 @@ export default function Proof() {
               >
                 {stat.value}
               </dd>
-              <dt className="order-2 text-[0.8rem] tracking-wide text-ink/55">
+              <dt className="order-2 text-[0.8rem] tracking-wide text-ink/70">
                 {stat.label}
               </dt>
             </div>
@@ -41,7 +41,7 @@ export default function Proof() {
         <div data-reveal className="mt-16">
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
             <p className="mono-tag text-red">Citations</p>
-            <p className="mono-tag text-ink/40">
+            <p className="mono-tag text-ink/55">
               {CITATIONS.length} of {WINS_TOTAL} on file
             </p>
           </div>
@@ -54,7 +54,7 @@ export default function Proof() {
                 <span className="text-[0.95rem] text-ink/85">
                   {citation.title}
                 </span>
-                <span className="mono-tag text-ink/45">
+                <span className="mono-tag text-ink/60">
                   {citation.context}
                   {citation.year ? ` · ${citation.year}` : ""}
                 </span>
