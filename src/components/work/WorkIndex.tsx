@@ -23,19 +23,19 @@ export default function WorkIndex() {
             <span className="mono-tag text-brass">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <span className="min-w-0 truncate font-display text-xl text-ivory transition-colors duration-300 group-hover:text-brass-bright sm:text-2xl">
+            <span className="min-w-0 truncate font-display text-xl text-ink transition-colors duration-300 group-hover:text-brass-bright sm:text-2xl">
               {project.title}
             </span>
             <span
               aria-hidden="true"
               className="hidden min-w-8 flex-1 border-b border-dashed border-line-faint sm:block"
             />
-            <span className="mono-tag hidden shrink-0 text-ivory/40 sm:block">
+            <span className="mono-tag hidden shrink-0 text-ink/40 sm:block">
               {project.status}
             </span>
             <span
               aria-hidden="true"
-              className="mono-tag shrink-0 text-ivory/40 transition-[color,translate] duration-300 group-hover:translate-y-0.5 group-hover:text-brass"
+              className="mono-tag shrink-0 text-ink/40 transition-[color,translate] duration-300 group-hover:translate-y-0.5 group-hover:text-brass"
             >
               ↓
             </span>

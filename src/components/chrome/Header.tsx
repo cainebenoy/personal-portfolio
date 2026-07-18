@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ThemeToggle from "@/components/chrome/ThemeToggle";
 import { chapter, NAV_CHAPTER_IDS, navLabel } from "@/lib/chapters";
 import { scrollToId } from "@/lib/motion";
 
@@ -61,18 +62,20 @@ export default function Header() {
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500 ${
           scrolled && !open
-            ? "border-b border-line-faint bg-night/85 backdrop-blur-md"
+            ? "border-b border-line-faint bg-ground/85 backdrop-blur-md"
             : "border-b border-transparent"
         }`}
       >
         <div className="px-page flex h-16 items-center justify-between">
+          {/* The wordmark is a signature, not a label — Fraunces italic with
+              the wonk axis on. */}
           <a
             href="#thesis"
             onClick={(e) => go(e, "thesis")}
-            className="mono-tag cursor-pointer text-ivory transition-colors duration-300 hover:text-brass"
+            className="cursor-pointer font-display text-xl text-ink italic transition-colors duration-300 hover:text-brass"
+            style={{ fontVariationSettings: '"SOFT" 60, "WONK" 1' }}
           >
             Caine Benoy
-            <span className="ml-2 text-ivory/40">— 2026</span>
           </a>
 
           <nav aria-label="Chapters" className="hidden items-center gap-7 md:flex">
@@ -83,7 +86,7 @@ export default function Header() {
                   key={id}
                   href={`#${id}`}
                   onClick={(e) => go(e, id)}
-                  className="group mono-tag cursor-pointer text-ivory/60 transition-colors duration-300 hover:text-ivory"
+                  className="group mono-tag cursor-pointer text-ink/60 transition-colors duration-300 hover:text-ink"
                 >
                   <span className="mr-1.5 text-brass/70 transition-colors duration-300 group-hover:text-brass">
                     {ch.num}
@@ -95,22 +98,26 @@ export default function Header() {
             <a
               href="#contact"
               onClick={(e) => go(e, "contact")}
-              className="mono-tag cursor-pointer border border-brass/50 px-4 py-2.5 text-brass transition-colors duration-300 hover:border-brass hover:bg-brass hover:text-night"
+              className="mono-tag cursor-pointer border border-brass/50 px-4 py-2.5 text-brass transition-colors duration-300 hover:border-brass hover:bg-brass hover:text-ground"
             >
               Contact
             </a>
+            <ThemeToggle className="-mr-2" />
           </nav>
 
-          <button
-            ref={menuButtonRef}
-            type="button"
-            aria-expanded={open}
-            aria-controls="site-menu"
-            onClick={() => setOpen((v) => !v)}
-            className="mono-tag -mr-2 flex h-11 cursor-pointer items-center px-2 text-ivory md:hidden"
-          >
-            {open ? "Close" : "Index"}
-          </button>
+          <div className="flex items-center md:hidden">
+            <ThemeToggle />
+            <button
+              ref={menuButtonRef}
+              type="button"
+              aria-expanded={open}
+              aria-controls="site-menu"
+              onClick={() => setOpen((v) => !v)}
+              className="mono-tag -mr-2 flex h-11 cursor-pointer items-center px-2 text-ink"
+            >
+              {open ? "Close" : "Index"}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -118,7 +125,7 @@ export default function Header() {
           stays put; links are the full chapter list at display scale. */}
       <div
         id="site-menu"
-        className={`fixed inset-0 z-40 flex flex-col justify-center bg-night/95 backdrop-blur-lg transition-opacity duration-500 ease-out-expo md:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col justify-center bg-ground/95 backdrop-blur-lg transition-opacity duration-500 ease-out-expo md:hidden ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden={!open}
@@ -139,7 +146,7 @@ export default function Header() {
                 style={{ transitionDelay: open ? `${120 + i * 60}ms` : "0ms" }}
               >
                 <span className="mono-tag text-brass">{ch.num}</span>
-                <span className="font-display text-4xl text-ivory transition-colors group-hover:text-brass">
+                <span className="font-display text-4xl text-ink transition-colors group-hover:text-brass">
                   {navLabel(id)}
                 </span>
               </a>
@@ -147,7 +154,7 @@ export default function Header() {
           })}
         </nav>
         <p
-          className={`px-page mono-tag mt-12 text-ivory/40 transition-opacity delay-500 duration-500 ${
+          className={`px-page mono-tag mt-12 text-ink/40 transition-opacity delay-500 duration-500 ${
             open ? "opacity-100" : "opacity-0"
           }`}
         >

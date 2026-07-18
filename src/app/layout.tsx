@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Fragment_Mono, Fraunces } from "next/font/google";
+import Script from "next/script";
 import Footer from "@/components/chrome/Footer";
 import Header from "@/components/chrome/Header";
 import Readout from "@/components/chrome/Readout";
 import MotionProvider from "@/lib/motion";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 // Display voice — cinematic at headline sizes, warm at text sizes (optical
@@ -50,7 +52,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#0a0d0b",
-  colorScheme: "dark",
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({
@@ -61,12 +63,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${archivo.variable} ${fragmentMono.variable} antialiased`}
+      className={`${fraunces.variable} ${archivo.variable} ${fragmentMono.variable} dark antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-svh">
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
         <a
           href="#main"
-          className="mono-tag fixed top-3 left-3 z-[100] -translate-y-20 bg-brass px-4 py-3 text-night transition-transform focus-visible:translate-y-0"
+          className="mono-tag fixed top-3 left-3 z-[100] -translate-y-20 bg-brass px-4 py-3 text-ground transition-transform focus-visible:translate-y-0"
         >
           Skip to content
         </a>

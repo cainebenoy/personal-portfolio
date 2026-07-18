@@ -25,7 +25,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "the-love-protocol",
     title: "The Love Protocol",
-    tagline: "Spotify Wrapped, for a relationship — shipped in 48 hours.",
+    tagline: "Spotify Wrapped for a relationship, shipped in 48 hours.",
     status: "Live — 1,700+ users",
     context: "Shipped Valentine's Day 2026",
     trades: ["builder", "strategist"],
@@ -42,7 +42,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "votechain",
     title: "VoteChain",
-    tagline: "A voting machine you can audit — fingerprint in, chain out.",
+    tagline: "A voting machine you can audit: fingerprint in, chain out.",
     status: "Live — prototype",
     trades: ["machinist", "chainsmith"],
     problem:
