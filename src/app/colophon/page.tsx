@@ -19,12 +19,12 @@ const TYPE = [
   {
     face: "Architects Daughter",
     role: "The printing hand",
-    note: "Schoolbook print for body text and every label. One weight — hierarchy comes from size, case, and how much ink the line gets.",
+    note: "Schoolbook print for labels, captions, and margin notes. Short strings only — anything long enough to read gets set in type.",
   },
   {
     face: "Archivo + Fragment Mono",
-    role: "The typeset exception",
-    note: "The resume document only. A handwritten CV reads as a prop, so that one page stays in print faces.",
+    role: "The reading type",
+    note: "Body paragraphs across the site, and the whole resume document. Handwriting is for skimming; type is for reading.",
   },
 ];
 
