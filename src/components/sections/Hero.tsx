@@ -197,18 +197,16 @@ export default function Hero({
                 from public/images/portrait.jpg when no frames exist. */}
             {sequenceFrames > 0 ? (
               <figure className="hero-fade w-full lg:col-span-4 lg:col-start-9 lg:self-end [--fade-delay:550ms]">
-                <div className="relative mx-auto aspect-[9/16] w-full max-w-[270px] grayscale transition-[filter] duration-700 ease-out hover:grayscale-0 lg:max-w-[320px]">
+                <div className="relative mx-auto aspect-[9/16] h-[62svh] max-w-full grayscale transition-[filter] duration-700 ease-out hover:grayscale-0 lg:h-[76svh]">
                   <AvatarSequence
                     frameCount={sequenceFrames}
                     end={SEQUENCE_TRACK}
                     className="absolute inset-0"
                   />
                 </div>
-                <figcaption className="mt-3 flex items-baseline justify-center gap-4">
+                <figcaption className="mt-2 flex items-baseline justify-center gap-4">
                   <span className="mono-tag text-red">Fig. 01</span>
-                  <span className="mono-tag text-ink/70">
-                    LUFTETAR 2026 · scroll to roll the tape
-                  </span>
+                  <span className="mono-tag text-ink/70">LUFTETAR 2026, on stage</span>
                 </figcaption>
               </figure>
             ) : portraitSrc ? (
