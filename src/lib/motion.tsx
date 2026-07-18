@@ -35,6 +35,23 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+// The console gets a page of the file too. Module-level flag so React's
+// dev-mode double effect doesn't print it twice.
+let consoleNoteLogged = false;
+
+function logConsoleNote() {
+  if (consoleNoteLogged) return;
+  consoleNoteLogged = true;
+  console.log(
+    "%cCAINE BENOY — WORKING FILE%c\n" +
+      "09 chapters · 6 trades · built by hand\n" +
+      "Reading the source? The internals are documented at /colophon.\n" +
+      "Hiring? projects@crav.world",
+    "font-family: monospace; font-weight: bold; color: #b23b2e;",
+    "font-family: monospace; color: #2e4a7a;",
+  );
+}
+
 /* ----------------------------------------------------------------------------
    MotionProvider — mounts once in the root layout, after all sections, and
    drives every *generic* scroll behavior from data attributes so most
@@ -61,6 +78,7 @@ export default function MotionProvider({
   // Scroll engine. Deliberately outside useGSAP: it isn't an animation, and
   // it must not be reverted by matchMedia context changes.
   useEffect(() => {
+    logConsoleNote();
     if (prefersReducedMotion()) return;
 
     lenis = new Lenis({

@@ -252,3 +252,32 @@ body::after {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ---------------------------------------------------------------------------
+   Print — used for real by /resume (and its PDF render). Force the light
+   ink-on-white reading, drop the sheet dressing, and let the chrome hide
+   itself via print:hidden utilities.
+--------------------------------------------------------------------------- */
+
+@media print {
+  :root,
+  .dark {
+    --color-ground: #ffffff;
+    --color-raised: #ffffff;
+    --color-lifted: #ffffff;
+    --color-ink: #1c1a16;
+    --color-accent: #2e4a7a;
+    --color-accent-bright: #3d5f99;
+    --color-red: #b23b2e;
+    --color-grid: #ffffff;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    background-image: none !important;
+  }
+
+  body::after {
+    display: none;
+  }
+}

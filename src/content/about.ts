@@ -20,12 +20,17 @@ export interface ContactLink {
 }
 
 // GitHub and LinkedIn are placeholders — swap in the real handles/URLs when
-// ready. The email address is live.
+// ready. The email address and resume are live.
 export const CONTACT_LINKS: ContactLink[] = [
   {
     label: "Email",
     value: "projects@crav.world",
     href: "mailto:projects@crav.world",
+  },
+  {
+    label: "Resume",
+    value: "View & download",
+    href: "/resume",
   },
   {
     label: "GitHub",

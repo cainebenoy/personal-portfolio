@@ -69,8 +69,12 @@ export default function Contact() {
               <li key={link.label} data-reveal-item>
                 <a
                   href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={link.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    link.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
                   className="group flex cursor-pointer items-baseline justify-between gap-6 py-2.5"
                 >
                   <span className="mono-tag text-ink/45 transition-colors duration-300 group-hover:text-accent">
