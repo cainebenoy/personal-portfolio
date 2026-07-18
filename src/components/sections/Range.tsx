@@ -100,7 +100,7 @@ export default function Range() {
               id="range"
               lines={["Six trades,", "one operator."]}
               titleClassName="text-[clamp(2.4rem,3.3vw,3.2rem)]"
-              note="The legend for everything that follows — every build on this page draws on at least two of these."
+              note="The legend for everything below. Every build on this page draws on at least two of these."
             />
             {/* The count-keeper: stacked roman numerals, one lit at a time
                 by the scrub. Desktop-only flourish — opacity is owned by the
@@ -134,17 +134,17 @@ export default function Range() {
                     <Glyph id={trade.id} className="h-full w-full" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-display text-[clamp(1.5rem,2.2vw,1.9rem)] leading-tight text-ivory">
+                    <h3 className="font-display text-[clamp(1.5rem,2.2vw,1.9rem)] leading-tight text-ink">
                       {trade.name}
                     </h3>
-                    <p className="mt-1 text-sm leading-6 text-ivory/60">
+                    <p className="mt-1 text-sm leading-6 text-ink/60">
                       {trade.line}
                     </p>
-                    <p className="mono-tag mt-2 truncate text-ivory/40">
+                    <p className="mono-tag mt-2 truncate text-ink/40">
                       {applied.map((p) => p.title).join("  ·  ")}
                     </p>
                   </div>
-                  <span className="mono-tag mt-2 shrink-0 text-ivory/35">
+                  <span className="mono-tag mt-2 shrink-0 text-ink/35">
                     {trade.numeral}
                   </span>
                 </li>

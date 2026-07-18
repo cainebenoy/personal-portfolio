@@ -1,33 +1,61 @@
 @import "tailwindcss";
 
-/* ---------------------------------------------------------------------------
-   Design tokens — "monsoon night" material palette.
+/* Class-based theming — user-controlled via the header toggle. Dark is the
+   default (the <html> element ships with .dark); a beforeInteractive script
+   removes it for returning light-mode visitors before first paint. */
+@custom-variant dark (&:where(.dark, .dark *));
 
-   One theme, done properly: a deep green-black canvas (Kerala night, not
-   neutral tech-black), warm ivory type, and a single brass accent that is
-   budgeted like a metal — rules, numerals, active states, and the glyph
-   linework. No gradients, no glow. Depth comes from three surface steps and
-   1px hairlines, not shadows.
+/* ---------------------------------------------------------------------------
+   Design tokens — one brand, two lights.
+
+   Dark ("monsoon night"): green-black canvas, warm ivory ink, brass accent.
+   Light ("morning paper"): warm bone canvas, green-black ink, bronze accent.
+
+   The accent is budgeted like a metal either way: rules, numerals, active
+   states, glyph linework. No gradients, no glow. Depth comes from three
+   surface steps and 1px hairlines, not shadows.
 --------------------------------------------------------------------------- */
 
-@theme {
-  --color-night: #0a0d0b;
+:root {
+  color-scheme: light;
+  --color-ground: #f1ede2;
+  --color-raised: #f7f4eb;
+  --color-lifted: #fbf9f2;
+  --color-ink: #1c211d;
+  --color-brass: #7a5f22;
+  --color-brass-bright: #8f7129;
+  --grain-opacity: 0.04;
+}
+
+.dark {
+  color-scheme: dark;
+  --color-ground: #0a0d0b;
   --color-raised: #101512;
   --color-lifted: #161c17;
-  --color-ivory: #ebe6d8;
+  --color-ink: #ebe6d8;
   --color-brass: #c7a44f;
   --color-brass-bright: #ddbe74;
-  --color-line: color-mix(in oklab, #ebe6d8 14%, transparent);
-  --color-line-faint: color-mix(in oklab, #ebe6d8 7%, transparent);
-
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-inout-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --grain-opacity: 0.05;
 }
 
 @theme inline {
+  --color-ground: var(--color-ground);
+  --color-raised: var(--color-raised);
+  --color-lifted: var(--color-lifted);
+  --color-ink: var(--color-ink);
+  --color-brass: var(--color-brass);
+  --color-brass-bright: var(--color-brass-bright);
+  --color-line: color-mix(in oklab, var(--color-ink) 14%, transparent);
+  --color-line-faint: color-mix(in oklab, var(--color-ink) 7%, transparent);
+
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono: var(--font-fragment-mono), ui-monospace, monospace;
+}
+
+@theme {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout-soft: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* ---------------------------------------------------------------------------
@@ -35,34 +63,34 @@
 --------------------------------------------------------------------------- */
 
 html {
-  color-scheme: dark;
   /* No global smooth scroll — Lenis owns easing when it's running, and
      scroll-driven scenes need 1:1 tracking with real scroll position. */
   scroll-behavior: auto;
 }
 
 body {
-  background-color: var(--color-night);
-  color: var(--color-ivory);
+  background-color: var(--color-ground);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   overflow-x: clip;
+  transition: background-color 350ms ease, color 350ms ease;
 }
 
 /* Film grain over everything — one static feTurbulence tile, no network
-   request. Faint enough to read as texture on the dark field, never dirt. */
+   request. Faint enough to read as texture, never dirt. */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 ::selection {
   background: var(--color-brass);
-  color: var(--color-night);
+  color: var(--color-ground);
 }
 
 /* One visible, consistent focus treatment everywhere. */
@@ -73,9 +101,7 @@ body::after {
 }
 
 /* ---------------------------------------------------------------------------
-   Voice utilities — the three registers of the system.
-   Display (Fraunces) is used via font-display classes inline; these two are
-   the recurring smaller voices.
+   Voice utilities — the recurring smaller registers.
 --------------------------------------------------------------------------- */
 
 /* Expanded-caps kicker — Archivo stretched to 125%: the "section label"
@@ -89,7 +115,7 @@ body::after {
   text-transform: uppercase;
 }
 
-/* Mono tag — the instrument-panel voice: indices, coordinates, metadata. */
+/* Mono tag — the instrument voice: indices, coordinates, metadata. */
 @utility mono-tag {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
@@ -106,7 +132,7 @@ body::after {
 @utility numeral-ghost {
   font-family: var(--font-display);
   color: transparent;
-  -webkit-text-stroke: 1px color-mix(in oklab, var(--color-ivory) 22%, transparent);
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--color-ink) 22%, transparent);
 }
 
 /* ---------------------------------------------------------------------------
@@ -126,7 +152,8 @@ body::after {
 }
 
 /* Hero load-in runs as pure CSS so the opening plays even before (or
-   without) JS — scroll choreography is layered on top by GSAP afterwards. */
+   without) JS — the quote's strike and correction are layered on top by
+   GSAP afterwards. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-rise .mask-line > span {
     animation: hero-line-rise 1.1s var(--ease-out-expo) both;

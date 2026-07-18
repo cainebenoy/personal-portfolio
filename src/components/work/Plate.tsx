@@ -47,7 +47,7 @@ export default function Plate({
             so the linework stays near-hairline. */}
         <g
           transform="translate(64, 52) scale(7.2)"
-          style={{ color: "var(--color-ivory)" }}
+          style={{ color: "var(--color-ink)" }}
           opacity="0.4"
         >
           <GlyphShapes id={a} strokeWidth={0.28} />
@@ -63,7 +63,7 @@ export default function Plate({
         <text
           x="16"
           y="42"
-          fill="var(--color-ivory)"
+          fill="var(--color-ink)"
           opacity="0.4"
           fontSize="10"
           letterSpacing="2.5"
@@ -75,7 +75,7 @@ export default function Plate({
           x="384"
           y="266"
           textAnchor="end"
-          fill="var(--color-ivory)"
+          fill="var(--color-ink)"
           opacity="0.3"
           fontSize="10"
           letterSpacing="2.5"

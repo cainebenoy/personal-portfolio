@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-// Social card in the site's own material: monsoon night field, ivory
+// Social card in the site's own material: monsoon night field, ink
 // serif thesis with the brass strike, italic correction, mono sign-off.
 // Fonts are the committed static instances in assets/fonts.
 

@@ -15,7 +15,7 @@ export default function Work() {
         <SectionHeader
           id="work"
           lines={["The work,", "filed as built."]}
-          note="Six shipped builds, written up the way they actually ran — the problem, the approach, what they're made of, and what happened."
+          note="Six shipped builds, written up the way they actually ran: the problem, the approach, what they're made of, and what happened."
         />
         <WorkIndex />
       </div>
@@ -67,13 +67,13 @@ function Spread({ project, index }: { project: Project; index: number }) {
                 className={`mono-tag border px-3 py-1.5 ${
                   live
                     ? "border-brass/60 text-brass"
-                    : "border-line text-ivory/60"
+                    : "border-line text-ink/60"
                 }`}
               >
                 {project.status}
               </span>
               {project.context && (
-                <span className="mono-tag text-ivory/40">{project.context}</span>
+                <span className="mono-tag text-ink/40">{project.context}</span>
               )}
             </div>
 
@@ -83,7 +83,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
                 return (
                   <li key={id} className="flex items-center gap-3">
                     <Glyph id={id} className="h-5 w-5 text-brass" />
-                    <span className="mono-tag text-ivory/60">
+                    <span className="mono-tag text-ink/60">
                       {trade.numeral} — {trade.name}
                     </span>
                   </li>
@@ -97,7 +97,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
               {project.stack.map((item) => (
                 <li
                   key={item}
-                  className="mono-tag border border-line-faint px-2.5 py-1.5 text-ivory/55"
+                  className="mono-tag border border-line-faint px-2.5 py-1.5 text-ink/55"
                 >
                   {item}
                 </li>
@@ -113,13 +113,13 @@ function Spread({ project, index }: { project: Project; index: number }) {
           >
             <h3
               data-mask
-              className="font-display text-[clamp(2.5rem,5vw,4.3rem)] leading-[1.02] tracking-[-0.015em] text-ivory"
+              className="font-display text-[clamp(2.5rem,5vw,4.3rem)] leading-[1.02] tracking-[-0.015em] text-ink"
             >
               <span className="mask-line">
                 <span>{project.title}</span>
               </span>
             </h3>
-            <p data-reveal className="mt-4 max-w-xl text-lg leading-7 text-ivory/65">
+            <p data-reveal className="mt-4 max-w-xl text-lg leading-7 text-ink/65">
               {project.tagline}
             </p>
 
@@ -134,7 +134,7 @@ function Spread({ project, index }: { project: Project; index: number }) {
                 data-reveal
                 className="mt-12 max-w-xl border-l-2 border-brass py-1 pl-6"
               >
-                <p className="mono-tag text-ivory/50">Outcome</p>
+                <p className="mono-tag text-ink/50">Outcome</p>
                 <p
                   className="mt-3 font-display text-[1.35rem] leading-[1.45] text-brass-bright italic"
                   style={{ fontVariationSettings: '"SOFT" 45, "WONK" 1' }}
@@ -154,7 +154,7 @@ function Block({ label, text }: { label: string; text: string }) {
   return (
     <div data-reveal-item>
       <p className="mono-tag text-brass">{label}</p>
-      <p className="mt-2.5 text-[0.95rem] leading-7 text-ivory/75">{text}</p>
+      <p className="mt-2.5 text-[0.95rem] leading-7 text-ink/75">{text}</p>
     </div>
   );
 }

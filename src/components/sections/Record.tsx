@@ -10,7 +10,7 @@ export default function Record() {
         <SectionHeader
           id="record"
           lines={["Every yes,", "in order."]}
-          note="Roles and receipts, 2023 → present — most recent first."
+          note="Roles and receipts since 2023, most recent first."
         />
 
         <div className="relative mt-16 lg:mt-20">
@@ -33,31 +33,31 @@ export default function Record() {
                   data-reveal-item
                   className="grid gap-x-10 gap-y-1.5 border-t border-line-faint py-7 last:border-b md:grid-cols-[11rem_1fr]"
                 >
-                  <p className="mono-tag pt-1 text-ivory/45">{entry.range}</p>
+                  <p className="mono-tag pt-1 text-ink/45">{entry.range}</p>
 
                   {entry.type === "single" ? (
                     <div>
-                      <h3 className="font-display text-xl leading-snug text-ivory sm:text-2xl">
+                      <h3 className="font-display text-xl leading-snug text-ink sm:text-2xl">
                         {entry.title}
                         <span className="text-brass"> · {entry.org}</span>
                       </h3>
-                      <p className="mt-2 max-w-2xl text-[0.925rem] leading-6 text-ivory/60">
+                      <p className="mt-2 max-w-2xl text-[0.925rem] leading-6 text-ink/60">
                         {entry.description}
                       </p>
                     </div>
                   ) : (
                     <div>
-                      <h3 className="font-display text-xl leading-snug text-ivory sm:text-2xl">
+                      <h3 className="font-display text-xl leading-snug text-ink sm:text-2xl">
                         {entry.org}
                       </h3>
                       <ul className="mt-4 flex flex-col gap-5 border-l border-line pl-5">
                         {entry.roles.map((role) => (
                           <li key={role.title}>
-                            <p className="mono-tag text-ivory/45">{role.range}</p>
-                            <p className="mt-1 font-medium text-ivory">
+                            <p className="mono-tag text-ink/45">{role.range}</p>
+                            <p className="mt-1 font-medium text-ink">
                               {role.title}
                             </p>
-                            <p className="mt-1 max-w-2xl text-[0.925rem] leading-6 text-ivory/60">
+                            <p className="mt-1 max-w-2xl text-[0.925rem] leading-6 text-ink/60">
                               {role.description}
                             </p>
                           </li>

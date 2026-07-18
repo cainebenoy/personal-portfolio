@@ -20,7 +20,7 @@ export default function About() {
               <p
                 key={i}
                 data-reveal
-                className="font-display text-[1.125rem] leading-[1.85] font-light text-ivory/85"
+                className="font-display text-[1.125rem] leading-[1.85] font-light text-ink/85"
               >
                 {paragraph}
               </p>
@@ -40,7 +40,7 @@ export default function About() {
               <p
                 key={i}
                 data-reveal
-                className="font-display text-[1.125rem] leading-[1.85] font-light text-ivory/85"
+                className="font-display text-[1.125rem] leading-[1.85] font-light text-ink/85"
               >
                 {paragraph}
               </p>
@@ -64,13 +64,9 @@ export default function About() {
                 ["Community", "Campus Lead, TinkerHub SCAS"],
                 ["Range", "AI · chain · hardware · web · ops"],
               ].map(([label, value]) => (
-                <div
-                  key={label}
-                  data-reveal-item
-                  className="border-t border-line-faint py-4 last:border-b"
-                >
-                  <dt className="mono-tag text-ivory/40">{label}</dt>
-                  <dd className="mt-1.5 text-[0.95rem] text-ivory/80">{value}</dd>
+                <div key={label} data-reveal-item className="py-3">
+                  <dt className="mono-tag text-ink/40">{label}</dt>
+                  <dd className="mt-1.5 text-[0.95rem] text-ink/80">{value}</dd>
                 </div>
               ))}
             </dl>
