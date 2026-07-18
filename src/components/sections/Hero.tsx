@@ -100,7 +100,7 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
 
           <div className="mt-7 grid gap-x-16 gap-y-14 lg:grid-cols-12">
             <div className="lg:col-span-7">
-              <h1 className="hero-rise font-display text-[clamp(3.5rem,10.5vw,9.5rem)] leading-[0.9] tracking-[-0.03em] text-ink">
+              <h1 className="hero-rise font-display text-[clamp(3.9rem,11.5vw,10.5rem)] leading-[0.85] text-ink">
                 <span
                   className="mask-line"
                   style={{ "--line-i": 0 } as React.CSSProperties}
@@ -123,12 +123,12 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
                   whichever trade the problem needs: AI, blockchain, hardware,
                   web, community ops.
                 </p>
-                <p className="mono-tag mt-6 flex items-center gap-3 text-ink/55">
+                <p className="mono-tag mt-6 flex items-center gap-3 text-ink/70">
                   <span
                     aria-hidden="true"
                     className="h-1.5 w-1.5 rounded-full bg-red"
                   />
-                  Open to work · graduating 2026
+                  <span className="highlight">Open to work · graduating 2026</span>
                 </p>
                 <p className="mono-tag mt-2.5 text-ink/45">
                   Currently · Junior Product Engineer, CRAV
@@ -137,10 +137,7 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
 
               {/* The family motto, and the edit the red pen owes it. */}
               <blockquote className="hero-fade mt-12 [--fade-delay:1050ms]">
-                <p
-                  className="max-w-lg font-display text-[clamp(1.25rem,2vw,1.6rem)] leading-[1.5] text-ink/80 italic"
-                  style={{ fontVariationSettings: '"SOFT" 55, "WONK" 1' }}
-                >
+                <p className="max-w-lg font-display text-[clamp(1.6rem,2.6vw,2.1rem)] leading-[1.3] text-ink/85">
                   &ldquo;A jack of all trades is a{" "}
                   <span className="relative inline-block whitespace-nowrap">
                     <span className="hero-struck">master of none</span>
@@ -172,8 +169,17 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
             {/* The portrait, mounted like a print on the sheet. Swap
                 public/images/portrait.jpg to change it. */}
             {portraitSrc && (
-              <figure className="hero-fade w-full max-w-sm lg:col-span-4 lg:col-start-9 lg:max-w-none lg:self-center [--fade-delay:550ms]">
+              <figure className="hero-fade w-full max-w-sm -rotate-[0.9deg] lg:col-span-4 lg:col-start-9 lg:max-w-none lg:self-center [--fade-delay:550ms]">
                 <div className="relative border border-line bg-raised p-3">
+                  {/* Taped to the sheet. */}
+                  <span
+                    aria-hidden="true"
+                    className="tape -top-3 -left-7 -rotate-[38deg]"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="tape -right-7 -bottom-3 -rotate-[40deg]"
+                  />
                   <div className="relative aspect-[4/5] overflow-hidden">
                     <div
                       data-parallax="-5"
@@ -190,31 +196,6 @@ export default function Hero({ portraitSrc }: { portraitSrc?: string }) {
                       />
                     </div>
                   </div>
-                  {/* Registration marks, same pen as the plates. */}
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="absolute -top-2 -left-2 h-4 w-4 text-accent"
-                  >
-                    <path
-                      d="M12 4 V20 M4 12 H20"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      fill="none"
-                    />
-                  </svg>
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="absolute -right-2 -bottom-2 h-4 w-4 text-accent"
-                  >
-                    <path
-                      d="M12 4 V20 M4 12 H20"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      fill="none"
-                    />
-                  </svg>
                 </div>
                 <figcaption className="mt-3 flex items-baseline gap-4">
                   <span className="mono-tag text-red">Fig. 01</span>

@@ -134,7 +134,7 @@ export default function Range() {
                     <Glyph id={trade.id} className="h-full w-full" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-display text-[clamp(1.5rem,2.2vw,1.9rem)] leading-tight text-ink">
+                    <h3 className="font-display text-[clamp(1.75rem,2.6vw,2.25rem)] leading-tight text-ink">
                       {trade.name}
                     </h3>
                     <p className="mt-1 text-sm leading-6 text-ink/60">

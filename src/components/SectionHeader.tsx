@@ -1,3 +1,4 @@
+import RoughRule from "@/components/RoughRule";
 import { chapter } from "@/lib/chapters";
 
 // Chapter openers in two weights, so the page doesn't repeat one skeleton
@@ -30,19 +31,15 @@ export default function SectionHeader({
   if (variant === "side") {
     return (
       <header className={className}>
-        <div className="flex items-baseline gap-5">
+        <div data-draw className="flex items-baseline gap-5">
           <span className="mono-tag text-red">{ch.num}</span>
           <h2
             data-reveal
-            className="font-display text-[clamp(1.9rem,3.4vw,2.7rem)] leading-none tracking-[-0.01em] text-ink"
+            className="font-display text-[clamp(2.1rem,3.8vw,3rem)] leading-none text-ink"
           >
             {lines.join(" ")}
           </h2>
-          <span
-            aria-hidden="true"
-            data-rule
-            className="h-px min-w-0 flex-1 self-center bg-line"
-          />
+          <RoughRule className="self-center" />
           <span className="kicker hidden text-ink/50 sm:block">{ch.label}</span>
         </div>
         {note && (
@@ -56,18 +53,14 @@ export default function SectionHeader({
 
   return (
     <header className={className}>
-      <div className="flex items-center gap-5">
+      <div data-draw className="flex items-center gap-5">
         <span className="mono-tag text-red">{ch.num}</span>
-        <span
-          aria-hidden="true"
-          data-rule
-          className="h-px min-w-0 flex-1 bg-line"
-        />
+        <RoughRule />
         <span className="kicker text-ink/50">{ch.label}</span>
       </div>
       <h2
         data-mask
-        className={`mt-8 font-display leading-[0.98] tracking-[-0.015em] text-ink ${titleClassName}`}
+        className={`mt-8 font-display leading-[0.95] text-ink ${titleClassName}`}
       >
         {lines.map((line) => (
           <span key={line} className="mask-line">

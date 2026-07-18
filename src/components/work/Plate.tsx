@@ -67,7 +67,7 @@ export default function Plate({
           opacity="0.4"
           fontSize="10"
           letterSpacing="2.5"
-          style={{ fontFamily: "var(--font-mono)" }}
+          style={{ fontFamily: "var(--font-hand)" }}
         >
           PLATE 04·{num}
         </text>
@@ -79,7 +79,7 @@ export default function Plate({
           opacity="0.3"
           fontSize="10"
           letterSpacing="2.5"
-          style={{ fontFamily: "var(--font-mono)" }}
+          style={{ fontFamily: "var(--font-hand)" }}
         >
           {project.slug.toUpperCase()}
         </text>

@@ -28,24 +28,34 @@ export default function Notes() {
                 data-reveal
                 className={
                   wide
-                    ? "lg:col-span-7"
-                    : "lg:col-span-5 lg:mt-[14vh] lg:self-start"
+                    ? "-rotate-[0.6deg] lg:col-span-7"
+                    : "rotate-[0.8deg] lg:col-span-5 lg:mt-[14vh] lg:self-start"
                 }
               >
                 <div
-                  className={`relative overflow-hidden border border-line-faint bg-raised ${
-                    wide ? "aspect-[4/3]" : "aspect-[4/5]"
+                  className={`relative border border-line-faint bg-raised p-2.5 ${
+                    wide ? "" : ""
                   }`}
                 >
-                  {/* Oversized + drifted inside the mask for depth on scroll. */}
-                  <div data-parallax="-8" className="absolute -inset-y-[8%] inset-x-0">
-                    <Image
-                      src={note.image}
-                      alt={note.caption}
-                      fill
-                      sizes="(max-width: 1024px) 92vw, 56vw"
-                      className="object-cover"
-                    />
+                  <span
+                    aria-hidden="true"
+                    className={`tape -top-3 z-10 ${wide ? "left-8 -rotate-3" : "-right-6 -rotate-[42deg]"}`}
+                  />
+                  <div
+                    className={`relative overflow-hidden ${
+                      wide ? "aspect-[4/3]" : "aspect-[4/5]"
+                    }`}
+                  >
+                    {/* Oversized + drifted inside the mask for depth on scroll. */}
+                    <div data-parallax="-8" className="absolute inset-x-0 -inset-y-[8%]">
+                      <Image
+                        src={note.image}
+                        alt={note.caption}
+                        fill
+                        sizes="(max-width: 1024px) 92vw, 56vw"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
                 <figcaption className="mt-4 flex items-baseline gap-4">
