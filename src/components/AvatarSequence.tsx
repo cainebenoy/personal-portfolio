@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion";
 
 // Scroll-scrubbed frame sequence of background-removed cutouts: the figure
@@ -34,6 +34,11 @@ export default function AvatarSequence({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<(HTMLImageElement | undefined)[]>([]);
   const currentRef = useRef(0);
+  // Once the canvas has painted, the fallback still must hide — the frames
+  // are transparent cutouts, so anything left underneath shows through.
+  // Ref-guarded so the scrub's draw loop only ever sets state once.
+  const paintedRef = useRef(false);
+  const [painted, setPainted] = useState(false);
 
   useGSAP(
     () => {
@@ -59,6 +64,10 @@ export default function AvatarSequence({
         ctx.clearRect(0, 0, cw, ch);
         ctx.drawImage(img, (cw - dw) / 2, ch - dh, dw, dh);
         currentRef.current = index;
+        if (!paintedRef.current) {
+          paintedRef.current = true;
+          setPainted(true);
+        }
       };
 
       const load = (i: number) =>
@@ -124,7 +133,7 @@ export default function AvatarSequence({
         fill
         priority
         sizes="(max-width: 1024px) 70vw, 24vw"
-        className="object-contain object-bottom"
+        className={`object-contain object-bottom ${painted ? "invisible" : ""}`}
       />
       <canvas
         ref={canvasRef}
