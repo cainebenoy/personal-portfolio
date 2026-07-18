@@ -1,5 +1,6 @@
 import SectionHeader from "@/components/SectionHeader";
 import TradeBadge from "@/components/TradeBadge";
+import FeaturedBuilds from "@/components/work/FeaturedBuilds";
 import Plate from "@/components/work/Plate";
 import WorkIndex from "@/components/work/WorkIndex";
 import { PROJECTS, type Project } from "@/content/projects";
@@ -16,6 +17,7 @@ export default function Work() {
           lines={["The work,", "filed as built."]}
           note="Six shipped builds, written up the way they actually ran: the problem, the approach, what they're made of, and what happened."
         />
+        <FeaturedBuilds />
         <WorkIndex />
       </div>
 
