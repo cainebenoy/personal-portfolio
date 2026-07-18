@@ -5,6 +5,7 @@ import {
   ABOUT_PULL_QUOTE,
 } from "@/content/about";
 import { LETTERS } from "@/content/letters";
+import { SKILLS } from "@/content/skills";
 
 // Chapter 08 — off the record. The memoir runs in the serif at reading
 // size, deliberately quiet: one pull quote is the only raised voice, and
@@ -69,6 +70,30 @@ export default function About() {
                 </div>
               ))}
             </dl>
+
+            {/* The toolbox — grouped skill chips (21st.dev skills-showcase
+                spirit, rebuilt on the notebook system; shared data with the
+                resume). */}
+            <div data-reveal className="mt-10">
+              <p className="mono-tag text-red">The toolbox</p>
+              <dl className="mt-4 flex flex-col gap-4">
+                {SKILLS.map(([label, items]) => (
+                  <div key={label}>
+                    <dt className="mono-tag text-ink/55">{label}</dt>
+                    <dd className="mt-1.5 flex flex-wrap gap-1.5">
+                      {items.split(" · ").map((chip) => (
+                        <span
+                          key={chip}
+                          className="border border-line-faint px-2 py-0.5 text-[0.8rem] text-ink/75"
+                        >
+                          {chip}
+                        </span>
+                      ))}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </aside>
         </div>
 

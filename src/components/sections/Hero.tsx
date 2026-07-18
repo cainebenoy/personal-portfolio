@@ -74,9 +74,15 @@ export default function Hero({
             ">-0.1",
           );
 
-        // Hold the page while the tape rolls: the sequence's scrub runs
-        // over this same track (see AvatarSequence's `end` prop below).
-        if (sequenceFrames > 0) {
+      });
+
+      // Hold the page while the tape rolls — desktop only: the stacked
+      // mobile hero is taller than one viewport, so pinning would clip it.
+      // The sequence scrub itself runs at every size over the same track.
+      mm.add(
+        "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          if (sequenceFrames === 0) return;
           const st = ScrollTrigger.create({
             trigger: sectionRef.current,
             start: "top top",
@@ -85,8 +91,8 @@ export default function Hero({
             anticipatePin: 1,
           });
           return () => st.kill();
-        }
-      });
+        },
+      );
     },
     { scope: sectionRef, dependencies: [sequenceFrames] },
   );
@@ -196,8 +202,8 @@ export default function Hero({
                 straight on the graph paper. Falls back to the taped still
                 from public/images/portrait.jpg when no frames exist. */}
             {sequenceFrames > 0 ? (
-              <figure className="hero-fade w-full lg:col-span-4 lg:col-start-9 lg:self-end [--fade-delay:550ms]">
-                <div className="relative mx-auto aspect-[9/16] h-[62svh] max-w-full grayscale transition-[filter] duration-700 ease-out hover:grayscale-0 lg:h-[76svh]">
+              <figure className="hero-fade w-full lg:col-span-5 lg:col-start-8 lg:self-end [--fade-delay:550ms]">
+                <div className="relative mx-auto aspect-[9/16] h-[70svh] max-w-full grayscale transition-[filter] duration-700 ease-out hover:grayscale-0 lg:h-[84svh]">
                   <AvatarSequence
                     frameCount={sequenceFrames}
                     end={SEQUENCE_TRACK}
