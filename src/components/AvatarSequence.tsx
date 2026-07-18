@@ -4,29 +4,30 @@ import Image from "next/image";
 import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion";
 
-// Scroll-scrubbed frame sequence: as the hero scrolls away, the print
-// plays like a strip of film being pulled. A real <Image> of frame 0 sits
-// under the canvas as the no-JS / reduced-motion / still-loading state, so
-// there is always a picture.
+// Scroll-scrubbed frame sequence of background-removed cutouts: the figure
+// stands directly on the sheet (transparent WebP frames, canvas cleared
+// between draws, contain-fit anchored to the bottom so the full figure is
+// always visible). A real <Image> of frame 0 sits under the canvas as the
+// no-JS / reduced-motion / still-loading state.
 //
-// Frames live in public/avatar-sequence/frame_NNN.jpg (see
-// scripts/encode-avatar-sequence.mjs for regenerating them from raw video
-// frames).
+// Frames live in public/avatar-sequence/frame_NNN.webp (see
+// scripts/encode-avatar-sequence.mjs for regenerating them from the raw
+// cutout PNGs).
 
 const pad = (i: number) => String(i).padStart(3, "0");
-const src = (i: number) => `/avatar-sequence/frame_${pad(i)}.jpg`;
-
-// Crop bias: faces sit in the upper third of these frames.
-const FOCUS_Y = 0.3;
+const src = (i: number) => `/avatar-sequence/frame_${pad(i)}.webp`;
 
 export default function AvatarSequence({
   frameCount,
   triggerId = "thesis",
+  end = "bottom 25%",
   className = "",
 }: {
   frameCount: number;
   /** Section whose scroll-through drives the scrub. */
   triggerId?: string;
+  /** ScrollTrigger end for the scrub — match the section's pin track. */
+  end?: string;
   className?: string;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -50,10 +51,13 @@ export default function AvatarSequence({
           canvas.width = cw;
           canvas.height = ch;
         }
-        const scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+        // Contain-fit, feet on the floor: the whole cutout stays visible,
+        // anchored to the bottom edge.
+        const scale = Math.min(cw / img.naturalWidth, ch / img.naturalHeight);
         const dw = img.naturalWidth * scale;
         const dh = img.naturalHeight * scale;
-        ctx.drawImage(img, (cw - dw) / 2, (ch - dh) * FOCUS_Y, dw, dh);
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.drawImage(img, (cw - dw) / 2, ch - dh, dw, dh);
         currentRef.current = index;
       };
 
@@ -89,7 +93,7 @@ export default function AvatarSequence({
         const st = ScrollTrigger.create({
           trigger: `#${triggerId}`,
           start: "top top",
-          end: "bottom 25%",
+          end,
           scrub: 0.35,
           onUpdate: (self) => {
             const target = Math.round(self.progress * (frameCount - 1));
@@ -119,9 +123,8 @@ export default function AvatarSequence({
         alt="Caine Benoy speaking on stage at LUFTETAR 2026"
         fill
         priority
-        sizes="(max-width: 1024px) 84vw, 30vw"
-        className="object-cover"
-        style={{ objectPosition: `center ${FOCUS_Y * 100}%` }}
+        sizes="(max-width: 1024px) 70vw, 24vw"
+        className="object-contain object-bottom"
       />
       <canvas
         ref={canvasRef}

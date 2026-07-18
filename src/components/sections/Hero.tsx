@@ -5,7 +5,7 @@ import { useRef } from "react";
 import AvatarSequence from "@/components/AvatarSequence";
 import Glyph from "@/components/Glyph";
 import { TRADES } from "@/content/trades";
-import { gsap, useGSAP } from "@/lib/motion";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/motion";
 
 // Chapter 01 — the person, on the working sheet.
 //
@@ -30,6 +30,10 @@ const FIELD = [
 ] as const;
 
 const STRIKE_PATH = "M2 7.5 Q 26 4.5 52 6.5 T 98 5";
+
+// How much scroll the pinned hero holds while the tape rolls — the page
+// doesn't move on until the sequence has played through.
+const SEQUENCE_TRACK = "+=130%";
 
 export default function Hero({
   portraitSrc,
@@ -69,14 +73,27 @@ export default function Hero({
             { autoAlpha: 1, duration: 0.9, ease: "power2.out" },
             ">-0.1",
           );
+
+        // Hold the page while the tape rolls: the sequence's scrub runs
+        // over this same track (see AvatarSequence's `end` prop below).
+        if (sequenceFrames > 0) {
+          const st = ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: "top top",
+            end: SEQUENCE_TRACK,
+            pin: ".hero-stage",
+            anticipatePin: 1,
+          });
+          return () => st.kill();
+        }
       });
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [sequenceFrames] },
   );
 
   return (
     <section id="thesis" ref={sectionRef} aria-label="Introduction">
-      <div className="relative flex min-h-svh flex-col justify-center overflow-hidden pt-28 pb-24">
+      <div className="hero-stage relative flex min-h-svh flex-col justify-center overflow-hidden pt-28 pb-24">
         {/* Background glyph field — the six trades, present from the first
             frame, faint until their chapter. */}
         <div aria-hidden="true" className="absolute inset-0">
@@ -174,10 +191,27 @@ export default function Hero({
               </blockquote>
             </div>
 
-            {/* The print taped to the sheet: a scroll-scrubbed frame
-                sequence when public/avatar-sequence has frames, otherwise
-                the still from public/images/portrait.jpg. */}
-            {(sequenceFrames > 0 || portraitSrc) && (
+            {/* The figure on the sheet: background-removed cutout frames
+                scrubbed by scroll — no mount, no frame, the person stands
+                straight on the graph paper. Falls back to the taped still
+                from public/images/portrait.jpg when no frames exist. */}
+            {sequenceFrames > 0 ? (
+              <figure className="hero-fade w-full lg:col-span-4 lg:col-start-9 lg:self-end [--fade-delay:550ms]">
+                <div className="relative mx-auto aspect-[9/16] w-full max-w-[270px] grayscale transition-[filter] duration-700 ease-out hover:grayscale-0 lg:max-w-[320px]">
+                  <AvatarSequence
+                    frameCount={sequenceFrames}
+                    end={SEQUENCE_TRACK}
+                    className="absolute inset-0"
+                  />
+                </div>
+                <figcaption className="mt-3 flex items-baseline justify-center gap-4">
+                  <span className="mono-tag text-red">Fig. 01</span>
+                  <span className="mono-tag text-ink/70">
+                    LUFTETAR 2026 · scroll to roll the tape
+                  </span>
+                </figcaption>
+              </figure>
+            ) : portraitSrc ? (
               <figure className="hero-fade w-full max-w-sm -rotate-[0.9deg] lg:col-span-4 lg:col-start-9 lg:max-w-none lg:self-center [--fade-delay:550ms]">
                 <div className="relative border border-line bg-raised p-3">
                   {/* Taped to the sheet. */}
@@ -190,39 +224,30 @@ export default function Hero({
                     className="tape -right-7 -bottom-3 -rotate-[40deg]"
                   />
                   <div className="relative aspect-[4/5] overflow-hidden grayscale transition-[filter] duration-700 ease-out hover:grayscale-0">
-                    {sequenceFrames > 0 ? (
-                      <AvatarSequence
-                        frameCount={sequenceFrames}
-                        className="absolute inset-0"
+                    <div
+                      data-parallax="-5"
+                      className="absolute inset-x-0 -inset-y-[6%]"
+                    >
+                      <Image
+                        src={portraitSrc}
+                        alt="Caine Benoy"
+                        fill
+                        priority
+                        sizes="(max-width: 1024px) 84vw, 30vw"
+                        className="object-cover"
+                        style={{ objectPosition: "center 32%" }}
                       />
-                    ) : (
-                      <div
-                        data-parallax="-5"
-                        className="absolute inset-x-0 -inset-y-[6%]"
-                      >
-                        <Image
-                          src={portraitSrc!}
-                          alt="Caine Benoy"
-                          fill
-                          priority
-                          sizes="(max-width: 1024px) 84vw, 30vw"
-                          className="object-cover"
-                          style={{ objectPosition: "center 32%" }}
-                        />
-                      </div>
-                    )}
+                    </div>
                   </div>
                 </div>
                 <figcaption className="mt-3 flex items-baseline gap-4">
                   <span className="mono-tag text-red">Fig. 01</span>
                   <span className="mono-tag text-ink/70">
-                    {sequenceFrames > 0
-                      ? "LUFTETAR 2026, on stage · scroll to roll the tape"
-                      : "The operator, on record"}
+                    The operator, on record
                   </span>
                 </figcaption>
               </figure>
-            )}
+            ) : null}
           </div>
         </div>
 

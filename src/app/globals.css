@@ -80,9 +80,10 @@ html {
 body {
   background-color: var(--color-ground);
   color: var(--color-ink);
-  /* The printing hand writes the whole notebook; the resume document opts
-     back into typeset faces via .resume-doc below. */
-  font-family: var(--font-hand);
+  /* Paragraphs read in print (Archivo); the notebook hands stay on
+     headings, labels, and annotations — you skim handwriting, you read
+     type. */
+  font-family: var(--font-sans);
   overflow-x: clip;
   /* The working sheet: a red notebook margin down the left (fixed, so it
      reads as part of the desk), over a faint 32px drafting grid that
