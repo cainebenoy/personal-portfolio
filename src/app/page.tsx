@@ -18,7 +18,7 @@ export default function Home() {
   // exist, fall back to the still portrait, then to type-only.
   const sequenceDir = join(process.cwd(), "public/avatar-sequence");
   const sequenceFrames = existsSync(sequenceDir)
-    ? readdirSync(sequenceDir).filter((f) => f.endsWith(".jpg")).length
+    ? readdirSync(sequenceDir).filter((f) => f.endsWith(".webp")).length
     : 0;
   const portraitSrc = existsSync(
     join(process.cwd(), "public/images/portrait.jpg"),
